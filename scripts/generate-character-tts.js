@@ -31,8 +31,8 @@ const characterDescriptions = {
         text: 'WOOF WOOF! I\'m Randy! I\'m big, white, and super fluffy like a cloud! I love to bark really, really loudly to let everyone know I\'m here. Did you hear my bark? WOOF!'
     },
     'morphee': {
-        name: 'Morphee',
-        text: 'Meow! I\'m Morphee, a calico cat with orange, black, and white patches. I\'m quite mischievous and I love climbing trees. I can climb higher than anyone else on the farm!'
+        name: 'Morphée',
+        text: 'Meow! I\'m Morphée, a calico cat with orange, black, and white patches. I\'m quite mischievous and I love climbing trees. I can climb higher than anyone else on the farm!'
     }
 };
 

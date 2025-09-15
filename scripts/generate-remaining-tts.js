@@ -19,7 +19,7 @@ const FUELIX_AUTH_TOKEN = authTokenMatch[1];
 // Remaining page texts for TTS generation
 const pageTexts = {
     19: "It was time for bed. The friends were tired but happy after their wonderful Easter adventure. They each took some eggs to their beds, planning to share them with everyone on the farm tomorrow. Through the window, they could see the Easter Bunny hopping away under the stars.",
-    20: "As they drifted off to sleep, each friend dreamed of their wonderful day. Luna dreamed of playing catch, Heidi dreamed of swimming, Randy dreamed of his loud happy barks, and Morphee dreamed of climbing trees. The golden egg sat safely between them, glowing softly with the magic of their friendship. And somewhere out there, the Easter Bunny smiled, knowing he had found the very best of friends. Happy Easter!"
+    20: "As they drifted off to sleep, each friend dreamed of their wonderful day. Luna dreamed of playing catch, Heidi dreamed of swimming, Randy dreamed of his loud happy barks, and Morphée dreamed of climbing trees. The golden egg sat safely between them, glowing softly with the magic of their friendship. And somewhere out there, the Easter Bunny smiled, knowing he had found the very best of friends. Happy Easter!"
 };
 
 // Create audio directory if it doesn't exist
