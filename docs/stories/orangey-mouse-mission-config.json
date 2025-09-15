@@ -1,0 +1,118 @@
+{
+  "title": "Orangey's Great Mouse Mission",
+  "description": "Orangey the barn cat leads her friends on a hilarious mission to protect their food from sneaky mice",
+  "author": "Sage Stories",
+  "targetAge": "3-7",
+  "totalPages": 20,
+  "features": {
+    "audioEnabled": true,
+    "audioVoice": "nova",
+    "audioSpeed": 0.95,
+    "eggHuntEnabled": false,
+    "mathProblemsEnabled": false,
+    "pageTransitionSound": true,
+    "keyboardNavigation": true
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "In the cozy barn at Sage Farm, there lived a bright orange cat named Orangey. She had the fluffiest tail and the loudest purr in the whole county! Today, she was lounging on a hay bale when she heard a strange scratching sound.",
+      "scene": "barn_intro"
+    },
+    {
+      "number": 2,
+      "text": "'Did you hear that?' Orangey asked, her green eyes wide with curiosity. Luna the puppy bounded over, followed by Heidi, Randy, and Morphée. 'Hear what?' they asked. 'Listen!' said Orangey. Scratch, scratch, nibble, nibble went the sound.",
+      "scene": "friends_gathering"
+    },
+    {
+      "number": 3,
+      "text": "Morphée's ears perked up. 'I know that sound! That's mice!' she meowed. Orangey jumped up excitedly. 'Mice? Where? I'm the best mouse-catcher in the barn!' She puffed out her orange chest proudly.",
+      "scene": "orangey_excited"
+    },
+    {
+      "number": 4,
+      "text": "'But wait,' said Heidi, tilting her spotted head. 'The sound isn't coming from the barn. It's coming from... the house!' Everyone gasped. 'Oh no!' cried Randy. 'That's where we keep our special treats and kibble!'",
+      "scene": "realization"
+    },
+    {
+      "number": 5,
+      "text": "Orangey sprang into action. 'Friends, we have a mission! We must protect our food!' She struck a heroic pose, her orange fur gleaming in the sunlight. 'To the pantry!' she declared, leading the charge toward the farmhouse.",
+      "scene": "mission_start"
+    },
+    {
+      "number": 6,
+      "text": "They tiptoed through the kitchen door. Luna's nose twitched. 'I smell cheese... and peanut butter... and our cat food!' Orangey whispered, 'Shh! We need to be sneaky like ninjas. Mice have very good hearing!'",
+      "scene": "sneaking_kitchen"
+    },
+    {
+      "number": 7,
+      "text": "Creeping toward the pantry, they heard tiny voices. 'Pass me another kibble, Maurice!' squeaked one mouse. 'This cat food is delicious, Mildred!' squeaked another. Orangey's whiskers twitched with determination.",
+      "scene": "mice_feast"
+    },
+    {
+      "number": 8,
+      "text": "Orangey peeked around the corner. Three little mice were having a feast! They had made a tiny ladder from pasta boxes and were throwing kibbles down like a bucket brigade. 'They're so organized!' whispered Randy in amazement.",
+      "scene": "mice_discovery"
+    },
+    {
+      "number": 9,
+      "text": "'On the count of three,' Orangey whispered. 'One... two... THREE!' All five friends burst into the pantry. 'SURPRISE!' they shouted. The mice squeaked in shock, dropping kibbles everywhere like confetti!",
+      "scene": "surprise_attack"
+    },
+    {
+      "number": 10,
+      "text": "The lead mouse, Maurice, stood on his tiny hind legs. 'Oh dear! It's Orangey the Terrible!' The mice scrambled in all directions. One mouse got tangled in spaghetti, another dove into a cereal box, and Maurice slipped on a kibble and slid across the floor!",
+      "scene": "mice_panic"
+    },
+    {
+      "number": 11,
+      "text": "'Wait!' called Orangey, trying not to laugh at the chaos. 'We're not going to hurt you, but you can't eat our food!' Maurice peeked out from behind a soup can. 'But we're hungry, and someone left the window open!'",
+      "scene": "negotiation"
+    },
+    {
+      "number": 12,
+      "text": "Luna had an idea. 'What if we make a deal? There's plenty of grain in the barn for you mice. You can live there peacefully, but you have to promise to stay out of the house!' The mice huddled together, whispering.",
+      "scene": "luna_idea"
+    },
+    {
+      "number": 13,
+      "text": "'It's a deal!' squeaked Maurice. 'But how do we know you won't chase us?' Orangey grinned. 'I only chase mice who steal our food. Barn mice who eat grain are neighbors!' She extended her fluffy paw for a shake.",
+      "scene": "making_deal"
+    },
+    {
+      "number": 14,
+      "text": "Maurice carefully shook Orangey's paw with his tiny one. 'Deal! Come on, team, to the barn!' The mice marched out in a line, with the spaghetti-tangled mouse bringing up the rear, pasta dragging behind him like a cape.",
+      "scene": "mice_march"
+    },
+    {
+      "number": 15,
+      "text": "After the mice left, the friends looked at the pantry mess. Kibbles were everywhere, a flour bag had a mouse-sized hole, and tiny paw prints decorated every surface. 'We need to clean this up,' said Morphée, 'and close that window!'",
+      "scene": "pantry_mess"
+    },
+    {
+      "number": 16,
+      "text": "As they cleaned, Heidi said, 'You know, if we hadn't left food out on the counter yesterday, the mice might not have smelled it!' Randy nodded. 'And someone forgot to close the window after getting fresh air!' Everyone looked at each other sheepishly.",
+      "scene": "lesson_learning"
+    },
+    {
+      "number": 17,
+      "text": "Orangey stood on a stool like a teacher. 'Friends, we've learned an important lesson! Always put food away in sealed containers, never leave crumbs on counters, and always, ALWAYS close windows and doors!' Everyone nodded seriously.",
+      "scene": "orangey_teaching"
+    },
+    {
+      "number": 18,
+      "text": "That evening, they checked on the mice in the barn. Maurice and his family had made a cozy home in the corner with hay and were happily munching on grain. 'Thanks for the new home!' Maurice called out. 'No more house raids, we promise!'",
+      "scene": "barn_peace"
+    },
+    {
+      "number": 19,
+      "text": "From that day on, Orangey did daily patrols, making sure all food was properly stored and windows were closed. She became known as 'Orangey the Protector' instead of 'Orangey the Terrible.' The mice even made her a tiny medal from a button!",
+      "scene": "orangey_patrol"
+    },
+    {
+      "number": 20,
+      "text": "And so, Sage Farm found peace between cats and mice. The mice stayed happy in the barn, the pets' food stayed safe in the house, and Orangey had the best job of all - making sure everyone followed the rules. 'No crumbs, no problems!' became her motto, and everyone lived happily ever after!",
+      "scene": "happy_ending"
+    }
+  ]
+}
