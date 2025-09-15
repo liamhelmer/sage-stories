@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Easter Bunny Adventure - Sage Stories</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Full viewport layout for horizontal displays */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container.story-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .story-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 10px 20px;
+            background: linear-gradient(180deg, rgba(102, 126, 234, 0.95) 0%, rgba(102, 126, 234, 0) 100%);
+            text-align: center;
+        }
+
+        .story-header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        #egg-counter {
+            font-size: 1.2rem;
+            color: white;
+            margin: 5px 0;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .story-page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-illustration {
+            width: 100%;
+            height: 70vh;
+            object-fit: contain;
+            margin: 0;
+        }
+
+        .page-text {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+            padding: 15px 25px;
+            padding-bottom: 40px; /* Extra space for page counter */
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .page-text p {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .page-text {
+                font-size: 1.3rem;
+                line-height: 1.7;
+                padding: 20px 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .page-text {
+                font-size: 1.4rem;
+                max-width: 1000px;
+            }
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .audio-control.playing {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .egg {
+            cursor: pointer;
+            animation: wiggle 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .egg:hover {
+            transform: scale(1.2);
+        }
+
+        .egg.collected {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .story-header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #egg-counter {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Previous button - left side */
+        .nav-button.prev {
+            position: fixed;
+            left: 20px;
+            top: 100px;
+            z-index: 200;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Next button - right side */
+        .nav-button.next {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            z-index: 200;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: rgba(200, 200, 200, 0.5);
+            border-color: #ccc;
+            color: #999;
+        }
+
+        /* Page counter - inside text overlay */
+        .page-counter {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #667eea;
+            opacity: 0.8;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-button.prev {
+                left: 10px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .nav-button.next {
+                right: 10px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .nav-button.prev {
+                left: 40px;
+            }
+
+            .nav-button.next {
+                right: 40px;
+            }
+        }
+
+        .home-button {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 300;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .home-button:hover {
+            background: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container story-container">
+        <button id="audio-btn" class="audio-control" title="Play narration">🔊</button>
+        <audio id="page-audio" preload="auto"></audio>
+
+        <a href="../index.html" class="home-button">← Back</a>
+
+        <header class="story-header">
+            <h1 class="story-title">🐰 The Easter Bunny Adventure 🥚</h1>
+            <div id="egg-counter">Eggs Found: <span id="egg-count">0</span>/12</div>
+        </header>
+
+        <main>
+            <!-- Page 1: Morning Discovery -->
+            <div class="story-page active" id="page-1">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sky gradient -->
+                    <defs>
+                        <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+                        </linearGradient>
+                        <pattern id="grass" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <rect width="20" height="20" fill="#90EE90"/>
+                            <path d="M0 10 Q5 5 10 10 T20 10" stroke="#7CB77B" stroke-width="1" fill="none"/>
+                        </pattern>
+                    </defs>
+
+                    <rect width="800" height="350" fill="url(#skyGradient)"/>
+                    <rect y="350" width="800" height="150" fill="url(#grass)"/>
+
+                    <!-- Sun with rays -->
+                    <g transform="translate(650, 80)">
+                        <circle r="40" fill="#FFD700"/>
+                        <path d="M0 -60 L0 -50" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M42 -42 L35 -35" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M60 0 L50 0" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M42 42 L35 35" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M0 60 L0 50" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M-42 42 L-35 35" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M-60 0 L-50 0" stroke="#FFD700" stroke-width="3"/>
+                        <path d="M-42 -42 L-35 -35" stroke="#FFD700" stroke-width="3"/>
+                    </g>
+
+                    <!-- Farmhouse -->
+                    <rect x="100" y="200" width="200" height="150" fill="#CD853F"/>
+                    <polygon points="100,200 200,130 300,200" fill="#8B4513"/>
+                    <rect x="130" y="240" width="50" height="50" fill="#87CEEB" stroke="#654321" stroke-width="3"/>
+                    <rect x="220" y="240" width="50" height="50" fill="#87CEEB" stroke="#654321" stroke-width="3"/>
+                    <rect x="175" y="280" width="50" height="70" fill="#654321"/>
+
+                    <!-- Characters at window - using new detailed SVGs -->
+                    <g transform="translate(140, 250) scale(0.4)">
+                        <!-- Luna - Black Fuzzy Puppy -->
+                        <ellipse cx="100" cy="100" rx="32" ry="30" fill="#1a1a1a"/>
+                        <ellipse cx="100" cy="98" rx="30" ry="28" fill="#2a2a2a"/>
+                        <ellipse cx="75" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(-25 75 85)"/>
+                        <ellipse cx="125" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(25 125 85)"/>
+                        <ellipse cx="85" cy="95" rx="8" ry="10" fill="#1a1a1a"/>
+                        <ellipse cx="85" cy="95" rx="6" ry="8" fill="#4a4a4a"/>
+                        <circle cx="86" cy="92" r="2" fill="white"/>
+                        <ellipse cx="115" cy="95" rx="8" ry="10" fill="#1a1a1a"/>
+                        <ellipse cx="115" cy="95" rx="6" ry="8" fill="#4a4a4a"/>
+                        <circle cx="116" cy="92" r="2" fill="white"/>
+                    </g>
+
+                    <g transform="translate(230, 250) scale(0.4)">
+                        <!-- Heidi - German Shorthaired Pointer -->
+                        <ellipse cx="100" cy="95" rx="30" ry="38" fill="#6b3410"/>
+                        <ellipse cx="100" cy="93" rx="28" ry="36" fill="#8b4513"/>
+                        <ellipse cx="80" cy="88" rx="6" ry="8" fill="white" opacity="0.9"/>
+                        <ellipse cx="85" cy="95" rx="7" ry="9" fill="#3a2a1a"/>
+                        <circle cx="86" cy="92" r="1.5" fill="white"/>
+                        <ellipse cx="115" cy="95" rx="7" ry="9" fill="#3a2a1a"/>
+                        <circle cx="116" cy="92" r="1.5" fill="white"/>
+                    </g>
+
+                    <!-- Easter Bunny in garden -->
+                    <g transform="translate(500, 320)" class="floating">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="-8" cy="-23" rx="3" ry="8" fill="#FFB6C1"/>
+                        <ellipse cx="8" cy="-23" rx="3" ry="8" fill="#FFB6C1"/>
+                        <circle cx="-8" cy="-10" r="3" fill="#FF69B4"/>
+                        <circle cx="8" cy="-10" r="3" fill="#FF69B4"/>
+                        <ellipse cx="0" cy="-5" rx="4" ry="3" fill="#FF69B4"/>
+                        <path d="M-20 20 Q-30 40 -35 50" stroke="white" stroke-width="10" fill="none"/>
+                        <path d="M20 20 Q30 40 35 50" stroke="white" stroke-width="10" fill="none"/>
+
+                        <!-- Basket with eggs -->
+                        <rect x="25" y="10" width="25" height="20" fill="#8B4513" rx="3"/>
+                        <path d="M25 10 Q37.5 0 50 10" stroke="#8B4513" stroke-width="3" fill="none"/>
+                        <ellipse cx="32" cy="15" rx="5" ry="6" fill="#FF69B4"/>
+                        <ellipse cx="40" cy="17" rx="5" ry="6" fill="#87CEEB"/>
+                        <ellipse cx="36" cy="12" rx="5" ry="6" fill="#FFD700"/>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="180" cy="380" rx="15" ry="18" fill="#FF69B4" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>On a beautiful Easter morning, the sun was shining bright over the farm. Luna the black puppy was the first to wake up. She stretched, yawned, and looked out the window. "Oh my!" she barked excitedly, her tail wagging so fast it looked like a blur.</p>
+                    <span class="page-counter">Page 1 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 2: Waking the Friends -->
+            <div class="story-page" id="page-2">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Inside the house -->
+                    <rect x="50" y="100" width="700" height="250" fill="#FFF8DC"/>
+                    <rect x="50" y="300" width="700" height="50" fill="#8B4513"/>
+
+                    <!-- Luna jumping on beds -->
+                    <g transform="translate(200, 200)">
+                        <!-- Bed -->
+                        <rect x="-50" y="50" width="100" height="60" fill="#6B4423" rx="5"/>
+                        <rect x="-45" y="30" width="90" height="30" fill="#FFE4B5"/>
+
+                        <!-- Luna jumping -->
+                        <g transform="translate(0, -20) rotate(-15)">
+                            <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                            <ellipse cx="0" cy="-2" rx="36" ry="26" fill="#2a2a2a"/>
+                            <circle cx="0" cy="-20" r="20" fill="#2a2a2a"/>
+                            <ellipse cx="-15" cy="-35" rx="10" ry="15" fill="#1a1a1a" transform="rotate(-25 -15 -35)"/>
+                            <ellipse cx="15" cy="-35" rx="10" ry="15" fill="#1a1a1a" transform="rotate(25 15 -35)"/>
+                            <path d="M-30 0 Q-40 10 -45 20" stroke="#2a2a2a" stroke-width="8" fill="none"/>
+                            <path d="M30 0 Q40 10 45 20" stroke="#2a2a2a" stroke-width="8" fill="none"/>
+                        </g>
+
+                        <text x="-30" y="-60" font-size="24" fill="#FF69B4">Wake up!</text>
+                    </g>
+
+                    <!-- Heidi waking up -->
+                    <g transform="translate(400, 250)">
+                        <rect x="-50" y="0" width="100" height="60" fill="#6B4423" rx="5"/>
+                        <rect x="-45" y="-20" width="90" height="30" fill="#FFE4B5"/>
+
+                        <!-- Heidi stretching -->
+                        <ellipse cx="0" cy="-30" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-32" rx="40" ry="30" fill="#8b4513"/>
+                        <ellipse cx="-15" cy="-40" rx="15" ry="20" fill="white"/>
+                        <ellipse cx="-28" cy="-50" rx="20" ry="28" fill="#6b3410" transform="rotate(-30 -28 -50)"/>
+                        <ellipse cx="28" cy="-50" rx="20" ry="28" fill="#6b3410" transform="rotate(30 28 -50)"/>
+                        <text x="-15" y="-80" font-size="20" fill="#333">*yawn*</text>
+                    </g>
+
+                    <!-- Randy still sleeping -->
+                    <g transform="translate(600, 250)">
+                        <rect x="-50" y="0" width="100" height="60" fill="#6B4423" rx="5"/>
+                        <rect x="-45" y="-20" width="90" height="30" fill="#FFE4B5"/>
+
+                        <!-- Randy snoring -->
+                        <circle cx="0" cy="-30" r="42" fill="#f0f0f0"/>
+                        <circle cx="0" cy="-30" r="40" fill="white"/>
+                        <path d="M-10 -30 Q-5 -35 0 -35 Q5 -35 10 -30" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+                        <text x="20" y="-50" font-size="24" fill="#666">Zzz...</text>
+                        <path d="M40 -10 Q50 0 55 10" stroke="white" stroke-width="14" fill="none"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"Wake up, everyone! Wake up!" Luna barked, jumping on each of her friends' beds. "The Easter Bunny is here! I saw him in our garden!" Heidi opened one sleepy eye, then both eyes went wide. Randy's fluffy tail started wagging even before he fully woke up.</p>
+                    <span class="page-counter">Page 2 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 3: Morphee's Discovery -->
+            <div class="story-page" id="page-3">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Window sill -->
+                    <rect x="200" y="200" width="400" height="20" fill="#8B4513"/>
+                    <rect x="180" y="180" width="440" height="200" fill="#87CEEB" stroke="#654321" stroke-width="5"/>
+
+                    <!-- Morphee on window sill -->
+                    <g transform="translate(400, 180)">
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff7700"/>
+                        <ellipse cx="0" cy="0" rx="30" ry="25" fill="#ff8c00"/>
+                        <ellipse cx="-15" cy="-5" rx="12" ry="10" fill="white" opacity="0.9"/>
+                        <ellipse cx="10" cy="0" rx="10" ry="12" fill="#2a2a2a" opacity="0.8"/>
+                        <circle cx="0" cy="-30" r="30" fill="#ff8c00"/>
+                        <path d="M-30 -35 L-35 -55 L-22 -42 Z" fill="#ff8c00"/>
+                        <path d="M30 -35 L35 -55 L22 -42 Z" fill="#ff8c00"/>
+                        <ellipse cx="-12" cy="-30" rx="8" ry="10" fill="#4a4a4a"/>
+                        <ellipse cx="-12" cy="-30" rx="2" ry="6" fill="#1a1a1a"/>
+                        <ellipse cx="12" cy="-30" rx="8" ry="10" fill="#4a4a4a"/>
+                        <ellipse cx="12" cy="-30" rx="2" ry="6" fill="#1a1a1a"/>
+                        <path d="M0 -23 L-5 -18 L5 -18 Z" fill="#ff69b4"/>
+                        <path d="M30 0 Q45 5 50 15 Q53 25 50 35 Q45 40 40 35" stroke="#ff8c00" stroke-width="8" fill="none"/>
+                    </g>
+
+                    <!-- View through window -->
+                    <g transform="translate(400, 350)">
+                        <!-- Easter Bunny hopping -->
+                        <ellipse cx="0" cy="-20" rx="20" ry="25" fill="white" transform="rotate(20)"/>
+                        <circle cx="5" cy="-45" r="15" fill="white"/>
+                        <ellipse cx="0" cy="-60" rx="5" ry="15" fill="white"/>
+                        <ellipse cx="10" cy="-60" rx="5" ry="15" fill="white"/>
+
+                        <!-- Trail of eggs -->
+                        <ellipse cx="-80" cy="0" rx="10" ry="12" fill="#FFB6C1"/>
+                        <ellipse cx="-40" cy="5" rx="10" ry="12" fill="#87CEEB"/>
+                        <ellipse cx="40" cy="0" rx="10" ry="12" fill="#98FB98"/>
+                        <ellipse cx="80" cy="5" rx="10" ry="12" fill="#FFD700"/>
+                    </g>
+
+                    <text x="250" y="120" font-size="22" fill="#FF69B4" font-weight="bold">He's leaving eggs everywhere!</text>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="650" cy="380" rx="15" ry="18" fill="#98FB98" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>Morphee the calico cat was already sitting on the window sill, her tail swishing back and forth. "I've been watching him for a while," she purred. "He's leaving colorful eggs all around our farm! Look at that trail of eggs!"</p>
+                    <span class="page-counter">Page 3 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 4: Racing Outside -->
+            <div class="story-page" id="page-4">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Open door -->
+                    <rect x="350" y="150" width="100" height="200" fill="#2a2a2a"/>
+                    <rect x="340" y="140" width="120" height="210" fill="#654321"/>
+
+                    <!-- Characters rushing out -->
+                    <g transform="translate(300, 300)">
+                        <!-- Luna leading -->
+                        <g transform="rotate(-10)">
+                            <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                            <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                            <path d="M-20 0 Q-30 15 -35 25" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                            <path d="M20 0 Q30 15 35 25" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                            <circle cx="0" cy="-5" r="8" fill="#ff4444"/>
+                            <circle cx="-2" cy="-7" r="3" fill="#ffffff" opacity="0.4"/>
+                        </g>
+                        <path d="M20 0 L40 0" stroke="#666" stroke-width="3" opacity="0.5"/>
+                        <path d="M20 -10 L40 -10" stroke="#666" stroke-width="3" opacity="0.5"/>
+                    </g>
+
+                    <g transform="translate(380, 310)">
+                        <!-- Heidi following -->
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#8b4513"/>
+                        <ellipse cx="-72" cy="-15" rx="20" ry="28" fill="#6b3410" transform="rotate(-30 -72 -15)"/>
+                        <ellipse cx="72" cy="-15" rx="20" ry="28" fill="#6b3410" transform="rotate(30 72 -15)"/>
+                        <path d="M-25 0 Q-35 20 -40 30" stroke="#8b4513" stroke-width="10" fill="none"/>
+                        <path d="M25 0 Q35 20 40 30" stroke="#8b4513" stroke-width="10" fill="none"/>
+                    </g>
+
+                    <g transform="translate(460, 305)">
+                        <!-- Randy bouncing -->
+                        <g transform="translate(0, -30)">
+                            <circle cx="0" cy="0" r="48" fill="#f0f0f0"/>
+                            <circle cx="0" cy="0" r="45" fill="white"/>
+                            <path d="M-20 -20 Q-25 -40 -20 -30 Q-15 -20 -10 -10" fill="white"/>
+                            <path d="M20 -20 Q25 -40 20 -30 Q15 -20 10 -10" fill="white"/>
+                            <path d="M35 5 Q50 -10 55 -5 Q53 0 50 3" stroke="white" stroke-width="14" fill="none"/>
+                        </g>
+                    </g>
+
+                    <g transform="translate(540, 320)">
+                        <!-- Morphee gracefully following -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff7700"/>
+                        <path d="M25 0 Q40 5 45 15 Q48 25 45 35 Q40 40 35 35" stroke="#ff8c00" stroke-width="8" fill="none"/>
+                        <path d="M-20 0 Q-30 15 -35 25" stroke="#ff8c00" stroke-width="8" fill="none"/>
+                        <path d="M20 0 Q30 15 35 25" stroke="#ff8c00" stroke-width="8" fill="none"/>
+                    </g>
+
+                    <text x="250" y="100" font-size="28" fill="#FF69B4" font-weight="bold">Let's go!</text>
+                </svg>
+                <div class="page-text">
+                    <p>"Come on, everyone! Let's go meet the Easter Bunny!" shouted Randy in his big, booming voice. All four friends rushed through the door, tumbling over each other in their excitement. The morning air was fresh and sweet with the smell of spring flowers.</p>
+                    <span class="page-counter">Page 4 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 5: First Chase -->
+            <div class="story-page" id="page-5">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Flower garden -->
+                    <g transform="translate(200, 350)">
+                        <circle cx="0" cy="0" r="8" fill="#FFD700"/>
+                        <circle cx="-5" cy="-5" r="3" fill="#FF69B4"/>
+                        <circle cx="5" cy="-5" r="3" fill="#FF69B4"/>
+                        <circle cx="-5" cy="5" r="3" fill="#FF69B4"/>
+                        <circle cx="5" cy="5" r="3" fill="#FF69B4"/>
+                        <circle cx="0" cy="-7" r="3" fill="#FF69B4"/>
+                        <circle cx="0" cy="7" r="3" fill="#FF69B4"/>
+                        <line x1="0" y1="0" x2="0" y2="20" stroke="green" stroke-width="3"/>
+                    </g>
+
+                    <g transform="translate(250, 360)">
+                        <circle cx="0" cy="0" r="8" fill="#FFD700"/>
+                        <circle cx="-5" cy="-5" r="3" fill="#87CEEB"/>
+                        <circle cx="5" cy="-5" r="3" fill="#87CEEB"/>
+                        <circle cx="-5" cy="5" r="3" fill="#87CEEB"/>
+                        <circle cx="5" cy="5" r="3" fill="#87CEEB"/>
+                        <line x1="0" y1="0" x2="0" y2="20" stroke="green" stroke-width="3"/>
+                    </g>
+
+                    <!-- Easter Bunny hopping through flowers -->
+                    <g transform="translate(500, 300)" class="floating">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <circle cx="-8" cy="-10" r="3" fill="#FF69B4"/>
+                        <circle cx="8" cy="-10" r="3" fill="#FF69B4"/>
+                        <path d="M0 -5 Q0 0 0 0" stroke="#FF69B4" stroke-width="2"/>
+                        <path d="M0 0 Q-5 3 -8 0" stroke="#FF69B4" stroke-width="2" fill="none"/>
+                        <path d="M0 0 Q5 3 8 0" stroke="#FF69B4" stroke-width="2" fill="none"/>
+
+                        <!-- Motion lines -->
+                        <path d="M-40 10 L-50 10" stroke="#666" stroke-width="2" opacity="0.5"/>
+                        <path d="M-40 0 L-50 0" stroke="#666" stroke-width="2" opacity="0.5"/>
+                        <path d="M-40 -10 L-50 -10" stroke="#666" stroke-width="2" opacity="0.5"/>
+                    </g>
+
+                    <!-- Characters chasing -->
+                    <g transform="translate(150, 320)">
+                        <!-- All four friends running -->
+                        <ellipse cx="0" cy="0" rx="30" ry="22" fill="#2a2a2a"/>
+                        <ellipse cx="50" cy="5" rx="35" ry="25" fill="#8b4513"/>
+                        <circle cx="100" cy="0" r="35" fill="white"/>
+                        <ellipse cx="150" cy="5" rx="28" ry="22" fill="#ff8c00"/>
+                    </g>
+
+                    <text x="100" y="80" font-size="24" fill="#333">"Wait for us!"</text>
+                    <text x="520" y="250" font-size="20" fill="#FF69B4">"Catch me if you can!"</text>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="300" cy="380" rx="15" ry="18" fill="#87CEEB" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>The Easter Bunny saw them coming and laughed playfully. "Catch me if you can!" he called out in a sweet, tinkling voice. He hopped through the flower garden, his white fur sparkling in the morning sunshine, leaving a trail of beautiful eggs behind him.</p>
+                    <span class="page-counter">Page 5 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 6: Through the Vegetable Garden -->
+            <div class="story-page" id="page-6">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#8B4513"/>
+
+                    <!-- Vegetable rows -->
+                    <g transform="translate(100, 320)">
+                        <!-- Carrots -->
+                        <path d="M0 0 L0 -30" stroke="green" stroke-width="8"/>
+                        <path d="M-5 -30 Q0 -35 5 -30" stroke="green" stroke-width="3" fill="green"/>
+                        <path d="M30 0 L30 -30" stroke="green" stroke-width="8"/>
+                        <path d="M60 0 L60 -30" stroke="green" stroke-width="8"/>
+                        <path d="M90 0 L90 -30" stroke="green" stroke-width="8"/>
+                    </g>
+
+                    <g transform="translate(300, 320)">
+                        <!-- Lettuce -->
+                        <ellipse cx="0" cy="0" rx="25" ry="15" fill="#90EE90"/>
+                        <ellipse cx="50" cy="0" rx="25" ry="15" fill="#90EE90"/>
+                        <ellipse cx="100" cy="0" rx="25" ry="15" fill="#90EE90"/>
+                    </g>
+
+                    <!-- Easter Bunny nibbling carrot -->
+                    <g transform="translate(400, 280)">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+
+                        <!-- Holding carrot -->
+                        <path d="M10 5 L20 0" stroke="orange" stroke-width="6"/>
+                        <path d="M20 0 L25 -5" stroke="green" stroke-width="3"/>
+
+                        <text x="-40" y="-40" font-size="18" fill="#333">*munch*</text>
+                    </g>
+
+                    <!-- Luna sniffing ground -->
+                    <g transform="translate(150, 330)">
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <ellipse cx="0" cy="-20" rx="32" ry="30" fill="#2a2a2a"/>
+                        <ellipse cx="0" cy="-15" rx="8" ry="5" fill="#ff69b4"/>
+                        <path d="M0 -15 Q10 -18 15 -18" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        <text x="-30" y="-50" font-size="16" fill="#333">I smell him!</text>
+                    </g>
+
+                    <!-- Hidden eggs among vegetables -->
+                    <ellipse cx="250" cy="360" rx="15" ry="18" fill="#FFD700" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                    <ellipse cx="500" cy="370" rx="15" ry="18" fill="#DDA0DD" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>The chase led them through the vegetable garden. The Easter Bunny stopped to nibble on a carrot. "These are delicious!" he said with a giggle. Luna used her excellent nose to follow his scent. "He went this way!" she barked, her nose to the ground.</p>
+                    <span class="page-counter">Page 6 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 7: Randy's Loud Bark -->
+            <div class="story-page" id="page-7">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Randy barking loudly -->
+                    <g transform="translate(200, 280)">
+                        <circle cx="0" cy="0" r="48" fill="#f0f0f0"/>
+                        <circle cx="0" cy="0" r="45" fill="white"/>
+                        <ellipse cx="-20" cy="-30" rx="20" ry="25" fill="#f0f0f0" transform="rotate(-30 -20 -30)"/>
+                        <ellipse cx="20" cy="-30" rx="20" ry="25" fill="#f0f0f0" transform="rotate(30 20 -30)"/>
+                        <ellipse cx="-15" cy="-10" rx="8" ry="10" fill="#1a1a1a"/>
+                        <ellipse cx="15" cy="-10" rx="8" ry="10" fill="#1a1a1a"/>
+                        <ellipse cx="0" cy="0" rx="10" ry="8" fill="white"/>
+                        <ellipse cx="0" cy="5" rx="7" ry="5" fill="#1a1a1a"/>
+                        <path d="M0 10 Q0 15 0 15" stroke="#2a2a2a" stroke-width="2"/>
+                        <ellipse cx="0" cy="18" rx="12" ry="8" fill="#ff69b4" opacity="0.7"/>
+
+                        <!-- Sound waves -->
+                        <path d="M40 -10 Q50 -10 60 -10" stroke="#666" stroke-width="3" opacity="0.5"/>
+                        <path d="M40 0 Q50 0 60 0" stroke="#666" stroke-width="3" opacity="0.5"/>
+                        <path d="M40 10 Q50 10 60 10" stroke="#666" stroke-width="3" opacity="0.5"/>
+
+                        <text x="70" y="0" font-size="36" fill="#FF69B4" font-weight="bold">WOOF!</text>
+                        <text x="70" y="40" font-size="36" fill="#FF69B4" font-weight="bold">WOOF!</text>
+                    </g>
+
+                    <!-- Easter Bunny startled -->
+                    <g transform="translate(500, 250)">
+                        <g transform="translate(0, -20)">
+                            <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                            <circle cx="0" cy="-10" r="20" fill="white"/>
+                            <ellipse cx="-10" cy="-25" rx="6" ry="20" fill="white" transform="rotate(-10 -10 -25)"/>
+                            <ellipse cx="10" cy="-25" rx="6" ry="20" fill="white" transform="rotate(10 10 -25)"/>
+                            <circle cx="-8" cy="-10" r="4" fill="#FF69B4"/>
+                            <circle cx="8" cy="-10" r="4" fill="#FF69B4"/>
+                            <circle cx="0" cy="-5" r="2" fill="#FF69B4"/>
+                            <path d="M0 -3 Q-3 0 -5 0" stroke="#FF69B4" stroke-width="1" fill="none"/>
+                            <path d="M0 -3 Q3 0 5 0" stroke="#FF69B4" stroke-width="1" fill="none"/>
+                        </g>
+                        <text x="-20" y="-60" font-size="20" fill="#333">Oh my!</text>
+                    </g>
+
+                    <!-- Birds flying away -->
+                    <g transform="translate(600, 100)">
+                        <path d="M0 0 Q-10 -5 -20 0" stroke="#333" stroke-width="2" fill="none"/>
+                        <path d="M0 0 Q10 -5 20 0" stroke="#333" stroke-width="2" fill="none"/>
+                    </g>
+                    <g transform="translate(650, 120)">
+                        <path d="M0 0 Q-10 -5 -20 0" stroke="#333" stroke-width="2" fill="none"/>
+                        <path d="M0 0 Q10 -5 20 0" stroke="#333" stroke-width="2" fill="none"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Randy tried to help by barking very loudly. "WOOF! WOOF! MR. EASTER BUNNY, PLEASE STOP!" His bark was so loud that birds flew out of the trees and the Easter Bunny's ears stood straight up in surprise. But instead of stopping, he just hopped faster!</p>
+                    <span class="page-counter">Page 7 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 8: Heidi's Muddy Discovery -->
+            <div class="story-page" id="page-8">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Mud puddle -->
+                    <ellipse cx="400" cy="380" rx="200" ry="50" fill="#654321"/>
+                    <ellipse cx="400" cy="380" rx="180" ry="40" fill="#8B4513" opacity="0.8"/>
+
+                    <!-- Heidi rolling in mud -->
+                    <g transform="translate(400, 360)">
+                        <g transform="rotate(45)">
+                            <ellipse cx="0" cy="0" rx="42" ry="32" fill="#654321"/>
+                            <ellipse cx="0" cy="0" rx="40" ry="30" fill="#8b4513"/>
+                            <ellipse cx="-15" cy="-10" rx="15" ry="20" fill="#654321"/>
+                            <ellipse cx="15" cy="10" rx="12" ry="15" fill="#654321"/>
+                            <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#6b3410"/>
+                            <ellipse cx="-5" cy="-25" rx="10" ry="12" fill="#654321"/>
+                        </g>
+
+                        <!-- Mud splashes -->
+                        <circle cx="-30" cy="-10" r="5" fill="#654321" opacity="0.7"/>
+                        <circle cx="30" cy="10" r="7" fill="#654321" opacity="0.6"/>
+                        <circle cx="-20" cy="15" r="4" fill="#654321" opacity="0.8"/>
+                        <circle cx="25" cy="-15" r="6" fill="#654321" opacity="0.7"/>
+
+                        <text x="-50" y="-50" font-size="24" fill="#8B4513">Wheee!</text>
+                    </g>
+
+                    <!-- Other friends watching -->
+                    <g transform="translate(150, 320)">
+                        <!-- Luna looking disgusted -->
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                        <path d="M-10 -20 Q-10 -25 -10 -25" stroke="#fff" stroke-width="2"/>
+                        <path d="M10 -20 Q10 -25 10 -25" stroke="#fff" stroke-width="2"/>
+                        <text x="-20" y="-50" font-size="16" fill="#333">Oh Heidi!</text>
+                    </g>
+
+                    <g transform="translate(650, 320)">
+                        <!-- Morphee staying far away -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff7700"/>
+                        <circle cx="0" cy="-30" r="30" fill="#ff8c00"/>
+                        <path d="M-5 -30 L-2 -35" stroke="#2a2a2a" stroke-width="2"/>
+                        <path d="M5 -30 L2 -35" stroke="#2a2a2a" stroke-width="2"/>
+                        <text x="-30" y="-70" font-size="16" fill="#333">No thank you!</text>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="600" cy="400" rx="15" ry="18" fill="#FFA500" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>They came to a big mud puddle. "Oh boy! My favorite!" exclaimed Heidi, and she jumped right in, rolling around happily. She got completely covered in mud from her spots to her floppy ears. Morphee carefully walked around the puddle, keeping her paws clean.</p>
+                    <span class="page-counter">Page 8 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 9: Morphee's Tree Climbing -->
+            <div class="story-page" id="page-9">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Big tree -->
+                    <rect x="350" y="150" width="100" height="200" fill="#8B4513"/>
+                    <circle cx="400" cy="150" r="120" fill="#228B22"/>
+                    <circle cx="350" cy="120" r="80" fill="#2E8B57"/>
+                    <circle cx="450" cy="130" r="90" fill="#228B22"/>
+
+                    <!-- Morphee climbing -->
+                    <g transform="translate(380, 180)">
+                        <g transform="rotate(-90)">
+                            <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff7700"/>
+                            <ellipse cx="-15" cy="-5" rx="12" ry="10" fill="white" opacity="0.9"/>
+                            <ellipse cx="10" cy="0" rx="10" ry="12" fill="#2a2a2a" opacity="0.8"/>
+                            <circle cx="0" cy="-30" r="30" fill="#ff8c00"/>
+                            <ellipse cx="-12" cy="-30" rx="8" ry="10" fill="#4a4a4a"/>
+                            <ellipse cx="-12" cy="-30" rx="2" ry="6" fill="#1a1a1a"/>
+                            <ellipse cx="12" cy="-30" rx="8" ry="10" fill="#4a4a4a"/>
+                            <ellipse cx="12" cy="-30" rx="2" ry="6" fill="#1a1a1a"/>
+                        </g>
+
+                        <!-- Claws gripping bark -->
+                        <path d="M-10 10 Q-12 12 -14 14" stroke="#333" stroke-width="2"/>
+                        <path d="M10 10 Q12 12 14 14" stroke="#333" stroke-width="2"/>
+
+                        <text x="-80" y="-40" font-size="20" fill="#333">I can see everything!</text>
+                    </g>
+
+                    <!-- Easter Bunny visible in distance -->
+                    <g transform="translate(600, 330)">
+                        <ellipse cx="0" cy="0" rx="15" ry="20" fill="white" opacity="0.8"/>
+                        <circle cx="0" cy="-15" r="12" fill="white" opacity="0.8"/>
+                        <ellipse cx="-5" cy="-25" rx="3" ry="10" fill="white" opacity="0.8"/>
+                        <ellipse cx="5" cy="-25" rx="3" ry="10" fill="white" opacity="0.8"/>
+                    </g>
+
+                    <!-- Friends looking up -->
+                    <g transform="translate(300, 340)">
+                        <ellipse cx="0" cy="0" rx="30" ry="22" fill="#2a2a2a"/>
+                        <circle cx="-5" cy="-10" r="2" fill="white"/>
+                        <circle cx="5" cy="-10" r="2" fill="white"/>
+                    </g>
+
+                    <g transform="translate(480, 340)">
+                        <circle cx="0" cy="0" r="35" fill="white"/>
+                        <circle cx="-8" cy="-10" r="2" fill="#2a2a2a"/>
+                        <circle cx="8" cy="-10" r="2" fill="#2a2a2a"/>
+                    </g>
+
+                    <!-- Bird's nest with egg -->
+                    <g transform="translate(420, 100)">
+                        <ellipse cx="0" cy="0" rx="25" ry="15" fill="#8B4513"/>
+                        <ellipse cx="0" cy="-5" rx="20" ry="10" fill="#A0522D"/>
+                        <ellipse cx="0" cy="-5" rx="8" ry="10" fill="#87CEEB"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"I have an idea!" meowed Morphee. With her sharp claws, she quickly climbed up the tallest tree. From the top, she could see the whole farm. "There he is! He's heading toward the pond!" she called down to her friends, her calico fur shining in the sunlight.</p>
+                    <span class="page-counter">Page 9 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 10: The Pond Chase -->
+            <div class="story-page" id="page-10">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Pond -->
+                    <ellipse cx="400" cy="380" rx="250" ry="60" fill="#4682B4"/>
+                    <ellipse cx="380" cy="375" rx="200" ry="45" fill="#5F9EA0" opacity="0.7"/>
+                    <ellipse cx="400" cy="380" rx="150" ry="30" fill="#87CEEB" opacity="0.4"/>
+
+                    <!-- Heidi swimming -->
+                    <g transform="translate(350, 370)">
+                        <ellipse cx="0" cy="0" rx="42" ry="20" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-15" rx="30" ry="25" fill="#8b4513"/>
+                        <ellipse cx="-15" cy="-20" rx="15" ry="10" fill="white"/>
+
+                        <!-- Swimming motion -->
+                        <path d="M-30 5 Q-35 10 -40 5" stroke="#8b4513" stroke-width="8" fill="none"/>
+                        <path d="M30 5 Q35 10 40 5" stroke="#8b4513" stroke-width="8" fill="none"/>
+
+                        <!-- Water splashes -->
+                        <circle cx="-20" cy="10" r="4" fill="#4682B4" opacity="0.6"/>
+                        <circle cx="20" cy="12" r="5" fill="#4682B4" opacity="0.5"/>
+                        <circle cx="0" cy="15" r="3" fill="#4682B4" opacity="0.7"/>
+                        <circle cx="-30" cy="5" r="6" fill="#4682B4" opacity="0.4"/>
+                        <circle cx="30" cy="8" r="4" fill="#4682B4" opacity="0.5"/>
+
+                        <text x="-30" y="-50" font-size="20" fill="#4682B4">Splash!</text>
+                    </g>
+
+                    <!-- Easter Bunny on lily pad -->
+                    <g transform="translate(550, 360)">
+                        <ellipse cx="0" cy="20" rx="40" ry="20" fill="#90EE90"/>
+                        <ellipse cx="0" cy="20" rx="35" ry="15" fill="#98FB98"/>
+
+                        <ellipse cx="0" cy="0" rx="20" ry="25" fill="white"/>
+                        <circle cx="0" cy="-20" r="15" fill="white"/>
+                        <ellipse cx="-8" cy="-35" rx="5" ry="15" fill="white"/>
+                        <ellipse cx="8" cy="-35" rx="5" ry="15" fill="white"/>
+
+                        <text x="-20" y="-55" font-size="18" fill="#FF69B4">Hehe!</text>
+                    </g>
+
+                    <!-- Other friends at pond edge -->
+                    <g transform="translate(200, 340)">
+                        <!-- Luna hesitating -->
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                        <path d="M0 10 L0 15" stroke="#2a2a2a" stroke-width="8"/>
+                        <path d="M0 15 L-5 18" stroke="#2a2a2a" stroke-width="6"/>
+                        <text x="-40" y="-50" font-size="16" fill="#333">The water!</text>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="480" cy="400" rx="15" ry="18" fill="#FF6347" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>At the pond, Heidi didn't hesitate. SPLASH! She jumped right in, swimming with powerful strokes. "I love water!" she barked happily, shaking water everywhere. The Easter Bunny had hopped onto a lily pad, giggling as he watched Heidi swim in circles trying to reach him.</p>
+                    <span class="page-counter">Page 10 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 11: Luna's Smart Idea -->
+            <div class="story-page" id="page-11">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Luna with her red ball -->
+                    <g transform="translate(200, 300)">
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <ellipse cx="0" cy="0" rx="36" ry="26" fill="#2a2a2a"/>
+                        <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                        <ellipse cx="-15" cy="-35" rx="10" ry="15" fill="#1a1a1a"/>
+                        <ellipse cx="15" cy="-35" rx="10" ry="15" fill="#1a1a1a"/>
+
+                        <!-- Holding ball in mouth -->
+                        <circle cx="0" cy="-10" r="10" fill="#ff4444"/>
+                        <circle cx="0" cy="-10" r="9" fill="#ff6666"/>
+                        <ellipse cx="-2" cy="-12" rx="4" ry="3" fill="#ffffff" opacity="0.4"/>
+
+                        <!-- Thought bubble -->
+                        <circle cx="50" cy="-60" r="5" fill="white" stroke="#666" stroke-width="2"/>
+                        <circle cx="60" cy="-70" r="8" fill="white" stroke="#666" stroke-width="2"/>
+                        <ellipse cx="80" cy="-80" rx="40" ry="25" fill="white" stroke="#666" stroke-width="2"/>
+                        <text x="50" y="-80" font-size="14" fill="#333">I have an idea!</text>
+                    </g>
+
+                    <!-- Easter Bunny curious -->
+                    <g transform="translate(500, 280)">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white" transform="rotate(-5 -10 -25)"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white" transform="rotate(5 10 -25)"/>
+                        <circle cx="-8" cy="-10" r="3" fill="#FF69B4"/>
+                        <circle cx="8" cy="-10" r="3" fill="#FF69B4"/>
+                        <text x="-15" y="-45" font-size="18" fill="#333">What's that?</text>
+                    </g>
+
+                    <!-- Other friends watching -->
+                    <g transform="translate(300, 320)">
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <circle cx="0" cy="-20" r="35" fill="#8b4513"/>
+                    </g>
+
+                    <g transform="translate(380, 315)">
+                        <circle cx="0" cy="0" r="40" fill="white"/>
+                    </g>
+
+                    <g transform="translate(450, 320)">
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff8c00"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Luna had a clever idea. She ran back to get her favorite red ball. "Mr. Easter Bunny!" she called. "Do you want to play?" The Easter Bunny's eyes lit up with curiosity. He loved games! He hopped closer to see the shiny red ball.</p>
+                    <span class="page-counter">Page 11 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 12: Playing Together -->
+            <div class="story-page" id="page-12">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Ball in air -->
+                    <g transform="translate(400, 200)">
+                        <circle cx="0" cy="0" r="15" fill="#ff4444"/>
+                        <circle cx="0" cy="0" r="14" fill="#ff6666"/>
+                        <ellipse cx="-3" cy="-5" rx="6" ry="4" fill="#ffffff" opacity="0.4"/>
+
+                        <!-- Motion arc -->
+                        <path d="M-100 50 Q-50 -50 0 0 Q50 -50 100 50" stroke="#ff4444" stroke-width="2" stroke-dasharray="5,5" fill="none" opacity="0.5"/>
+                    </g>
+
+                    <!-- All characters playing -->
+                    <g transform="translate(200, 320)">
+                        <!-- Luna jumping -->
+                        <g transform="translate(0, -30)">
+                            <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                            <path d="M-20 0 Q-25 20 -30 40" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                            <path d="M20 0 Q25 20 30 40" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                        </g>
+                    </g>
+
+                    <g transform="translate(300, 330)">
+                        <!-- Heidi running -->
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#8b4513"/>
+                        <path d="M-25 0 Q-30 15 -35 25" stroke="#8b4513" stroke-width="10" fill="none"/>
+                        <path d="M25 0 Q30 15 35 25" stroke="#8b4513" stroke-width="10" fill="none"/>
+                    </g>
+
+                    <g transform="translate(400, 300)">
+                        <!-- Easter Bunny jumping for ball -->
+                        <g transform="translate(0, -40)">
+                            <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                            <circle cx="0" cy="-10" r="20" fill="white"/>
+                            <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                            <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+                            <path d="M-15 40 Q-20 55 -25 70" stroke="white" stroke-width="10" fill="none"/>
+                            <path d="M15 40 Q20 55 25 70" stroke="white" stroke-width="10" fill="none"/>
+                        </g>
+                        <text x="-30" y="-80" font-size="20" fill="#FF69B4">This is fun!</text>
+                    </g>
+
+                    <g transform="translate(500, 325)">
+                        <!-- Randy bouncing -->
+                        <circle cx="0" cy="-20" r="45" fill="white"/>
+                        <text x="-20" y="-60" font-size="22" fill="#333">Woof!</text>
+                    </g>
+
+                    <g transform="translate(600, 330)">
+                        <!-- Morphee watching -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff8c00"/>
+                        <path d="M25 0 Q40 5 45 15 Q48 25 45 35" stroke="#ff8c00" stroke-width="8" fill="none"/>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="100" cy="380" rx="15" ry="18" fill="#98FB98" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>Soon they were all playing together! Luna threw the ball, and everyone tried to catch it - even the Easter Bunny! They ran back and forth across the farm, laughing and barking and meowing. The Easter Bunny's giggle was like tinkling bells.</p>
+                    <span class="page-counter">Page 12 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 13: Finding Easter Eggs -->
+            <div class="story-page" id="page-13">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Many colorful eggs scattered -->
+                    <ellipse cx="150" cy="380" rx="12" ry="15" fill="#FF69B4" transform="rotate(20 150 380)"/>
+                    <ellipse cx="200" cy="370" rx="12" ry="15" fill="#87CEEB" transform="rotate(-15 200 370)"/>
+                    <ellipse cx="250" cy="385" rx="12" ry="15" fill="#98FB98" transform="rotate(30 250 385)"/>
+                    <ellipse cx="320" cy="375" rx="12" ry="15" fill="#FFD700" transform="rotate(-25 320 375)"/>
+                    <ellipse cx="380" cy="390" rx="12" ry="15" fill="#DDA0DD" transform="rotate(10 380 390)"/>
+                    <ellipse cx="450" cy="380" rx="12" ry="15" fill="#FFA500" transform="rotate(-20 450 380)"/>
+                    <ellipse cx="520" cy="370" rx="12" ry="15" fill="#FF6347" transform="rotate(15 520 370)"/>
+                    <ellipse cx="580" cy="385" rx="12" ry="15" fill="#87CEEB" transform="rotate(25 580 385)"/>
+                    <ellipse cx="650" cy="375" rx="12" ry="15" fill="#FFB6C1" transform="rotate(-10 650 375)"/>
+
+                    <!-- Characters discovering eggs -->
+                    <g transform="translate(180, 340)">
+                        <!-- Luna with pink egg -->
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                        <ellipse cx="15" cy="-10" rx="10" ry="12" fill="#FF69B4"/>
+                        <text x="-30" y="-50" font-size="18" fill="#333">Look! Eggs!</text>
+                    </g>
+
+                    <g transform="translate(350, 330)">
+                        <!-- Heidi sniffing eggs -->
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#8b4513"/>
+                        <ellipse cx="0" cy="-15" rx="8" ry="5" fill="#ff69b4"/>
+                        <ellipse cx="0" cy="20" rx="10" ry="12" fill="#FFD700"/>
+                    </g>
+
+                    <g transform="translate(500, 335)">
+                        <!-- Randy with basket -->
+                        <circle cx="0" cy="0" r="45" fill="white"/>
+                        <rect x="30" y="-10" width="30" height="25" fill="#8B4513" rx="3"/>
+                        <path d="M30 -10 Q45 -20 60 -10" stroke="#8B4513" stroke-width="3" fill="none"/>
+                        <ellipse cx="40" cy="-5" rx="6" ry="8" fill="#87CEEB"/>
+                        <ellipse cx="48" cy="-3" rx="6" ry="8" fill="#98FB98"/>
+                    </g>
+
+                    <g transform="translate(600, 340)">
+                        <!-- Morphee carrying egg -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff8c00"/>
+                        <ellipse cx="0" cy="10" rx="10" ry="12" fill="#DDA0DD"/>
+                    </g>
+
+                    <!-- Easter Bunny watching happily -->
+                    <g transform="translate(400, 250)">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <path d="M-5 -5 Q-8 -8 -10 -5" stroke="#FF69B4" stroke-width="2" fill="none"/>
+                        <path d="M5 -5 Q8 -8 10 -5" stroke="#FF69B4" stroke-width="2" fill="none"/>
+                        <path d="M-10 0 Q0 5 10 0" stroke="#FF69B4" stroke-width="2" fill="none"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>After playing, the Easter Bunny said, "Thank you for being such good friends! I've hidden special Easter eggs all around your farm. Can you find them?" The friends' eyes grew wide with excitement. They started searching everywhere!</p>
+                    <span class="page-counter">Page 13 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 14: The Egg Hunt -->
+            <div class="story-page" id="page-14">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Various hiding spots -->
+                    <!-- Behind flowers -->
+                    <g transform="translate(150, 350)">
+                        <circle cx="0" cy="0" r="10" fill="#FFD700"/>
+                        <circle cx="-6" cy="-6" r="4" fill="#FF69B4"/>
+                        <circle cx="6" cy="-6" r="4" fill="#FF69B4"/>
+                        <circle cx="-6" cy="6" r="4" fill="#FF69B4"/>
+                        <circle cx="6" cy="6" r="4" fill="#FF69B4"/>
+                        <ellipse cx="15" cy="5" rx="8" ry="10" fill="#FFB6C1" opacity="0.9"/>
+                    </g>
+
+                    <!-- Under bushes -->
+                    <g transform="translate(300, 340)">
+                        <circle cx="0" cy="0" r="35" fill="#228B22"/>
+                        <circle cx="20" cy="0" r="30" fill="#2E8B57"/>
+                        <ellipse cx="10" cy="15" rx="10" ry="12" fill="#87CEEB" opacity="0.8"/>
+                    </g>
+
+                    <!-- In tree -->
+                    <g transform="translate(500, 200)">
+                        <rect x="-20" y="0" width="40" height="150" fill="#8B4513"/>
+                        <circle cx="0" cy="-20" r="50" fill="#228B22"/>
+                        <ellipse cx="0" cy="-20" rx="8" ry="10" fill="#FFD700"/>
+                    </g>
+
+                    <!-- Characters searching -->
+                    <g transform="translate(150, 320)">
+                        <!-- Luna digging -->
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <path d="M-15 0 Q-20 10 -25 20" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                        <path d="M15 0 Q20 10 25 20" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                        <circle cx="-20" cy="20" r="5" fill="#8B4513" opacity="0.6"/>
+                        <circle cx="20" cy="22" r="4" fill="#8B4513" opacity="0.5"/>
+                    </g>
+
+                    <g transform="translate(300, 310)">
+                        <!-- Heidi with muddy nose -->
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#8b4513"/>
+                        <ellipse cx="0" cy="-15" rx="10" ry="7" fill="#654321"/>
+                    </g>
+
+                    <g transform="translate(500, 150)">
+                        <!-- Morphee in tree -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff8c00"/>
+                        <ellipse cx="10" cy="0" rx="8" ry="10" fill="#FFD700"/>
+                    </g>
+
+                    <g transform="translate(650, 330)">
+                        <!-- Randy with full basket -->
+                        <circle cx="0" cy="0" r="45" fill="white"/>
+                        <rect x="-20" y="20" width="40" height="30" fill="#8B4513" rx="3"/>
+                        <ellipse cx="-10" cy="25" rx="6" ry="8" fill="#FF69B4"/>
+                        <ellipse cx="0" cy="27" rx="6" ry="8" fill="#87CEEB"/>
+                        <ellipse cx="10" cy="25" rx="6" ry="8" fill="#98FB98"/>
+                        <ellipse cx="-5" cy="20" rx="6" ry="8" fill="#FFD700"/>
+                        <ellipse cx="5" cy="20" rx="6" ry="8" fill="#DDA0DD"/>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="700" cy="380" rx="15" ry="18" fill="#FF1493" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>Luna used her excellent nose to sniff out eggs hidden in the dirt. Heidi found eggs near the pond (and got even muddier!). Morphee climbed trees to find eggs in bird nests. Randy used his loud bark to call out whenever anyone found an egg. They were a great team!</p>
+                    <span class="page-counter">Page 14 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 15: Sharing the Eggs -->
+            <div class="story-page" id="page-15">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#FFB366"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Setting sun -->
+                    <circle cx="150" cy="180" r="60" fill="#FF6347"/>
+                    <circle cx="150" cy="180" r="55" fill="#FF7F50"/>
+
+                    <!-- Picnic blanket -->
+                    <rect x="250" y="300" width="300" height="80" fill="#FF6B6B" transform="skewY(-2)"/>
+                    <rect x="250" y="300" width="300" height="80" fill="#FFF" opacity="0.2"/>
+                    <rect x="250" y="300" width="75" height="80" fill="#FFF" opacity="0.2"/>
+                    <rect x="325" y="300" width="75" height="80" fill="#FF6B6B" opacity="0.3"/>
+                    <rect x="400" y="300" width="75" height="80" fill="#FFF" opacity="0.2"/>
+                    <rect x="475" y="300" width="75" height="80" fill="#FF6B6B" opacity="0.3"/>
+
+                    <!-- All characters sitting in circle -->
+                    <g transform="translate(350, 320)">
+                        <!-- Luna -->
+                        <ellipse cx="-50" cy="0" rx="30" ry="22" fill="#1a1a1a"/>
+                        <circle cx="-50" cy="-15" r="20" fill="#2a2a2a"/>
+                        <ellipse cx="-50" cy="15" rx="8" ry="10" fill="#FF69B4"/>
+                    </g>
+
+                    <g transform="translate(350, 320)">
+                        <!-- Heidi -->
+                        <ellipse cx="0" cy="5" rx="35" ry="25" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-10" rx="25" ry="30" fill="#8b4513"/>
+                        <ellipse cx="0" cy="20" rx="8" ry="10" fill="#87CEEB"/>
+                    </g>
+
+                    <g transform="translate(350, 320)">
+                        <!-- Randy -->
+                        <circle cx="50" cy="0" r="35" fill="white"/>
+                        <ellipse cx="50" cy="20" rx="8" ry="10" fill="#98FB98"/>
+                    </g>
+
+                    <g transform="translate(350, 320)">
+                        <!-- Morphee -->
+                        <ellipse cx="100" cy="5" rx="28" ry="22" fill="#ff8c00"/>
+                        <ellipse cx="100" cy="20" rx="8" ry="10" fill="#FFD700"/>
+                    </g>
+
+                    <!-- Easter Bunny in middle -->
+                    <g transform="translate(400, 280)">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <circle cx="-8" cy="-10" r="3" fill="#FF69B4"/>
+                        <circle cx="8" cy="-10" r="3" fill="#FF69B4"/>
+                        <path d="M-8 -5 Q0 0 8 -5" stroke="#FF69B4" stroke-width="2" fill="none"/>
+                    </g>
+
+                    <!-- Pile of eggs in center -->
+                    <g transform="translate(400, 340)">
+                        <ellipse cx="-15" cy="0" rx="8" ry="10" fill="#FF69B4"/>
+                        <ellipse cx="-5" cy="-2" rx="8" ry="10" fill="#87CEEB"/>
+                        <ellipse cx="5" cy="0" rx="8" ry="10" fill="#98FB98"/>
+                        <ellipse cx="15" cy="-2" rx="8" ry="10" fill="#FFD700"/>
+                        <ellipse cx="0" cy="-8" rx="8" ry="10" fill="#DDA0DD"/>
+                        <ellipse cx="-10" cy="-6" rx="8" ry="10" fill="#FFA500"/>
+                        <ellipse cx="10" cy="-6" rx="8" ry="10" fill="#FF6347"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>As the sun began to set, painting the sky in beautiful orange and pink colors, they all sat together on a soft blanket. Each friend had found special eggs, and they decided to share them equally. The Easter Bunny was so happy to see such good friends sharing.</p>
+                    <span class="page-counter">Page 15 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 16: Easter Bunny's Story -->
+            <div class="story-page" id="page-16">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#FFB366"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Easter Bunny telling story -->
+                    <g transform="translate(400, 250)">
+                        <ellipse cx="0" cy="20" rx="30" ry="35" fill="white"/>
+                        <circle cx="0" cy="-15" r="25" fill="white"/>
+                        <ellipse cx="-12" cy="-32" rx="7" ry="20" fill="white"/>
+                        <ellipse cx="12" cy="-32" rx="7" ry="20" fill="white"/>
+
+                        <!-- Speech bubble with story -->
+                        <ellipse cx="0" cy="-80" rx="120" ry="40" fill="white" stroke="#666" stroke-width="2"/>
+                        <path d="M0 -45 L-10 -20 L10 -30" fill="white"/>
+                        <text x="-100" y="-85" font-size="14" fill="#333">Every year, I travel</text>
+                        <text x="-100" y="-70" font-size="14" fill="#333">around bringing joy and</text>
+                        <text x="-100" y="-55" font-size="14" fill="#333">eggs to good friends!</text>
+                    </g>
+
+                    <!-- Characters listening intently -->
+                    <g transform="translate(250, 320)">
+                        <!-- Luna lying down -->
+                        <ellipse cx="0" cy="0" rx="45" ry="20" fill="#1a1a1a"/>
+                        <circle cx="-20" cy="-10" r="20" fill="#2a2a2a"/>
+                        <circle cx="-25" cy="-12" r="2" fill="white"/>
+                        <circle cx="-15" cy="-12" r="2" fill="white"/>
+                    </g>
+
+                    <g transform="translate(350, 330)">
+                        <!-- Heidi sitting -->
+                        <ellipse cx="0" cy="0" rx="40" ry="30" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-25" rx="30" ry="35" fill="#8b4513"/>
+                        <circle cx="-10" cy="-25" r="2" fill="#2a2a2a"/>
+                        <circle cx="10" cy="-25" r="2" fill="#2a2a2a"/>
+                    </g>
+
+                    <g transform="translate(450, 325)">
+                        <!-- Randy attentive -->
+                        <circle cx="0" cy="0" r="45" fill="white"/>
+                        <ellipse cx="-15" cy="-30" rx="15" ry="20" fill="white" transform="rotate(-10 -15 -30)"/>
+                        <ellipse cx="15" cy="-30" rx="15" ry="20" fill="white" transform="rotate(10 15 -30)"/>
+                        <circle cx="-10" cy="-5" r="2" fill="#2a2a2a"/>
+                        <circle cx="10" cy="-5" r="2" fill="#2a2a2a"/>
+                    </g>
+
+                    <g transform="translate(550, 330)">
+                        <!-- Morphee curled up -->
+                        <ellipse cx="0" cy="0" rx="35" ry="25" fill="#ff8c00"/>
+                        <path d="M20 0 Q35 -5 30 -15 Q25 -20 15 -15" stroke="#ff8c00" stroke-width="10" fill="none"/>
+                        <circle cx="-10" cy="-5" r="2" fill="#4a4a4a"/>
+                        <circle cx="10" cy="-5" r="2" fill="#4a4a4a"/>
+                    </g>
+
+                    <!-- Stars beginning to appear -->
+                    <circle cx="600" cy="80" r="2" fill="white" opacity="0.6"/>
+                    <circle cx="650" cy="100" r="2" fill="white" opacity="0.6"/>
+                    <circle cx="700" cy="60" r="2" fill="white" opacity="0.6"/>
+                </svg>
+                <div class="page-text">
+                    <p>The Easter Bunny told them wonderful stories about his travels. "You four are the best friends I've met this year," he said warmly. "You play together, help each other, and share everything. That's what Easter is really about - friendship and kindness!"</p>
+                    <span class="page-counter">Page 16 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 17: Special Surprise -->
+            <div class="story-page" id="page-17">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#4B0082"/>
+                    <rect y="350" width="800" height="150" fill="#2E8B57"/>
+
+                    <!-- Moon and stars -->
+                    <circle cx="650" cy="80" r="40" fill="#FFFACD"/>
+                    <circle cx="100" cy="60" r="2" fill="white"/>
+                    <circle cx="200" cy="90" r="2" fill="white"/>
+                    <circle cx="300" cy="50" r="2" fill="white"/>
+                    <circle cx="400" cy="80" r="2" fill="white"/>
+                    <circle cx="500" cy="70" r="2" fill="white"/>
+
+                    <!-- Easter Bunny with special golden egg -->
+                    <g transform="translate(400, 250)">
+                        <ellipse cx="0" cy="20" rx="25" ry="30" fill="white"/>
+                        <circle cx="0" cy="-10" r="20" fill="white"/>
+                        <ellipse cx="-10" cy="-25" rx="6" ry="18" fill="white"/>
+                        <ellipse cx="10" cy="-25" rx="6" ry="18" fill="white"/>
+
+                        <!-- Holding golden egg -->
+                        <ellipse cx="0" cy="5" rx="15" ry="20" fill="#FFD700"/>
+                        <ellipse cx="0" cy="5" rx="13" ry="18" fill="#FFA500"/>
+                        <path d="M-5 0 Q0 -5 5 0" stroke="#FFD700" stroke-width="2" fill="none"/>
+                        <path d="M-5 10 Q0 5 5 10" stroke="#FFD700" stroke-width="2" fill="none"/>
+
+                        <!-- Sparkles around egg -->
+                        <text x="-30" y="5" font-size="20" fill="#FFD700">✨</text>
+                        <text x="20" y="5" font-size="20" fill="#FFD700">✨</text>
+                        <text x="0" y="-30" font-size="20" fill="#FFD700">✨</text>
+                    </g>
+
+                    <!-- Characters amazed -->
+                    <g transform="translate(250, 320)">
+                        <!-- Luna excited -->
+                        <ellipse cx="0" cy="0" rx="38" ry="28" fill="#1a1a1a"/>
+                        <circle cx="0" cy="-20" r="25" fill="#2a2a2a"/>
+                        <circle cx="-8" cy="-20" r="4" fill="white"/>
+                        <circle cx="8" cy="-20" r="4" fill="white"/>
+                        <circle cx="-8" cy="-20" r="2" fill="#2a2a2a"/>
+                        <circle cx="8" cy="-20" r="2" fill="#2a2a2a"/>
+                        <path d="M35 -5 Q45 -15 50 -20" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+                    </g>
+
+                    <g transform="translate(350, 325)">
+                        <!-- Heidi amazed -->
+                        <ellipse cx="0" cy="0" rx="42" ry="32" fill="#6b3410"/>
+                        <ellipse cx="0" cy="-20" rx="30" ry="38" fill="#8b4513"/>
+                        <circle cx="-10" cy="-20" r="4" fill="#3a2a1a"/>
+                        <circle cx="10" cy="-20" r="4" fill="#3a2a1a"/>
+                        <ellipse cx="0" cy="-10" rx="8" ry="6" fill="#6b3410"/>
+                    </g>
+
+                    <g transform="translate(450, 320)">
+                        <!-- Randy jaw dropped -->
+                        <circle cx="0" cy="0" r="45" fill="white"/>
+                        <circle cx="-10" cy="-10" r="3" fill="#2a2a2a"/>
+                        <circle cx="10" cy="-10" r="3" fill="#2a2a2a"/>
+                        <ellipse cx="0" cy="5" rx="10" ry="8" fill="#2a2a2a"/>
+                    </g>
+
+                    <g transform="translate(550, 325)">
+                        <!-- Morphee purring -->
+                        <ellipse cx="0" cy="0" rx="32" ry="27" fill="#ff8c00"/>
+                        <path d="M-15 -10 Q-10 -12 -5 -10" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+                        <path d="M15 -10 Q10 -12 5 -10" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+                        <text x="-20" y="-35" font-size="16" fill="#FF69B4">Purrr...</text>
+                    </g>
+
+                    <text x="250" y="150" font-size="24" fill="#FFD700" font-weight="bold">The Golden Egg!</text>
+                </svg>
+                <div class="page-text">
+                    <p>"I have one more surprise," said the Easter Bunny with a twinkle in his eye. He pulled out a beautiful golden egg that sparkled in the moonlight. "This is a special friendship egg. As long as you stay friends and share it, it will bring you good luck and happiness!"</p>
+                    <span class="page-counter">Page 17 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 18: Promise of Friendship -->
+            <div class="story-page" id="page-18">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#191970"/>
+                    <rect y="350" width="800" height="150" fill="#2E8B57"/>
+
+                    <!-- Stars -->
+                    <circle cx="150" cy="50" r="2" fill="white"/>
+                    <circle cx="250" cy="80" r="2" fill="white"/>
+                    <circle cx="350" cy="40" r="2" fill="white"/>
+                    <circle cx="450" cy="70" r="2" fill="white"/>
+                    <circle cx="550" cy="60" r="2" fill="white"/>
+                    <circle cx="650" cy="90" r="2" fill="white"/>
+
+                    <!-- All characters and bunny with paws/hands together -->
+                    <g transform="translate(400, 300)">
+                        <!-- Center point where all paws meet -->
+                        <circle cx="0" cy="0" r="5" fill="#FFD700"/>
+
+                        <!-- Luna's paw -->
+                        <path d="M-30 -30 L0 0" stroke="#2a2a2a" stroke-width="12" fill="none"/>
+                        <ellipse cx="-30" cy="-30" rx="12" ry="8" fill="#2a2a2a"/>
+
+                        <!-- Heidi's paw -->
+                        <path d="M30 -30 L0 0" stroke="#8b4513" stroke-width="12" fill="none"/>
+                        <ellipse cx="30" cy="-30" rx="12" ry="8" fill="#8b4513"/>
+
+                        <!-- Randy's paw -->
+                        <path d="M-30 30 L0 0" stroke="white" stroke-width="12" fill="none"/>
+                        <ellipse cx="-30" cy="30" rx="12" ry="8" fill="white"/>
+
+                        <!-- Morphee's paw -->
+                        <path d="M30 30 L0 0" stroke="#ff8c00" stroke-width="10" fill="none"/>
+                        <ellipse cx="30" cy="30" rx="10" ry="8" fill="#ff8c00"/>
+
+                        <!-- Easter Bunny's paw -->
+                        <path d="M0 -40 L0 0" stroke="white" stroke-width="10" fill="none"/>
+                        <ellipse cx="0" cy="-40" rx="10" ry="8" fill="white"/>
+
+                        <!-- Golden egg in center -->
+                        <ellipse cx="0" cy="0" rx="12" ry="15" fill="#FFD700"/>
+                        <ellipse cx="0" cy="0" rx="10" ry="13" fill="#FFA500"/>
+
+                        <!-- Sparkles -->
+                        <text x="-40" y="-10" font-size="24" fill="#FFD700">✨</text>
+                        <text x="30" y="-10" font-size="24" fill="#FFD700">✨</text>
+                        <text x="-40" y="40" font-size="24" fill="#FFD700">✨</text>
+                        <text x="30" y="40" font-size="24" fill="#FFD700">✨</text>
+                    </g>
+
+                    <!-- Speech bubble -->
+                    <ellipse cx="400" cy="180" rx="150" ry="40" fill="white" stroke="#666" stroke-width="2"/>
+                    <path d="M400 210 L390 230 L410 220" fill="white"/>
+                    <text x="280" y="175" font-size="16" fill="#333">We promise to always be</text>
+                    <text x="280" y="195" font-size="16" fill="#333">the best of friends forever!</text>
+                </svg>
+                <div class="page-text">
+                    <p>All five friends put their paws together over the golden egg. "We promise to always be the best of friends!" they said together. The golden egg glowed warmly, sealing their promise. The Easter Bunny's heart was full of joy seeing such wonderful friendship.</p>
+                    <span class="page-counter">Page 18 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 19: Bedtime -->
+            <div class="story-page" id="page-19">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#191970"/>
+                    <rect y="350" width="800" height="150" fill="#1a4d1a"/>
+
+                    <!-- Moon -->
+                    <circle cx="600" cy="100" r="50" fill="#FFFACD"/>
+                    <circle cx="590" cy="95" r="45" fill="#FFFFF0"/>
+
+                    <!-- Farmhouse at night -->
+                    <rect x="200" y="180" width="400" height="170" fill="#654321"/>
+                    <polygon points="200,180 400,80 600,180" fill="#4B0082"/>
+
+                    <!-- Warm glowing windows -->
+                    <rect x="250" y="220" width="80" height="80" fill="#FFD700" opacity="0.7"/>
+                    <rect x="470" y="220" width="80" height="80" fill="#FFD700" opacity="0.7"/>
+
+                    <!-- Door -->
+                    <rect x="385" y="260" width="30" height="90" fill="#4B0082"/>
+
+                    <!-- Through window - beds visible -->
+                    <g transform="translate(250, 220)">
+                        <!-- Luna's bed -->
+                        <rect x="10" y="60" width="30" height="15" fill="#8B4513"/>
+                        <ellipse cx="25" cy="60" rx="12" ry="8" fill="#2a2a2a"/>
+                        <text x="35" y="55" font-size="10" fill="#333">z</text>
+                    </g>
+
+                    <g transform="translate(470, 220)">
+                        <!-- Heidi's bed -->
+                        <rect x="10" y="60" width="30" height="15" fill="#8B4513"/>
+                        <ellipse cx="25" cy="60" rx="15" ry="10" fill="#8b4513"/>
+                        <text x="40" y="55" font-size="12" fill="#333">zz</text>
+                    </g>
+
+                    <!-- Easter Bunny hopping away in moonlight -->
+                    <g transform="translate(100, 320)">
+                        <ellipse cx="0" cy="0" rx="15" ry="20" fill="white" opacity="0.8"/>
+                        <circle cx="0" cy="-15" r="12" fill="white" opacity="0.8"/>
+                        <ellipse cx="-5" cy="-25" rx="4" ry="12" fill="white" opacity="0.8"/>
+                        <ellipse cx="5" cy="-25" rx="4" ry="12" fill="white" opacity="0.8"/>
+
+                        <!-- Trail of sparkles -->
+                        <text x="20" y="0" font-size="16" fill="#FFD700" opacity="0.6">✨</text>
+                        <text x="40" y="5" font-size="14" fill="#FFD700" opacity="0.4">✨</text>
+                        <text x="60" y="0" font-size="12" fill="#FFD700" opacity="0.2">✨</text>
+                    </g>
+
+                    <!-- Basket of eggs by door -->
+                    <g transform="translate(400, 330)">
+                        <rect x="-20" y="0" width="40" height="30" fill="#8B4513" rx="3"/>
+                        <path d="M-20 0 Q0 -10 20 0" stroke="#8B4513" stroke-width="3" fill="none"/>
+                        <ellipse cx="-10" cy="5" rx="6" ry="8" fill="#FF69B4"/>
+                        <ellipse cx="0" cy="7" rx="6" ry="8" fill="#87CEEB"/>
+                        <ellipse cx="10" cy="5" rx="6" ry="8" fill="#98FB98"/>
+                        <ellipse cx="-5" cy="0" rx="6" ry="8" fill="#FFD700"/>
+                        <ellipse cx="5" cy="0" rx="6" ry="8" fill="#DDA0DD"/>
+                    </g>
+
+                    <!-- Hidden egg -->
+                    <ellipse cx="50" cy="380" rx="15" ry="18" fill="#DDA0DD" class="egg" onclick="collectEgg(this)" opacity="0.8"/>
+                </svg>
+                <div class="page-text">
+                    <p>It was time for bed. The friends were tired but happy after their wonderful Easter adventure. They each took some eggs to their beds, planning to share them with everyone on the farm tomorrow. Through the window, they could see the Easter Bunny hopping away under the stars.</p>
+                    <span class="page-counter">Page 19 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 20: Sweet Dreams -->
+            <div class="story-page" id="page-20">
+                <svg class="page-illustration" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="350" fill="#191970"/>
+                    <rect y="350" width="800" height="150" fill="#1a4d1a"/>
+
+                    <!-- Dreamy clouds -->
+                    <ellipse cx="200" cy="100" rx="80" ry="40" fill="white" opacity="0.2"/>
+                    <ellipse cx="600" cy="150" rx="100" ry="50" fill="white" opacity="0.2"/>
+
+                    <!-- Dream bubbles showing happy memories -->
+                    <g transform="translate(200, 200)">
+                        <!-- Luna's dream -->
+                        <circle cx="0" cy="0" r="60" fill="white" opacity="0.3"/>
+                        <circle cx="0" cy="0" r="55" fill="#FFE4E1" opacity="0.5"/>
+                        <!-- Mini Luna with ball -->
+                        <ellipse cx="0" cy="10" rx="20" ry="15" fill="#2a2a2a" opacity="0.8"/>
+                        <circle cx="0" cy="0" r="8" fill="#ff4444" opacity="0.8"/>
+                    </g>
+
+                    <g transform="translate(350, 180)">
+                        <!-- Heidi's dream -->
+                        <circle cx="0" cy="0" r="60" fill="white" opacity="0.3"/>
+                        <circle cx="0" cy="0" r="55" fill="#E0F2F7" opacity="0.5"/>
+                        <!-- Mini pond -->
+                        <ellipse cx="0" cy="10" rx="40" ry="20" fill="#4682B4" opacity="0.6"/>
+                        <ellipse cx="0" cy="0" rx="20" ry="12" fill="#8b4513" opacity="0.8"/>
+                    </g>
+
+                    <g transform="translate(500, 200)">
+                        <!-- Randy's dream -->
+                        <circle cx="0" cy="0" r="60" fill="white" opacity="0.3"/>
+                        <circle cx="0" cy="0" r="55" fill="#F0F8FF" opacity="0.5"/>
+                        <!-- Mini Randy barking -->
+                        <circle cx="0" cy="0" r="25" fill="white" opacity="0.8"/>
+                        <text x="-15" y="5" font-size="16" fill="#333" opacity="0.8">Woof!</text>
+                    </g>
+
+                    <g transform="translate(650, 180)">
+                        <!-- Morphee's dream -->
+                        <circle cx="0" cy="0" r="60" fill="white" opacity="0.3"/>
+                        <circle cx="0" cy="0" r="55" fill="#FFF8DC" opacity="0.5"/>
+                        <!-- Mini tree -->
+                        <rect x="-5" y="0" width="10" height="30" fill="#8B4513" opacity="0.6"/>
+                        <circle cx="0" cy="-10" r="20" fill="#228B22" opacity="0.6"/>
+                        <ellipse cx="0" cy="-10" rx="12" ry="8" fill="#ff8c00" opacity="0.8"/>
+                    </g>
+
+                    <!-- Central golden egg glowing -->
+                    <g transform="translate(400, 350)">
+                        <ellipse cx="0" cy="0" rx="20" ry="25" fill="#FFD700"/>
+                        <ellipse cx="0" cy="0" rx="18" ry="23" fill="#FFA500"/>
+                        <!-- Gentle glow -->
+                        <circle cx="0" cy="0" r="40" fill="#FFD700" opacity="0.2"/>
+                        <circle cx="0" cy="0" r="60" fill="#FFD700" opacity="0.1"/>
+                    </g>
+
+                    <!-- Text "The End" -->
+                    <text x="400" y="450" font-size="36" fill="#FFD700" text-anchor="middle" font-weight="bold">The End</text>
+
+                    <!-- Small Easter Bunny silhouette in corner -->
+                    <g transform="translate(750, 450)" opacity="0.5">
+                        <ellipse cx="0" cy="0" rx="8" ry="10" fill="white"/>
+                        <circle cx="0" cy="-8" r="6" fill="white"/>
+                        <ellipse cx="-3" cy="-15" rx="2" ry="6" fill="white"/>
+                        <ellipse cx="3" cy="-15" rx="2" ry="6" fill="white"/>
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>As they drifted off to sleep, each friend dreamed of their wonderful day. Luna dreamed of playing catch, Heidi dreamed of swimming, Randy dreamed of his loud happy barks, and Morphee dreamed of climbing trees. The golden egg sat safely between them, glowing softly with the magic of their friendship. And somewhere out there, the Easter Bunny smiled, knowing he had found the very best of friends. Happy Easter!</p>
+                    <span class="page-counter">Page 20 of 20</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation arrows positioned on left and right sides -->
+        <button id="prev-btn" class="nav-button prev" onclick="prevPage()" title="Previous page">←</button>
+        <button id="next-btn" class="nav-button next" onclick="nextPage()" title="Next page">→</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 20;
+        let eggsCollected = 0;
+        const totalEggs = 12;
+        let isPlaying = false;
+        const audioElement = document.getElementById('page-audio');
+        const audioBtn = document.getElementById('audio-btn');
+
+        // Audio control functions
+        function loadPageAudio(pageNum) {
+            audioElement.src = `audio/page-${pageNum}.mp3`;
+            audioElement.load();
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audioElement.pause();
+                isPlaying = false;
+                audioBtn.classList.remove('playing');
+                audioBtn.innerHTML = '🔊';
+            } else {
+                audioElement.play().catch(err => {
+                    console.error('Error playing audio:', err);
+                    alert('Unable to play audio. Please check your browser settings.');
+                });
+                isPlaying = true;
+                audioBtn.classList.add('playing');
+                audioBtn.innerHTML = '⏸️';
+            }
+        }
+
+        // Audio event listeners
+        audioElement.addEventListener('ended', function() {
+            isPlaying = false;
+            audioBtn.classList.remove('playing');
+            audioBtn.innerHTML = '🔊';
+        });
+
+        audioElement.addEventListener('error', function(e) {
+            console.error('Audio error:', e);
+            isPlaying = false;
+            audioBtn.classList.remove('playing');
+            audioBtn.innerHTML = '🔊';
+        });
+
+        // Audio button handler
+        audioBtn.addEventListener('click', toggleAudio);
+
+        // Page navigation
+        function showPage(pageNum) {
+            // Stop any ongoing audio when changing pages
+            if (isPlaying) {
+                audioElement.pause();
+                isPlaying = false;
+                audioBtn.classList.remove('playing');
+                audioBtn.innerHTML = '🔊';
+            }
+
+            document.querySelectorAll('.story-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.getElementById(`page-${pageNum}`).classList.add('active');
+            // Update all page counters
+            document.querySelectorAll('.page-counter').forEach(counter => {
+                counter.textContent = `Page ${pageNum} of ${totalPages}`;
+            });
+
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = pageNum === 1;
+            document.getElementById('next-btn').disabled = pageNum === totalPages;
+
+            currentPage = pageNum;
+
+            // Load audio for the new page
+            loadPageAudio(pageNum);
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function collectEgg(eggElement) {
+            if (!eggElement.classList.contains('collected')) {
+                eggElement.classList.add('collected');
+                eggsCollected++;
+                document.getElementById('egg-count').textContent = eggsCollected;
+
+                // Create collection animation
+                const rect = eggElement.getBoundingClientRect();
+                const sparkle = document.createElement('div');
+                sparkle.textContent = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = rect.left + 'px';
+                sparkle.style.top = rect.top + 'px';
+                sparkle.style.fontSize = '30px';
+                sparkle.style.zIndex = '9999';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'float 1s ease-out forwards';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => sparkle.remove(), 1000);
+
+                // Celebration when all eggs are found
+                if (eggsCollected === totalEggs) {
+                    setTimeout(() => {
+                        alert('🎉 Congratulations! You found all the Easter eggs! 🥚');
+                    }, 500);
+                }
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevPage();
+            } else if (e.key === 'ArrowRight') {
+                nextPage();
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                toggleAudio();
+            }
+        });
+
+        // Initialize
+        showPage(1);
+        loadPageAudio(1);
+    </script>
+</body>
+</html>

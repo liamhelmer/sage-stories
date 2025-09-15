@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sage Stories - Adventures on the Farm</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="site-title">🌟 Sage Stories 🌟</h1>
+            <p class="tagline">Adventures on the Farm</p>
+        </header>
+
+        <main class="home-content">
+            <section class="characters">
+                <h2>Meet Our Friends!</h2>
+                <div class="character-grid">
+                    <div class="character-card" onclick="wiggle(this)">
+                        <svg class="character-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Luna - Black Fuzzy Puppy -->
+                            <!-- Body -->
+                            <ellipse cx="100" cy="140" rx="38" ry="28" fill="#1a1a1a"/>
+                            <ellipse cx="100" cy="138" rx="36" ry="26" fill="#2a2a2a"/>
+
+                            <!-- Fuzzy texture -->
+                            <circle cx="85" cy="135" r="3" fill="#3a3a3a" opacity="0.6"/>
+                            <circle cx="115" cy="140" r="3" fill="#3a3a3a" opacity="0.6"/>
+                            <circle cx="95" cy="145" r="2" fill="#3a3a3a" opacity="0.6"/>
+                            <circle cx="105" cy="132" r="2" fill="#3a3a3a" opacity="0.6"/>
+
+                            <!-- Head -->
+                            <ellipse cx="100" cy="100" rx="32" ry="30" fill="#1a1a1a"/>
+                            <ellipse cx="100" cy="98" rx="30" ry="28" fill="#2a2a2a"/>
+
+                            <!-- Ears -->
+                            <ellipse cx="75" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(-25 75 85)"/>
+                            <ellipse cx="75" cy="85" rx="12" ry="16" fill="#2a2a2a" transform="rotate(-25 75 85)"/>
+                            <ellipse cx="76" cy="88" rx="6" ry="8" fill="#ff69b4" transform="rotate(-25 76 88)" opacity="0.3"/>
+
+                            <ellipse cx="125" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(25 125 85)"/>
+                            <ellipse cx="125" cy="85" rx="12" ry="16" fill="#2a2a2a" transform="rotate(25 125 85)"/>
+                            <ellipse cx="124" cy="88" rx="6" ry="8" fill="#ff69b4" transform="rotate(25 124 88)" opacity="0.3"/>
+
+                            <!-- Eyes -->
+                            <ellipse cx="85" cy="95" rx="8" ry="10" fill="#1a1a1a"/>
+                            <ellipse cx="85" cy="95" rx="6" ry="8" fill="#4a4a4a"/>
+                            <circle cx="85" cy="93" r="3" fill="#2a2a2a"/>
+                            <circle cx="86" cy="92" r="2" fill="white"/>
+                            <circle cx="84" cy="95" r="1" fill="#ffffff" opacity="0.8"/>
+
+                            <ellipse cx="115" cy="95" rx="8" ry="10" fill="#1a1a1a"/>
+                            <ellipse cx="115" cy="95" rx="6" ry="8" fill="#4a4a4a"/>
+                            <circle cx="115" cy="93" r="3" fill="#2a2a2a"/>
+                            <circle cx="116" cy="92" r="2" fill="white"/>
+                            <circle cx="114" cy="95" r="1" fill="#ffffff" opacity="0.8"/>
+
+                            <!-- Snout -->
+                            <ellipse cx="100" cy="108" rx="12" ry="8" fill="#1a1a1a"/>
+                            <ellipse cx="100" cy="106" rx="10" ry="6" fill="#2a2a2a"/>
+
+                            <!-- Nose -->
+                            <ellipse cx="100" cy="105" rx="5" ry="3" fill="#000000"/>
+                            <ellipse cx="99" cy="104" rx="2" ry="1" fill="#ffffff" opacity="0.3"/>
+
+                            <!-- Mouth -->
+                            <path d="M100 107 Q95 110 92 108" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M100 107 Q105 110 108 108" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Front legs -->
+                            <ellipse cx="88" cy="140" rx="8" ry="25" fill="#1a1a1a"/>
+                            <ellipse cx="88" cy="140" rx="6" ry="23" fill="#2a2a2a"/>
+                            <ellipse cx="88" cy="162" rx="7" ry="4" fill="#1a1a1a"/>
+
+                            <ellipse cx="112" cy="140" rx="8" ry="25" fill="#1a1a1a"/>
+                            <ellipse cx="112" cy="140" rx="6" ry="23" fill="#2a2a2a"/>
+                            <ellipse cx="112" cy="162" rx="7" ry="4" fill="#1a1a1a"/>
+
+                            <!-- Tail -->
+                            <path d="M130 135 Q145 125 150 130 Q148 135 145 138" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <path d="M130 135 Q145 125 150 130 Q148 135 145 138" stroke="#2a2a2a" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+                            <!-- Red ball toy -->
+                            <circle cx="145" cy="145" r="8" fill="#ff4444"/>
+                            <circle cx="145" cy="145" r="7" fill="#ff6666"/>
+                            <ellipse cx="143" cy="142" rx="3" ry="2" fill="#ffffff" opacity="0.4"/>
+                            <path d="M145 137 Q145 145 145 153" stroke="#cc3333" stroke-width="1" opacity="0.5"/>
+                            <path d="M137 145 Q145 145 153 145" stroke="#cc3333" stroke-width="1" opacity="0.5"/>
+                        </svg>
+                        <h3>Luna</h3>
+                        <p>A playful black puppy who loves toys!</p>
+                    </div>
+
+                    <div class="character-card" onclick="wiggle(this)">
+                        <svg class="character-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Heidi - German Shorthaired Pointer -->
+                            <!-- Body -->
+                            <ellipse cx="100" cy="140" rx="42" ry="32" fill="#6b3410"/>
+                            <ellipse cx="100" cy="138" rx="40" ry="30" fill="#8b4513"/>
+
+                            <!-- Chest spots -->
+                            <ellipse cx="85" cy="130" rx="15" ry="20" fill="#f5f5f5"/>
+                            <ellipse cx="85" cy="130" rx="13" ry="18" fill="white"/>
+                            <ellipse cx="115" cy="135" rx="12" ry="15" fill="#f5f5f5"/>
+                            <ellipse cx="115" cy="135" rx="10" ry="13" fill="white"/>
+
+                            <!-- Additional body spots -->
+                            <ellipse cx="95" cy="145" rx="6" ry="8" fill="white" opacity="0.8"/>
+                            <ellipse cx="110" cy="125" rx="5" ry="7" fill="white" opacity="0.8"/>
+                            <ellipse cx="75" cy="140" rx="4" ry="6" fill="white" opacity="0.8"/>
+
+                            <!-- Head -->
+                            <ellipse cx="100" cy="95" rx="30" ry="38" fill="#6b3410"/>
+                            <ellipse cx="100" cy="93" rx="28" ry="36" fill="#8b4513"/>
+
+                            <!-- Long droopy ears -->
+                            <ellipse cx="72" cy="85" rx="20" ry="28" fill="#6b3410" transform="rotate(-30 72 85)"/>
+                            <ellipse cx="72" cy="85" rx="18" ry="26" fill="#8b4513" transform="rotate(-30 72 85)"/>
+                            <ellipse cx="70" cy="95" rx="8" ry="12" fill="#5a2d0c" transform="rotate(-30 70 95)" opacity="0.3"/>
+
+                            <ellipse cx="128" cy="85" rx="20" ry="28" fill="#6b3410" transform="rotate(30 128 85)"/>
+                            <ellipse cx="128" cy="85" rx="18" ry="26" fill="#8b4513" transform="rotate(30 128 85)"/>
+                            <ellipse cx="130" cy="95" rx="8" ry="12" fill="#5a2d0c" transform="rotate(30 130 95)" opacity="0.3"/>
+
+                            <!-- Face spots -->
+                            <ellipse cx="80" cy="88" rx="6" ry="8" fill="white" opacity="0.9"/>
+                            <ellipse cx="120" cy="90" rx="7" ry="5" fill="white" opacity="0.9"/>
+
+                            <!-- Eyes -->
+                            <ellipse cx="85" cy="95" rx="7" ry="9" fill="#3a2a1a"/>
+                            <ellipse cx="85" cy="95" rx="5" ry="7" fill="#5a4a3a"/>
+                            <circle cx="85" cy="93" r="3" fill="#2a1a0a"/>
+                            <circle cx="86" cy="92" r="1.5" fill="white"/>
+
+                            <ellipse cx="115" cy="95" rx="7" ry="9" fill="#3a2a1a"/>
+                            <ellipse cx="115" cy="95" rx="5" ry="7" fill="#5a4a3a"/>
+                            <circle cx="115" cy="93" r="3" fill="#2a1a0a"/>
+                            <circle cx="116" cy="92" r="1.5" fill="white"/>
+
+                            <!-- Long snout -->
+                            <ellipse cx="100" cy="110" rx="14" ry="10" fill="#6b3410"/>
+                            <ellipse cx="100" cy="108" rx="12" ry="8" fill="#8b4513"/>
+                            <ellipse cx="100" cy="112" rx="8" ry="5" fill="white" opacity="0.7"/>
+
+                            <!-- Nose -->
+                            <ellipse cx="100" cy="108" rx="6" ry="4" fill="#2a1a1a"/>
+                            <ellipse cx="99" cy="107" rx="2" ry="1" fill="#ffffff" opacity="0.3"/>
+
+                            <!-- Mouth -->
+                            <path d="M100 110 Q94 113 90 111" stroke="#2a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M100 110 Q106 113 110 111" stroke="#2a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Front legs -->
+                            <ellipse cx="88" cy="145" rx="10" ry="28" fill="#6b3410"/>
+                            <ellipse cx="88" cy="145" rx="8" ry="26" fill="#8b4513"/>
+                            <ellipse cx="83" cy="155" rx="5" ry="8" fill="white"/>
+                            <ellipse cx="88" cy="168" rx="8" ry="5" fill="#5a2d0c"/>
+
+                            <ellipse cx="112" cy="145" rx="10" ry="28" fill="#6b3410"/>
+                            <ellipse cx="112" cy="145" rx="8" ry="26" fill="#8b4513"/>
+                            <ellipse cx="117" cy="155" rx="5" ry="8" fill="white"/>
+                            <ellipse cx="112" cy="168" rx="8" ry="5" fill="#5a2d0c"/>
+
+                            <!-- Tail pointing -->
+                            <path d="M135 130 Q150 125 160 125" stroke="#6b3410" stroke-width="10" fill="none" stroke-linecap="round"/>
+                            <path d="M135 130 Q150 125 160 125" stroke="#8b4513" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <ellipse cx="160" cy="125" rx="6" ry="4" fill="white"/>
+
+                            <!-- Mud spots on paws -->
+                            <ellipse cx="88" cy="165" rx="6" ry="3" fill="#654321" opacity="0.6"/>
+                            <ellipse cx="112" cy="165" rx="6" ry="3" fill="#654321" opacity="0.6"/>
+                            <ellipse cx="100" cy="155" rx="8" ry="5" fill="#654321" opacity="0.4"/>
+                        </svg>
+                        <h3>Heidi</h3>
+                        <p>Loves swimming and eating mud!</p>
+                    </div>
+
+                    <div class="character-card" onclick="wiggle(this)">
+                        <svg class="character-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Randy - White Fluffy Samoyed -->
+                            <!-- Define fur texture pattern -->
+                            <defs>
+                                <pattern id="fur" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1" fill="#f8f8f8" opacity="0.5"/>
+                                    <circle cx="7" cy="5" r="1" fill="#f0f0f0" opacity="0.5"/>
+                                    <circle cx="5" cy="8" r="1" fill="#f8f8f8" opacity="0.5"/>
+                                </pattern>
+                            </defs>
+
+                            <!-- Body with fluffy fur -->
+                            <ellipse cx="100" cy="140" rx="48" ry="38" fill="#f0f0f0"/>
+                            <ellipse cx="100" cy="140" rx="45" ry="35" fill="white"/>
+                            <ellipse cx="100" cy="140" rx="45" ry="35" fill="url(#fur)" opacity="0.3"/>
+
+                            <!-- Fluffy chest -->
+                            <ellipse cx="100" cy="125" rx="25" ry="20" fill="#fafafa"/>
+                            <ellipse cx="100" cy="125" rx="23" ry="18" fill="white"/>
+
+                            <!-- Head with fluffy fur -->
+                            <circle cx="100" cy="95" r="42" fill="#f0f0f0"/>
+                            <circle cx="100" cy="95" r="40" fill="white"/>
+                            <circle cx="100" cy="95" r="40" fill="url(#fur)" opacity="0.3"/>
+
+                            <!-- Fluffy pointed ears -->
+                            <path d="M70 70 Q65 50 70 60 Q75 70 80 80" fill="#f0f0f0"/>
+                            <ellipse cx="70" cy="70" rx="20" ry="25" fill="#f0f0f0" transform="rotate(-30 70 70)"/>
+                            <ellipse cx="70" cy="70" rx="18" ry="23" fill="white" transform="rotate(-30 70 70)"/>
+                            <ellipse cx="68" cy="73" rx="10" ry="15" fill="#ffb6c1" transform="rotate(-30 68 73)" opacity="0.2"/>
+
+                            <path d="M130 70 Q135 50 130 60 Q125 70 120 80" fill="#f0f0f0"/>
+                            <ellipse cx="130" cy="70" rx="20" ry="25" fill="#f0f0f0" transform="rotate(30 130 70)"/>
+                            <ellipse cx="130" cy="70" rx="18" ry="23" fill="white" transform="rotate(30 130 70)"/>
+                            <ellipse cx="132" cy="73" rx="10" ry="15" fill="#ffb6c1" transform="rotate(30 132 73)" opacity="0.2"/>
+
+                            <!-- Eyes (dark almond-shaped) -->
+                            <ellipse cx="85" cy="90" rx="8" ry="10" fill="#1a1a1a"/>
+                            <ellipse cx="85" cy="90" rx="6" ry="8" fill="#2a2a2a"/>
+                            <circle cx="85" cy="88" r="4" fill="#1a1a1a"/>
+                            <circle cx="86" cy="87" r="2" fill="white"/>
+                            <circle cx="84" cy="90" r="1" fill="#ffffff" opacity="0.7"/>
+
+                            <ellipse cx="115" cy="90" rx="8" ry="10" fill="#1a1a1a"/>
+                            <ellipse cx="115" cy="90" rx="6" ry="8" fill="#2a2a2a"/>
+                            <circle cx="115" cy="88" r="4" fill="#1a1a1a"/>
+                            <circle cx="116" cy="87" r="2" fill="white"/>
+                            <circle cx="114" cy="90" r="1" fill="#ffffff" opacity="0.7"/>
+
+                            <!-- Snout -->
+                            <ellipse cx="100" cy="108" rx="15" ry="10" fill="#f8f8f8"/>
+                            <ellipse cx="100" cy="106" rx="13" ry="8" fill="white"/>
+
+                            <!-- Nose -->
+                            <ellipse cx="100" cy="105" rx="7" ry="5" fill="#1a1a1a"/>
+                            <ellipse cx="99" cy="104" rx="3" ry="2" fill="#3a3a3a" opacity="0.5"/>
+
+                            <!-- Smiling mouth -->
+                            <path d="M100 108 Q100 115 100 115" stroke="#2a2a2a" stroke-width="2"/>
+                            <path d="M100 115 Q90 120 85 115" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M100 115 Q110 120 115 115" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                            <!-- Pink tongue -->
+                            <ellipse cx="100" cy="118" rx="8" ry="4" fill="#ff69b4" opacity="0.7"/>
+
+                            <!-- Fluffy legs -->
+                            <ellipse cx="85" cy="145" rx="12" ry="30" fill="#f0f0f0"/>
+                            <ellipse cx="85" cy="145" rx="10" ry="28" fill="white"/>
+                            <ellipse cx="85" cy="145" rx="10" ry="28" fill="url(#fur)" opacity="0.3"/>
+                            <ellipse cx="85" cy="170" rx="10" ry="6" fill="#f8f8f8"/>
+
+                            <ellipse cx="115" cy="145" rx="12" ry="30" fill="#f0f0f0"/>
+                            <ellipse cx="115" cy="145" rx="10" ry="28" fill="white"/>
+                            <ellipse cx="115" cy="145" rx="10" ry="28" fill="url(#fur)" opacity="0.3"/>
+                            <ellipse cx="115" cy="170" rx="10" ry="6" fill="#f8f8f8"/>
+
+                            <!-- Fluffy curved tail -->
+                            <path d="M135 135 Q150 120 155 115 Q160 110 162 108" stroke="#f0f0f0" stroke-width="14" fill="none" stroke-linecap="round"/>
+                            <path d="M135 135 Q150 120 155 115 Q160 110 162 108" stroke="white" stroke-width="12" fill="none" stroke-linecap="round"/>
+                            <circle cx="162" cy="108" r="8" fill="white"/>
+                            <circle cx="162" cy="108" r="8" fill="url(#fur)" opacity="0.3"/>
+
+                            <!-- Fluffy fur details -->
+                            <ellipse cx="80" cy="100" rx="4" ry="6" fill="#f8f8f8" opacity="0.4" transform="rotate(-20 80 100)"/>
+                            <ellipse cx="120" cy="100" rx="4" ry="6" fill="#f8f8f8" opacity="0.4" transform="rotate(20 120 100)"/>
+                            <ellipse cx="100" cy="80" rx="6" ry="4" fill="#f8f8f8" opacity="0.4"/>
+                        </svg>
+                        <h3>Randy</h3>
+                        <p>Big, fluffy, and loves to bark!</p>
+                    </div>
+
+                    <div class="character-card" onclick="wiggle(this)">
+                        <svg class="character-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Morphee - Calico Cat -->
+                            <!-- Body -->
+                            <ellipse cx="100" cy="140" rx="32" ry="27" fill="#ff7700"/>
+                            <ellipse cx="100" cy="140" rx="30" ry="25" fill="#ff8c00"/>
+
+                            <!-- Calico patches on body -->
+                            <ellipse cx="85" cy="135" rx="12" ry="10" fill="white" opacity="0.9"/>
+                            <ellipse cx="110" cy="140" rx="10" ry="12" fill="#2a2a2a" opacity="0.8"/>
+                            <ellipse cx="95" cy="145" rx="8" ry="10" fill="#8b4513" opacity="0.7"/>
+                            <ellipse cx="115" cy="130" rx="7" ry="8" fill="#ffd700" opacity="0.6"/>
+
+                            <!-- Head -->
+                            <circle cx="100" cy="100" r="30" fill="#ff7700"/>
+                            <circle cx="100" cy="100" r="28" fill="#ff8c00"/>
+
+                            <!-- Calico patches on face -->
+                            <ellipse cx="85" cy="105" rx="12" ry="8" fill="white" opacity="0.9"/>
+                            <ellipse cx="115" cy="100" rx="10" ry="12" fill="#2a2a2a" opacity="0.9"/>
+                            <ellipse cx="100" cy="85" rx="8" ry="6" fill="#8b4513" opacity="0.8"/>
+                            <ellipse cx="120" cy="85" rx="8" ry="6" fill="white" opacity="0.9"/>
+
+                            <!-- Pointed ears -->
+                            <path d="M70 75 L65 55 L78 68 Z" fill="#ff7700"/>
+                            <path d="M70 75 L65 55 L78 68 Z" fill="#ff8c00" opacity="0.9"/>
+                            <path d="M68 65 L66 58 L73 65 Z" fill="#ffb6c1" opacity="0.5"/>
+                            <path d="M72 70 L70 62 L76 68 Z" fill="#2a2a2a" opacity="0.5"/>
+
+                            <path d="M130 75 L135 55 L122 68 Z" fill="#ff7700"/>
+                            <path d="M130 75 L135 55 L122 68 Z" fill="#ff8c00" opacity="0.9"/>
+                            <path d="M132 65 L134 58 L127 65 Z" fill="#ffb6c1" opacity="0.5"/>
+                            <path d="M128 70 L130 62 L124 68 Z" fill="white" opacity="0.7"/>
+
+                            <!-- Eyes (cat-like with vertical pupils) -->
+                            <ellipse cx="88" cy="95" rx="8" ry="10" fill="#4a4a4a"/>
+                            <ellipse cx="88" cy="95" rx="6" ry="8" fill="#6a6a6a"/>
+                            <ellipse cx="88" cy="95" rx="2" ry="6" fill="#1a1a1a"/>
+                            <circle cx="89" cy="93" r="1.5" fill="#90ee90"/>
+                            <circle cx="87" cy="92" r="1" fill="white" opacity="0.8"/>
+
+                            <ellipse cx="112" cy="95" rx="8" ry="10" fill="#4a4a4a"/>
+                            <ellipse cx="112" cy="95" rx="6" ry="8" fill="#6a6a6a"/>
+                            <ellipse cx="112" cy="95" rx="2" ry="6" fill="#1a1a1a"/>
+                            <circle cx="113" cy="93" r="1.5" fill="#90ee90"/>
+                            <circle cx="111" cy="92" r="1" fill="white" opacity="0.8"/>
+
+                            <!-- Cat nose (triangular) -->
+                            <path d="M100 103 L95 108 L105 108 Z" fill="#ff69b4"/>
+                            <path d="M100 104 L97 106 L103 106 Z" fill="#ff1493" opacity="0.7"/>
+
+                            <!-- Mouth -->
+                            <path d="M100 108 Q95 110 92 108" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M100 108 Q105 110 108 108" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Whiskers -->
+                            <path d="M80 100 Q60 95 50 95" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M80 105 Q60 105 50 110" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M80 110 Q60 115 50 120" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                            <path d="M120 100 Q140 95 150 95" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M120 105 Q140 105 150 110" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M120 110 Q140 115 150 120" stroke="#4a4a4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Front paws -->
+                            <ellipse cx="88" cy="145" rx="8" ry="20" fill="#ff7700"/>
+                            <ellipse cx="88" cy="145" rx="6" ry="18" fill="#ff8c00"/>
+                            <ellipse cx="85" cy="155" rx="4" ry="6" fill="white"/>
+                            <ellipse cx="88" cy="162" rx="7" ry="4" fill="#2a2a2a"/>
+
+                            <ellipse cx="112" cy="145" rx="8" ry="20" fill="#ff7700"/>
+                            <ellipse cx="112" cy="145" rx="6" ry="18" fill="#2a2a2a" opacity="0.9"/>
+                            <ellipse cx="112" cy="162" rx="7" ry="4" fill="#2a2a2a"/>
+
+                            <!-- Long curved tail -->
+                            <path d="M125 140 Q140 145 145 155 Q148 165 145 175 Q140 180 135 175" stroke="#ff7700" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <path d="M125 140 Q140 145 145 155 Q148 165 145 175 Q140 180 135 175" stroke="#ff8c00" stroke-width="6" fill="none" stroke-linecap="round"/>
+                            <ellipse cx="142" cy="160" rx="4" ry="6" fill="white" opacity="0.8"/>
+                            <ellipse cx="138" cy="170" rx="3" ry="5" fill="#2a2a2a" opacity="0.7"/>
+
+                            <!-- Mischievous expression -->
+                            <path d="M75 88 Q80 85 85 87" stroke="#2a2a2a" stroke-width="1" fill="none"/>
+                            <path d="M115 87 Q120 85 125 88" stroke="#2a2a2a" stroke-width="1" fill="none"/>
+                        </svg>
+                        <h3>Morphee</h3>
+                        <p>A mischievous cat who loves climbing!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stories">
+                <h2>Choose a Story!</h2>
+                <div class="story-list">
+                    <a href="stories/easter-bunny.html" class="story-link">
+                        <div class="story-card">
+                            <div class="story-icon">🐰🥚</div>
+                            <h3>The Easter Bunny Adventure</h3>
+                            <p>Join our friends as they chase the Easter Bunny around the farm!</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with ❤️ for young readers</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

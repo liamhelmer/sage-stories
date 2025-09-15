@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our complete collection of magical stories for children - adventure tales, educational stories, and bedtime favorites">
+    <title>Story Library - Sage Stories</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo" aria-label="Sage Stories Home">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">Sage Stories</span>
+                </a>
+            </div>
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem" class="nav-link">Home</a></li>
+                <li role="none"><a href="stories.html" role="menuitem" class="nav-link active">Stories</a></li>
+                <li role="none"><a href="about.html" role="menuitem" class="nav-link">About</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Story Library</h1>
+            <p class="page-subtitle">Discover magical tales that inspire, educate, and entertain</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Story Filters -->
+        <section class="story-filters">
+            <div class="container">
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="age-filter" class="filter-label">Age Group:</label>
+                        <select id="age-filter" class="filter-select" aria-label="Filter stories by age group">
+                            <option value="all">All Ages</option>
+                            <option value="4-6">Ages 4-6</option>
+                            <option value="7-9">Ages 7-9</option>
+                            <option value="10-12">Ages 10-12</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="category-filter" class="filter-label">Category:</label>
+                        <select id="category-filter" class="filter-select" aria-label="Filter stories by category">
+                            <option value="all">All Categories</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="friendship">Friendship</option>
+                            <option value="nature">Nature</option>
+                            <option value="magic">Magic</option>
+                            <option value="learning">Learning</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="reading-time" class="filter-label">Reading Time:</label>
+                        <select id="reading-time" class="filter-select" aria-label="Filter stories by reading time">
+                            <option value="all">Any Length</option>
+                            <option value="short">Short (3-5 min)</option>
+                            <option value="medium">Medium (5-8 min)</option>
+                            <option value="long">Long (8+ min)</option>
+                        </select>
+                    </div>
+
+                    <button class="filter-clear" id="clear-filters" aria-label="Clear all filters">Clear All</button>
+                </div>
+
+                <div class="search-group">
+                    <label for="story-search" class="visually-hidden">Search stories</label>
+                    <input type="search" id="story-search" class="search-input" placeholder="Search stories..." aria-label="Search stories">
+                    <button class="search-btn" aria-label="Search">🔍</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories Grid -->
+        <section class="stories-section">
+            <div class="container">
+                <div class="stories-count" id="stories-count" aria-live="polite">
+                    Showing <span class="count-number">15</span> stories
+                </div>
+
+                <div class="stories-grid" id="stories-grid">
+                    <!-- Adventure Stories -->
+                    <article class="story-card" data-age="4-6" data-category="adventure" data-time="short">
+                        <div class="story-image">
+                            <div class="placeholder-image">🦋</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Adventure</span>
+                                <span class="badge badge-new">New</span>
+                            </div>
+                            <h3 class="story-title">The Magical Garden</h3>
+                            <p class="story-excerpt">Join Luna as she discovers a secret garden where flowers sing and butterflies paint rainbows...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">5 min read</span>
+                                <span class="age-group">Ages 4-6</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Magical Garden">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="7-9" data-category="friendship" data-time="medium">
+                        <div class="story-image">
+                            <div class="placeholder-image">🐉</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Friendship</span>
+                            </div>
+                            <h3 class="story-title">The Friendly Dragon</h3>
+                            <p class="story-excerpt">Meet Spark, a young dragon who learns that being different makes you special...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">7 min read</span>
+                                <span class="age-group">Ages 7-9</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Friendly Dragon">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="10-12" data-category="nature" data-time="medium">
+                        <div class="story-image">
+                            <div class="placeholder-image">🌊</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Nature</span>
+                            </div>
+                            <h3 class="story-title">The Ocean's Secret</h3>
+                            <p class="story-excerpt">Dive deep with Maya to discover an underwater city and learn about protecting oceans...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">6 min read</span>
+                                <span class="age-group">Ages 10-12</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Ocean's Secret">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="4-6" data-category="magic" data-time="short">
+                        <div class="story-image">
+                            <div class="placeholder-image">🌟</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Magic</span>
+                            </div>
+                            <h3 class="story-title">The Wishing Star</h3>
+                            <p class="story-excerpt">Follow Emma as she makes a wish on a special star and learns about the power of believing...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">4 min read</span>
+                                <span class="age-group">Ages 4-6</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Wishing Star">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="7-9" data-category="learning" data-time="medium">
+                        <div class="story-image">
+                            <div class="placeholder-image">🔬</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Learning</span>
+                            </div>
+                            <h3 class="story-title">The Curious Inventor</h3>
+                            <p class="story-excerpt">Join Alex in their workshop as they create amazing inventions and learn from mistakes...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">8 min read</span>
+                                <span class="age-group">Ages 7-9</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Curious Inventor">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="4-6" data-category="friendship" data-time="short">
+                        <div class="story-image">
+                            <div class="placeholder-image">🐰</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Friendship</span>
+                            </div>
+                            <h3 class="story-title">Bunny's Big Day</h3>
+                            <p class="story-excerpt">A little bunny learns about sharing and making new friends at the forest picnic...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">3 min read</span>
+                                <span class="age-group">Ages 4-6</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read Bunny's Big Day">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="10-12" data-category="adventure" data-time="long">
+                        <div class="story-image">
+                            <div class="placeholder-image">🏔️</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Adventure</span>
+                            </div>
+                            <h3 class="story-title">Mountain Mystery</h3>
+                            <p class="story-excerpt">Sarah and her friends solve an ancient mystery hidden in the mountains...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">12 min read</span>
+                                <span class="age-group">Ages 10-12</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read Mountain Mystery">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="7-9" data-category="nature" data-time="medium">
+                        <div class="story-image">
+                            <div class="placeholder-image">🌳</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Nature</span>
+                            </div>
+                            <h3 class="story-title">The Talking Tree</h3>
+                            <p class="story-excerpt">Discover the wisdom of an ancient oak tree and learn about forest conservation...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">6 min read</span>
+                                <span class="age-group">Ages 7-9</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Talking Tree">Read Story</a>
+                        </div>
+                    </article>
+
+                    <article class="story-card" data-age="4-6" data-category="magic" data-time="short">
+                        <div class="story-image">
+                            <div class="placeholder-image">🦄</div>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-badges">
+                                <span class="badge badge-category">Magic</span>
+                                <span class="badge badge-popular">Popular</span>
+                            </div>
+                            <h3 class="story-title">The Rainbow Unicorn</h3>
+                            <p class="story-excerpt">Meet Sparkle, a unicorn who brings color back to a gray world...</p>
+                            <div class="story-meta">
+                                <span class="reading-time">5 min read</span>
+                                <span class="age-group">Ages 4-6</span>
+                            </div>
+                            <a href="story-template.html" class="story-link" aria-label="Read The Rainbow Unicorn">Read Story</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="no-results" id="no-results" style="display: none;" role="status" aria-live="polite">
+                    <div class="no-results-icon">📚</div>
+                    <h3 class="no-results-title">No stories found</h3>
+                    <p class="no-results-text">Try adjusting your filters or search terms to find more stories.</p>
+                    <button class="btn btn-outline" id="reset-search">Reset Search</button>
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-outline load-more" id="load-more">Load More Stories</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-icon">📚</span>
+                        <span class="logo-text">Sage Stories</span>
+                    </a>
+                    <p class="footer-description">Magical tales for young readers that spark imagination and teach valuable life lessons.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 class="footer-heading">Stories</h4>
+                        <ul class="footer-list">
+                            <li><a href="stories.html">All Stories</a></li>
+                            <li><a href="stories.html?age=4-6">Ages 4-6</a></li>
+                            <li><a href="stories.html?age=7-9">Ages 7-9</a></li>
+                            <li><a href="stories.html?age=10-12">Ages 10-12</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4 class="footer-heading">About</h4>
+                        <ul class="footer-list">
+                            <li><a href="about.html">Our Mission</a></li>
+                            <li><a href="about.html#team">Meet the Team</a></li>
+                            <li><a href="about.html#values">Our Values</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sage Stories. All rights reserved. Made with 💖 for young dreamers everywhere.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/scripts.js"></script>
+</body>
+</html>

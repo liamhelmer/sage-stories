@@ -1,0 +1,95 @@
+# Sensitive Data & Credentials
+.env
+.env.*
+*.env
+!.env.example
+!.env.template
+
+# API Keys & Auth
+*api_key*
+*api-key*
+*apikey*
+*secret*
+*token*
+*.key
+*.pem
+*.crt
+credentials.json
+secrets.json
+auth.json
+config.secret.*
+
+# User profiles with potential secrets
+.profile
+.bash_profile
+.bashrc
+.zshrc
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+*.log
+*.pid
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.Spotlight-V100
+.Trashes
+
+# Editor Files
+.vscode/
+.idea/
+*.sublime-*
+*.code-workspace
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Build Outputs
+dist/
+build/
+out/
+target/
+
+# Test Coverage
+coverage/
+.coverage
+*.lcov
+.nyc_output
+
+# Cache
+.cache/
+.tmp/
+tmp/
+temp/
+
+# KEEP Claude-generated files
+!.claude/
+!.claude-flow/
+!claude-*.json
+!claude-*.md
+!CLAUDE.md
+!swarm-*.json
+!agent-*.json
+!workflow-*.json
+
+# KEEP Database files
+!*.db
+!*.sqlite
+!*.sqlite3
+!database/
+
+# KEEP Generated audio
+!docs/stories/audio/*.mp3
+!audio/*.mp3
