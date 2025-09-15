@@ -52,8 +52,10 @@ header {
     padding: 20px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 3px solid transparent;
 }
 
 .character-card:hover {
@@ -274,6 +276,42 @@ footer {
 
 .wiggle {
     animation: wiggle 0.5s;
+}
+
+/* Speaking animation for characters */
+.character-card.speaking {
+    animation: pulse 1s ease-in-out infinite;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+    border: 3px solid #667eea;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Audio speaker indicator */
+.character-card.speaking::before {
+    content: "🔊";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    animation: float 2s ease-in-out infinite;
+    z-index: 10;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* Interactive Elements */

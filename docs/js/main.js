@@ -1,4 +1,61 @@
-// Character wiggle animation
+// Character audio playback
+let currentlyPlaying = null;
+let currentCard = null;
+let characterAudio = null;
+
+function playCharacterAudio(characterId, element) {
+    // Add wiggle animation
+    element.classList.add('wiggle');
+    setTimeout(() => {
+        element.classList.remove('wiggle');
+    }, 500);
+
+    // Create audio element if it doesn't exist
+    if (!characterAudio) {
+        characterAudio = new Audio();
+        characterAudio.preload = 'auto';
+    }
+
+    const audioPath = `audio/character-${characterId}.mp3`;
+
+    // If the same character is clicked and audio is playing, pause it
+    if (currentlyPlaying === characterId && !characterAudio.paused) {
+        characterAudio.pause();
+        if (currentCard) {
+            currentCard.classList.remove('speaking');
+        }
+        currentlyPlaying = null;
+        currentCard = null;
+        return;
+    }
+
+    // Stop any currently playing audio
+    if (!characterAudio.paused) {
+        characterAudio.pause();
+        if (currentCard) {
+            currentCard.classList.remove('speaking');
+        }
+    }
+
+    // Play the new audio
+    characterAudio.src = audioPath;
+    characterAudio.play().then(() => {
+        currentlyPlaying = characterId;
+        currentCard = element;
+        element.classList.add('speaking');
+    }).catch(error => {
+        console.error('Error playing audio:', error);
+    });
+
+    // Remove speaking class when audio ends
+    characterAudio.onended = () => {
+        element.classList.remove('speaking');
+        currentlyPlaying = null;
+        currentCard = null;
+    };
+}
+
+// Character wiggle animation (legacy function kept for compatibility)
 function wiggle(element) {
     element.classList.add('wiggle');
     setTimeout(() => {
