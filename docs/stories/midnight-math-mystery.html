@@ -1526,9 +1526,14 @@
             title: '🌙 The Easter Bunny\'s Midnight Math Mystery 🔢',
             totalPages: 20,
             audioEnabled: true,
-            audioPath: 'audio/midnight-math',
+            audioPath: 'audio/midnight-math/',
             eggHuntEnabled: false,
             pageTransitionSound: true
+        });
+
+        // Initialize the story engine when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            mathStoryEngine.init();
         });
 
         function showMathProblem(pageNum) {
