@@ -28,14 +28,9 @@
     },
     {
       "number": 3,
-      "text": "Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1 = ?",
+      "text": "Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1... That's 4 friends!",
       "scene": "waking_friends",
-      "mathProblem": {
-        "question": "How many friends are awake?",
-        "equation": "1 + 1 + 1 + 1 = ?",
-        "answer": 4,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 4,
@@ -45,25 +40,15 @@
     },
     {
       "number": 5,
-      "text": "They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Can you add 2 + 3?",
+      "text": "They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Let's add: 2 + 3... That makes 5 eggs!",
       "scene": "outside_night",
-      "mathProblem": {
-        "question": "How many eggs total?",
-        "equation": "2 + 3 = ?",
-        "answer": 5,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 6,
-      "text": "Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 - 1 = ?",
+      "text": "Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 take away 1... That's 2 eggs!",
       "scene": "pond_eggs",
-      "mathProblem": {
-        "question": "How many eggs does Heidi have?",
-        "equation": "3 - 1 = ?",
-        "answer": 2,
-        "type": "subtraction"
-      }
+      "mathProblem": null
     },
     {
       "number": 7,
@@ -73,25 +58,15 @@
     },
     {
       "number": 8,
-      "text": "Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2 = ?",
+      "text": "Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2... That's 3 eggs!",
       "scene": "garden_discovery",
-      "mathProblem": {
-        "question": "How many eggs will Luna have?",
-        "equation": "1 + 2 = ?",
-        "answer": 3,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 9,
-      "text": "Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 - 4 = ?",
+      "text": "Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 minus 4... That leaves 2 eggs!",
       "scene": "tree_eggs",
-      "mathProblem": {
-        "question": "How many eggs are still in the tree?",
-        "equation": "6 - 4 = ?",
-        "answer": 2,
-        "type": "subtraction"
-      }
+      "mathProblem": null
     },
     {
       "number": 10,
@@ -101,36 +76,21 @@
     },
     {
       "number": 11,
-      "text": "The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Can you add 3 + 3?",
+      "text": "The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Let's add: 3 + 3... That's 6 eggs!",
       "scene": "counting_eggs",
-      "mathProblem": {
-        "question": "Luna and Heidi's eggs together?",
-        "equation": "3 + 3 = ?",
-        "answer": 6,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 12,
-      "text": "Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted.",
+      "text": "Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted... 2 + 4 equals 6!",
       "scene": "more_counting",
-      "mathProblem": {
-        "question": "Randy and Morphée's eggs?",
-        "equation": "2 + 4 = ?",
-        "answer": 6,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 13,
-      "text": "Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Can you solve it?",
+      "text": "Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Let's count... 6 + 6 equals 12!",
       "scene": "final_count",
-      "mathProblem": {
-        "question": "Total eggs collected?",
-        "equation": "6 + 6 = ?",
-        "answer": 12,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 14,
@@ -140,25 +100,15 @@
     },
     {
       "number": 15,
-      "text": "The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends × 2 wishes = 4 + 4 = ?",
+      "text": "The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends times 2 wishes... That's 4 + 4 = 8 wishes!",
       "scene": "shooting_stars",
-      "mathProblem": {
-        "question": "How many wishes total?",
-        "equation": "4 + 4 = ?",
-        "answer": 8,
-        "type": "addition"
-      }
+      "mathProblem": null
     },
     {
       "number": 16,
-      "text": "Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces, each friend gets one piece. 4 - 3 = ? piece left after giving 3 away!'",
+      "text": "Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces and give away 3, how many are left?' 4 minus 3... That's 1 piece left!",
       "scene": "golden_egg",
-      "mathProblem": {
-        "question": "Pieces left after sharing 3?",
-        "equation": "4 - 3 = ?",
-        "answer": 1,
-        "type": "subtraction"
-      }
+      "mathProblem": null
     },
     {
       "number": 17,
@@ -168,14 +118,9 @@
     },
     {
       "number": 18,
-      "text": "The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Can you solve 10 - 3?",
+      "text": "The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Let's see: 10 minus 3... That's 7 treats!",
       "scene": "bunny_treats",
-      "mathProblem": {
-        "question": "How many treats left?",
-        "equation": "10 - 3 = ?",
-        "answer": 7,
-        "type": "subtraction"
-      }
+      "mathProblem": null
     },
     {
       "number": 19,

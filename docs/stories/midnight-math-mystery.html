@@ -8,124 +8,8 @@
     <!-- Shared Story Styles -->
     <link rel="stylesheet" href="../css/story-styles.css">
 
-    <!-- Math Story Specific Styles -->
+    <!-- Story Specific Styles -->
     <style>
-        /* Math problem overlay */
-        .math-problem {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 251, 235, 0.98));
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            z-index: 500;
-            display: none;
-            animation: bounceIn 0.5s ease;
-        }
-
-        .math-problem.active {
-            display: block;
-        }
-
-        .math-question {
-            font-size: 1.8rem;
-            color: #667eea;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .math-equation {
-            font-size: 2.5rem;
-            color: #333;
-            margin: 20px 0;
-            font-family: 'Comic Sans MS', monospace;
-        }
-
-        .math-input {
-            font-size: 2rem;
-            padding: 10px 20px;
-            border: 3px solid #667eea;
-            border-radius: 10px;
-            width: 100px;
-            text-align: center;
-            margin: 0 10px;
-        }
-
-        .math-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .math-btn {
-            padding: 12px 24px;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .math-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .math-feedback {
-            margin-top: 15px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-        .math-feedback.correct {
-            color: #4CAF50;
-        }
-
-        .math-feedback.incorrect {
-            color: #f44336;
-        }
-
-        .star-celebration {
-            position: fixed;
-            pointer-events: none;
-            animation: starFloat 2s ease-out forwards;
-        }
-
-        @keyframes starFloat {
-            0% {
-                transform: translate(-50%, -50%) scale(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -250%) scale(1.5) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes bounceIn {
-            0% {
-                transform: translate(-50%, -50%) scale(0.3);
-                opacity: 0;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.05);
-            }
-            70% {
-                transform: translate(-50%, -50%) scale(0.95);
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
         /* Night theme adjustments */
         .story-body {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -356,7 +240,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1 = ?</p>
+                    <p>Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1... That's 4 friends!</p>
                     <span class="page-counter">Page 3 of 20</span>
                 </div>
             </div>
@@ -468,7 +352,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Can you add 2 + 3?</p>
+                    <p>They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Let's add: 2 + 3... That makes 5 eggs!</p>
                     <span class="page-counter">Page 5 of 20</span>
                 </div>
             </div>
@@ -523,7 +407,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 - 1 = ?</p>
+                    <p>Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 take away 1... That's 2 eggs!</p>
                     <span class="page-counter">Page 6 of 20</span>
                 </div>
             </div>
@@ -622,7 +506,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2 = ?</p>
+                    <p>Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2... That's 3 eggs!</p>
                     <span class="page-counter">Page 8 of 20</span>
                 </div>
             </div>
@@ -683,7 +567,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 - 4 = ?</p>
+                    <p>Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 minus 4... That leaves 2 eggs!</p>
                     <span class="page-counter">Page 9 of 20</span>
                 </div>
             </div>
@@ -787,7 +671,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Can you add 3 + 3?</p>
+                    <p>The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Let's add: 3 + 3... That's 6 eggs!</p>
                     <span class="page-counter">Page 11 of 20</span>
                 </div>
             </div>
@@ -847,7 +731,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted.</p>
+                    <p>Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted... 2 + 4 equals 6!</p>
                     <span class="page-counter">Page 12 of 20</span>
                 </div>
             </div>
@@ -901,7 +785,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Can you solve it?</p>
+                    <p>Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Let's count... 6 + 6 equals 12!</p>
                     <span class="page-counter">Page 13 of 20</span>
                 </div>
             </div>
@@ -1171,7 +1055,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends × 2 wishes = 4 + 4 = ?</p>
+                    <p>The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends times 2 wishes... That's 4 + 4 = 8 wishes!</p>
                     <span class="page-counter">Page 15 of 20</span>
                 </div>
             </div>
@@ -1228,7 +1112,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces, each friend gets one piece. 4 - 3 = ? piece left after giving 3 away!'</p>
+                    <p>Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces and give away 3, how many are left?' 4 minus 3... That's 1 piece left!</p>
                     <span class="page-counter">Page 16 of 20</span>
                 </div>
             </div>
@@ -1331,7 +1215,7 @@
   
                 </svg>
                 <div class="page-text">
-                    <p>The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Can you solve 10 - 3?</p>
+                    <p>The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Let's see: 10 minus 3... That's 7 treats!</p>
                     <span class="page-counter">Page 18 of 20</span>
                 </div>
             </div>
@@ -1450,189 +1334,121 @@
 
         </main>
 
-        <!-- Math Problem Overlay -->
-        <div id="math-problem" class="math-problem">
-            <div class="math-question" id="math-question"></div>
-            <div class="math-equation" id="math-equation"></div>
-            <div>
-                <input type="number" id="math-answer" class="math-input" min="0" max="99">
-            </div>
-            <div class="math-buttons">
-                <button class="math-btn" onclick="checkAnswer()">Check Answer</button>
-                <button class="math-btn" onclick="showHint()">Hint</button>
-            </div>
-            <div class="math-feedback" id="math-feedback"></div>
-        </div>
-
         <!-- Navigation Controls -->
         <button id="prev-btn" class="nav-button prev" onclick="mathStoryEngine.prevPage()" title="Previous page">←</button>
         <button id="next-btn" class="nav-button next" onclick="mathStoryEngine.nextPage()" title="Next page">→</button>
     </div>
 
     <!-- Story Engine Library -->
-    <script src="../js/story-engine.js"></script>
     <script src="../js/svg-library.js"></script>
 
-    <!-- Math Story Logic -->
+    <!-- Story Logic -->
     <script>
-        // Math problems for each page
-        const mathProblems = {
-            3: { question: "How many friends are awake?", equation: "1 + 1 + 1 + 1 = ?", answer: 4, hint: "Count each friend: Luna, Heidi, Randy, and Morphée" },
-            5: { question: "How many eggs total?", equation: "2 + 3 = ?", answer: 5, hint: "Start with 2, then add 3 more" },
-            6: { question: "How many eggs does Heidi have?", equation: "3 - 1 = ?", answer: 2, hint: "She had 3, but 1 rolled away" },
-            8: { question: "How many eggs will Luna have?", equation: "1 + 2 = ?", answer: 3, hint: "Luna has 1 and gets 2 more" },
-            9: { question: "How many eggs are still in the tree?", equation: "6 - 4 = ?", answer: 2, hint: "There were 6, Morphée took 4" },
-            11: { question: "Luna and Heidi's eggs together?", equation: "3 + 3 = ?", answer: 6, hint: "Both have 3 eggs each" },
-            12: { question: "Randy and Morphée's eggs?", equation: "2 + 4 = ?", answer: 6, hint: "Randy has 2, Morphée has 4" },
-            13: { question: "Total eggs collected?", equation: "6 + 6 = ?", answer: 12, hint: "First group has 6, second group has 6" },
-            15: { question: "How many wishes total?", equation: "4 + 4 = ?", answer: 8, hint: "4 friends, each makes 2 wishes" },
-            16: { question: "Pieces left after sharing 3?", equation: "4 - 3 = ?", answer: 1, hint: "You have 4 pieces, give away 3" },
-            18: { question: "How many treats left?", equation: "10 - 3 = ?", answer: 7, hint: "Started with 10, ate 3" }
+        let currentPage = 1;
+        const totalPages = 20;
+        let isPlaying = false;
+
+        // Get DOM elements
+        const audioElement = document.getElementById('page-audio');
+        const audioBtn = document.getElementById('audio-btn');
+
+        // Audio control functions
+        function loadPageAudio(pageNum) {
+            audioElement.src = `audio/midnight-math/page-${pageNum}.mp3`;
+            audioElement.load();
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audioElement.pause();
+                isPlaying = false;
+                audioBtn.classList.remove('playing');
+                audioBtn.innerHTML = '🔊';
+            } else {
+                audioElement.play()
+                    .then(() => {
+                        isPlaying = true;
+                        audioBtn.classList.add('playing');
+                        audioBtn.innerHTML = '🔈';
+                    })
+                    .catch(error => {
+                        console.error('Audio playback error:', error);
+                    });
+            }
+        }
+
+        // Page navigation
+        function showPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalPages) return;
+
+            // Hide all pages
+            document.querySelectorAll('.story-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show the selected page
+            const selectedPage = document.getElementById(`page-${pageNum}`);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = pageNum === 1;
+            document.getElementById('next-btn').disabled = pageNum === totalPages;
+
+            currentPage = pageNum;
+
+            // Load audio for the new page
+            loadPageAudio(pageNum);
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        // Story navigation object for backward compatibility
+        const mathStoryEngine = {
+            nextPage: nextPage,
+            prevPage: prevPage
         };
 
-        let currentProblem = null;
-        let problemSolved = {};
-
-        // Extended Story Engine for Math
-        class MathStoryEngine extends StoryEngine {
-            constructor(config) {
-                super(config);
-                this.mathEnabled = true;
-            }
-
-            showPage(pageNum) {
-                super.showPage(pageNum);
-
-                // Check if this page has a math problem
-                if (mathProblems[pageNum] && !problemSolved[pageNum]) {
-                    setTimeout(() => {
-                        showMathProblem(pageNum);
-                    }, 2000); // Show problem after 2 seconds
-                }
-            }
-
-            nextPage() {
-                // Check if current page has unsolved math problem
-                if (mathProblems[this.currentPage] && !problemSolved[this.currentPage]) {
-                    showMathProblem(this.currentPage);
-                    return; // Don't advance until problem is solved
-                }
-                super.nextPage();
-            }
-        }
-
-        // Initialize story engine
-        const mathStoryEngine = new MathStoryEngine({
-            title: '🌙 The Easter Bunny\'s Midnight Math Mystery 🔢',
-            totalPages: 20,
-            audioEnabled: true,
-            audioPath: 'audio/midnight-math/',
-            eggHuntEnabled: false,
-            pageTransitionSound: true
-        });
-
-        // Initialize the story engine when DOM is ready
+        // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
-            mathStoryEngine.init();
-        });
+            // Audio button
+            audioBtn.addEventListener('click', toggleAudio);
 
-        function showMathProblem(pageNum) {
-            currentProblem = pageNum;
-            const problem = mathProblems[pageNum];
+            // Audio ended event
+            audioElement.addEventListener('ended', () => {
+                isPlaying = false;
+                audioBtn.classList.remove('playing');
+                audioBtn.innerHTML = '🔊';
+            });
 
-            document.getElementById('math-question').textContent = problem.question;
-            document.getElementById('math-equation').textContent = problem.equation;
-            document.getElementById('math-answer').value = '';
-            document.getElementById('math-feedback').textContent = '';
-            document.getElementById('math-feedback').className = 'math-feedback';
-            document.getElementById('math-problem').classList.add('active');
-
-            // Focus on input
-            setTimeout(() => {
-                document.getElementById('math-answer').focus();
-            }, 500);
-        }
-
-        function checkAnswer() {
-            if (!currentProblem) return;
-
-            const userAnswer = parseInt(document.getElementById('math-answer').value);
-            const correctAnswer = mathProblems[currentProblem].answer;
-            const feedback = document.getElementById('math-feedback');
-
-            if (userAnswer === correctAnswer) {
-                feedback.textContent = '🌟 Correct! Great job! 🌟';
-                feedback.className = 'math-feedback correct';
-                problemSolved[currentProblem] = true;
-
-                // Create star celebration
-                createStarCelebration();
-
-                // Hide problem and continue after delay
-                setTimeout(() => {
-                    document.getElementById('math-problem').classList.remove('active');
-                    if (currentProblem < 20) {
-                        mathStoryEngine.nextPage();
-                    }
-                }, 2000);
-            } else {
-                feedback.textContent = 'Not quite right. Try again!';
-                feedback.className = 'math-feedback incorrect';
-
-                // Clear input for retry
-                setTimeout(() => {
-                    document.getElementById('math-answer').value = '';
-                    document.getElementById('math-answer').focus();
-                }, 1000);
-            }
-        }
-
-        function showHint() {
-            if (!currentProblem) return;
-
-            const hint = mathProblems[currentProblem].hint;
-            const feedback = document.getElementById('math-feedback');
-            feedback.textContent = '💡 Hint: ' + hint;
-            feedback.className = 'math-feedback';
-        }
-
-        function createStarCelebration() {
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const star = document.createElement('div');
-                    star.innerHTML = '⭐';
-                    star.className = 'star-celebration';
-                    star.style.left = (45 + Math.random() * 10) + '%';
-                    star.style.top = '50%';
-                    star.style.fontSize = (2 + Math.random() * 2) + 'rem';
-                    document.body.appendChild(star);
-
-                    setTimeout(() => star.remove(), 2000);
-                }, i * 100);
-            }
-        }
-
-        // Handle Enter key for answer submission
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('math-answer').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    checkAnswer();
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevPage();
+                } else if (e.key === ' ') {
+                    e.preventDefault();
+                    toggleAudio();
                 }
             });
+
+            // Initialize first page
+            showPage(1);
+            loadPageAudio(1);
         });
     </script>
 
-    <!-- Generate Page SVGs -->
-    <script>
-        // This will be filled in with actual SVG generation
-        document.addEventListener('DOMContentLoaded', () => {
-            generateAllPageIllustrations();
-        });
-
-        function generateAllPageIllustrations() {
-            // We'll generate these using the SVG library
-            // For now, adding placeholder
-        }
-    </script>
 </body>
 </html>
