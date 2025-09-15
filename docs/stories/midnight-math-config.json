@@ -1,0 +1,193 @@
+{
+  "title": "The Easter Bunny's Midnight Math Mystery",
+  "description": "The Easter Bunny visits the farm at night with a special math mission for the friends",
+  "author": "Sage Stories",
+  "targetAge": "4-7",
+  "totalPages": 20,
+  "features": {
+    "audioEnabled": true,
+    "audioVoice": "nova",
+    "audioSpeed": 0.95,
+    "eggHuntEnabled": false,
+    "mathProblemsEnabled": true,
+    "pageTransitionSound": true,
+    "keyboardNavigation": true
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "It was midnight at the farm, and everyone was fast asleep. But suddenly, a soft tapping came from the window. Tap, tap, tap! Luna's ears perked up first. Who could it be at this late hour?",
+      "scene": "night_bedroom",
+      "mathProblem": null
+    },
+    {
+      "number": 2,
+      "text": "It was the Easter Bunny! He was glowing softly in the moonlight. 'Shh,' he whispered, 'I need your help with a special midnight mission. There are magical math eggs hidden around the farm!'",
+      "scene": "window_bunny",
+      "mathProblem": null
+    },
+    {
+      "number": 3,
+      "text": "Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1 = ?",
+      "scene": "waking_friends",
+      "mathProblem": {
+        "question": "How many friends are awake?",
+        "equation": "1 + 1 + 1 + 1 = ?",
+        "answer": 4,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 4,
+      "text": "Perfect! All 4 friends were ready for the adventure. The Easter Bunny smiled. 'Each magical egg has a number on it. We need to collect them in the right order to unlock a special surprise!'",
+      "scene": "friends_ready",
+      "mathProblem": null
+    },
+    {
+      "number": 5,
+      "text": "They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Can you add 2 + 3?",
+      "scene": "outside_night",
+      "mathProblem": {
+        "question": "How many eggs total?",
+        "equation": "2 + 3 = ?",
+        "answer": 5,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 6,
+      "text": "Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 - 1 = ?",
+      "scene": "pond_eggs",
+      "mathProblem": {
+        "question": "How many eggs does Heidi have?",
+        "equation": "3 - 1 = ?",
+        "answer": 2,
+        "type": "subtraction"
+      }
+    },
+    {
+      "number": 7,
+      "text": "That's right, 2 eggs! But don't worry - Heidi loves water! She jumped in with a splash and rescued the third egg. 'Got it!' she barked happily, shaking water everywhere in the moonlight.",
+      "scene": "heidi_swimming",
+      "mathProblem": null
+    },
+    {
+      "number": 8,
+      "text": "Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2 = ?",
+      "scene": "garden_discovery",
+      "mathProblem": {
+        "question": "How many eggs will Luna have?",
+        "equation": "1 + 2 = ?",
+        "answer": 3,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 9,
+      "text": "Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 - 4 = ?",
+      "scene": "tree_eggs",
+      "mathProblem": {
+        "question": "How many eggs are still in the tree?",
+        "equation": "6 - 4 = ?",
+        "answer": 2,
+        "type": "subtraction"
+      }
+    },
+    {
+      "number": 10,
+      "text": "Yes, 2 eggs remained! The Easter Bunny hopped up the tree in one big bounce and brought them down. 'Teamwork!' he said with a giggle. The eggs glowed brighter when they were all together.",
+      "scene": "bunny_climbing",
+      "mathProblem": null
+    },
+    {
+      "number": 11,
+      "text": "The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Can you add 3 + 3?",
+      "scene": "counting_eggs",
+      "mathProblem": {
+        "question": "Luna and Heidi's eggs together?",
+        "equation": "3 + 3 = ?",
+        "answer": 6,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 12,
+      "text": "Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted.",
+      "scene": "more_counting",
+      "mathProblem": {
+        "question": "Randy and Morphée's eggs?",
+        "equation": "2 + 4 = ?",
+        "answer": 6,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 13,
+      "text": "Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Can you solve it?",
+      "scene": "final_count",
+      "mathProblem": {
+        "question": "Total eggs collected?",
+        "equation": "6 + 6 = ?",
+        "answer": 12,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 14,
+      "text": "Brilliant! 12 magical eggs! As soon as they counted to 12, the eggs began to float and dance in the air, creating beautiful patterns of light against the night sky. 'You did it!' cheered the Easter Bunny.",
+      "scene": "floating_eggs",
+      "mathProblem": null
+    },
+    {
+      "number": 15,
+      "text": "The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends × 2 wishes = 4 + 4 = ?",
+      "scene": "shooting_stars",
+      "mathProblem": {
+        "question": "How many wishes total?",
+        "equation": "4 + 4 = ?",
+        "answer": 8,
+        "type": "addition"
+      }
+    },
+    {
+      "number": 16,
+      "text": "Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces, each friend gets one piece. 4 - 3 = ? piece left after giving 3 away!'",
+      "scene": "golden_egg",
+      "mathProblem": {
+        "question": "Pieces left after sharing 3?",
+        "equation": "4 - 3 = ?",
+        "answer": 1,
+        "type": "subtraction"
+      }
+    },
+    {
+      "number": 17,
+      "text": "Perfect! 1 piece left for the last friend! The Easter Bunny gave each friend their piece of the golden egg. When they held them up together, they formed a beautiful star that lit up the whole farm for a moment.",
+      "scene": "golden_star",
+      "mathProblem": null
+    },
+    {
+      "number": 18,
+      "text": "The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Can you solve 10 - 3?",
+      "scene": "bunny_treats",
+      "mathProblem": {
+        "question": "How many treats left?",
+        "equation": "10 - 3 = ?",
+        "answer": 7,
+        "type": "subtraction"
+      }
+    },
+    {
+      "number": 19,
+      "text": "Excellent! 7 treats! But the kind friends decided to save 3 treats for tomorrow to share with other farm animals. 'You are so thoughtful!' said the Easter Bunny, his heart full of joy. The sky was starting to lighten - dawn was coming!",
+      "scene": "dawn_approaching",
+      "mathProblem": null
+    },
+    {
+      "number": 20,
+      "text": "As the first rays of sun appeared, the Easter Bunny gave each friend a warm hug. 'Thank you for helping with the midnight math mission! Remember, math is everywhere - even in magical midnight adventures!' And with a hop and a wave, he disappeared into the morning mist. The friends went back to bed with happy hearts, ready to dream about their mathematical midnight adventure!",
+      "scene": "sunrise_farewell",
+      "mathProblem": null
+    }
+  ]
+}

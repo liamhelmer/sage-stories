@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Easter Bunny's Midnight Math Mystery - Sage Stories</title>
+
+    <!-- Shared Story Styles -->
+    <link rel="stylesheet" href="../css/story-styles.css">
+
+    <!-- Math Story Specific Styles -->
+    <style>
+        /* Math problem overlay */
+        .math-problem {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 251, 235, 0.98));
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 500;
+            display: none;
+            animation: bounceIn 0.5s ease;
+        }
+
+        .math-problem.active {
+            display: block;
+        }
+
+        .math-question {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .math-equation {
+            font-size: 2.5rem;
+            color: #333;
+            margin: 20px 0;
+            font-family: 'Comic Sans MS', monospace;
+        }
+
+        .math-input {
+            font-size: 2rem;
+            padding: 10px 20px;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            width: 100px;
+            text-align: center;
+            margin: 0 10px;
+        }
+
+        .math-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .math-btn {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .math-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .math-feedback {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .math-feedback.correct {
+            color: #4CAF50;
+        }
+
+        .math-feedback.incorrect {
+            color: #f44336;
+        }
+
+        .star-celebration {
+            position: fixed;
+            pointer-events: none;
+            animation: starFloat 2s ease-out forwards;
+        }
+
+        @keyframes starFloat {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -250%) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Night theme adjustments */
+        .story-body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .story-header {
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, rgba(26, 26, 46, 0) 100%);
+        }
+    </style>
+</head>
+<body class="story-body">
+    <div class="story-container">
+        <!-- Audio Control Button -->
+        <button id="audio-btn" class="audio-control" title="Play narration">🔊</button>
+        <audio id="page-audio" preload="auto"></audio>
+
+        <!-- Home Button -->
+        <a href="../index.html" class="home-button">← Back</a>
+
+        <!-- Story Header -->
+        <header class="story-header">
+            <h1 class="story-title">🌙 The Easter Bunny's Midnight Math Mystery 🔢</h1>
+        </header>
+
+        <!-- Main Story Content -->
+        <main>
+            
+            <!-- Page 1 -->
+            <div class="story-page active" id="page-1" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Night bedroom scene -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightGradient)"/>
+
+    <!-- Window with moonlight -->
+    <rect x="100" y="80" width="150" height="180" fill="#2a4a7f" stroke="#8b7355" stroke-width="8"/>
+    <rect x="108" y="88" width="134" height="164" fill="url(#windowGradient)"/>
+    <!-- Window panes -->
+    <line x1="175" y1="88" x2="175" y2="252" stroke="#8b7355" stroke-width="4"/>
+    <line x1="108" y1="170" x2="242" y2="170" stroke="#8b7355" stroke-width="4"/>
+    <!-- Moon -->
+    <circle cx="175" cy="130" r="25" fill="#fffacd" opacity="0.9"/>
+    <!-- Stars -->
+    <text x="121.36583503955966" y="119.02312993230281" font-size="20" fill="#fffacd">✨</text><text x="143.65266813927263" y="114.87243438044513" font-size="20" fill="#fffacd">✨</text><text x="169.24995540370574" y="136.62940327519001" font-size="20" fill="#fffacd">✨</text><text x="182.98894775918714" y="147.76178010548176" font-size="20" fill="#fffacd">✨</text><text x="202.4954766403979" y="102.0140275628134" font-size="20" fill="#fffacd">✨</text>
+
+    <!-- Beds -->
+    
+      <rect x="#200" y="350" width="120" height="80" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <rect x="205" y="340" width="110" height="50" fill="#4a90e2" opacity="0.8"/>
+      <rect x="210" y="320" width="100" height="30" fill="#ffffff" opacity="0.9"/>
+    
+      <rect x="#400" y="350" width="120" height="80" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <rect x="405" y="340" width="110" height="50" fill="#4a90e2" opacity="0.8"/>
+      <rect x="410" y="320" width="100" height="30" fill="#ffffff" opacity="0.9"/>
+    
+      <rect x="#600" y="350" width="120" height="80" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <rect x="605" y="340" width="110" height="50" fill="#4a90e2" opacity="0.8"/>
+      <rect x="610" y="320" width="100" height="30" fill="#ffffff" opacity="0.9"/>
+    
+
+    <!-- Luna waking up -->
+    <g transform="translate(250, 300)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#000000"/>
+      <circle cx="-8" cy="-5" r="3" fill="#8B4513"/>
+      <circle cx="8" cy="-5" r="3" fill="#8B4513"/>
+      <ellipse cx="-15" cy="-10" rx="8" ry="12" fill="#000000" transform="rotate(-20 -15 -10)"/>
+      <ellipse cx="15" cy="-10" rx="8" ry="12" fill="#000000" transform="rotate(20 15 -10)"/>
+      <text x="30" y="-20" font-size="24" fill="#ffeb3b">!</text>
+    </g>
+
+    <!-- Other sleeping friends -->
+    <g transform="translate(450, 320)">
+      <ellipse cx="0" cy="0" rx="30" ry="25" fill="#8B4513"/>
+      <text x="-40" y="-30" font-size="18" fill="#4a90e2">💤</text>
+    </g>
+
+    <g transform="translate(650, 320)">
+      <ellipse cx="0" cy="0" rx="35" ry="30" fill="#ffffff"/>
+      <text x="-40" y="-30" font-size="18" fill="#4a90e2">💤</text>
+    </g>
+
+    <defs>
+      <linearGradient id="nightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a1929;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+      <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#1e3c72;stop-opacity:0.8" />
+        <stop offset="100%" style="stop-color:#2a5298;stop-opacity:0.8" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>It was midnight at the farm, and everyone was fast asleep. But suddenly, a soft tapping came from the window. Tap, tap, tap! Luna's ears perked up first. Who could it be at this late hour?</p>
+                    <span class="page-counter">Page 1 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="story-page" id="page-2" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Easter Bunny at window -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightGradient)"/>
+
+    <!-- Window frame -->
+    <rect x="250" y="100" width="300" height="250" fill="#8b7355" stroke="#654321" stroke-width="4"/>
+    <rect x="260" y="110" width="280" height="230" fill="url(#windowGradient)"/>
+
+    <!-- Easter Bunny silhouette glowing -->
+    <g transform="translate(400, 230)">
+      <!-- Glow effect -->
+      <ellipse cx="0" cy="0" rx="60" ry="80" fill="#fffacd" opacity="0.3"/>
+      <ellipse cx="0" cy="0" rx="45" ry="65" fill="#fffacd" opacity="0.5"/>
+
+      <!-- Bunny body -->
+      <ellipse cx="0" cy="0" rx="35" ry="50" fill="#ffffff"/>
+      <!-- Head -->
+      <circle cx="0" cy="-40" r="25" fill="#ffffff"/>
+      <!-- Ears -->
+      <ellipse cx="-12" cy="-60" rx="8" ry="25" fill="#ffffff" transform="rotate(-10 -12 -60)"/>
+      <ellipse cx="12" cy="-60" rx="8" ry="25" fill="#ffffff" transform="rotate(10 12 -60)"/>
+      <!-- Eyes -->
+      <circle cx="-8" cy="-40" r="3" fill="#ff69b4"/>
+      <circle cx="8" cy="-40" r="3" fill="#ff69b4"/>
+      <!-- Basket -->
+      <path d="M -20 10 L -15 30 L 15 30 L 20 10 Z" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <ellipse cx="0" cy="10" rx="20" ry="5" fill="#a0522d"/>
+      <!-- Eggs in basket -->
+      <ellipse cx="-8" cy="8" rx="5" ry="7" fill="#ff69b4"/>
+      <ellipse cx="0" cy="6" rx="5" ry="7" fill="#87ceeb"/>
+      <ellipse cx="8" cy="8" rx="5" ry="7" fill="#98fb98"/>
+    </g>
+
+    <!-- Speech bubble -->
+    <g transform="translate(550, 150)">
+      <ellipse cx="0" cy="0" rx="80" ry="40" fill="white" stroke="#333" stroke-width="2"/>
+      <path d="M -20 30 L -30 50 L 0 35 Z" fill="white" stroke="#333" stroke-width="2"/>
+      <text x="0" y="5" text-anchor="middle" font-size="18" fill="#333">Shh...</text>
+    </g>
+
+    <defs>
+      <linearGradient id="nightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a1929;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+      <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#2a5298;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#4a72b8;stop-opacity:0.9" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>It was the Easter Bunny! He was glowing softly in the moonlight. 'Shh,' he whispered, 'I need your help with a special midnight mission. There are magical math eggs hidden around the farm!'</p>
+                    <span class="page-counter">Page 2 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="story-page" id="page-3" data-math-problem="3">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Friends waking up -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightGradient)"/>
+
+    <!-- Luna (black puppy) awake -->
+    <g transform="translate(200, 250)">
+      <ellipse cx="0" cy="0" rx="30" ry="25" fill="#000000"/>
+      <circle cx="-10" cy="-8" r="4" fill="#8B4513"/>
+      <circle cx="10" cy="-8" r="4" fill="#8B4513"/>
+      <ellipse cx="-18" cy="-15" rx="10" ry="15" fill="#000000" transform="rotate(-20 -18 -15)"/>
+      <ellipse cx="18" cy="-15" rx="10" ry="15" fill="#000000" transform="rotate(20 18 -15)"/>
+      <path d="M -5 0 Q 0 5 5 0" stroke="#ff69b4" stroke-width="2" fill="none"/>
+      <text x="0" y="-40" text-anchor="middle" font-size="20" fill="#ffeb3b">1</text>
+    </g>
+
+    <!-- Heidi (German Shorthaired Pointer) waking -->
+    <g transform="translate(350, 250)">
+      <ellipse cx="0" cy="0" rx="35" ry="28" fill="#8B4513"/>
+      <ellipse cx="-10" cy="0" rx="15" ry="20" fill="#ffffff"/>
+      <ellipse cx="10" cy="0" rx="15" ry="20" fill="#8B4513"/>
+      <circle cx="-10" cy="-8" r="4" fill="#5C4033"/>
+      <circle cx="10" cy="-8" r="4" fill="#5C4033"/>
+      <ellipse cx="-20" cy="-18" rx="12" ry="18" fill="#8B4513" transform="rotate(-25 -20 -18)"/>
+      <ellipse cx="20" cy="-18" rx="12" ry="18" fill="#8B4513" transform="rotate(25 20 -18)"/>
+      <text x="0" y="-45" text-anchor="middle" font-size="20" fill="#ffeb3b">+1</text>
+    </g>
+
+    <!-- Randy (white Samoyed) stretching -->
+    <g transform="translate(500, 250)">
+      <ellipse cx="0" cy="0" rx="40" ry="35" fill="#ffffff"/>
+      <circle cx="-12" cy="-10" r="4" fill="#000000"/>
+      <circle cx="12" cy="-10" r="4" fill="#000000"/>
+      <path d="M -8 0 Q 0 8 8 0" stroke="#000000" stroke-width="2" fill="none"/>
+      <ellipse cx="-25" cy="-20" rx="12" ry="18" fill="#ffffff" transform="rotate(-20 -25 -20)"/>
+      <ellipse cx="25" cy="-20" rx="12" ry="18" fill="#ffffff" transform="rotate(20 25 -20)"/>
+      <!-- Stretching lines -->
+      <path d="M -35 20 L -45 35" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 35 20 L 45 35" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      <text x="0" y="-50" text-anchor="middle" font-size="20" fill="#ffeb3b">+1</text>
+    </g>
+
+    <!-- Morphée (calico cat) yawning -->
+    <g transform="translate(650, 250)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#ff8c00"/>
+      <ellipse cx="-10" cy="-5" rx="12" ry="10" fill="#ffffff"/>
+      <ellipse cx="8" cy="5" rx="10" ry="8" fill="#000000"/>
+      <circle cx="-8" cy="-8" r="3" fill="#228b22"/>
+      <circle cx="8" cy="-8" r="3" fill="#228b22"/>
+      <!-- Yawning mouth -->
+      <ellipse cx="0" cy="2" rx="8" ry="5" fill="#ff69b4"/>
+      <ellipse cx="-15" cy="-18" rx="6" ry="10" fill="#ff8c00" transform="rotate(-30 -15 -18)"/>
+      <ellipse cx="15" cy="-18" rx="6" ry="10" fill="#000000" transform="rotate(30 15 -18)"/>
+      <text x="0" y="-40" text-anchor="middle" font-size="20" fill="#ffeb3b">+1</text>
+    </g>
+
+    <!-- Equals sign and question -->
+    <text x="400" y="350" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">= ?</text>
+
+    <defs>
+      <linearGradient id="nightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a1929;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Luna quietly woke her friends. 'The Easter Bunny needs our help!' she whispered. One by one, Heidi, Randy, and Morphée opened their sleepy eyes. How many friends are awake now? Let's count: 1 + 1 + 1 + 1 = ?</p>
+                    <span class="page-counter">Page 3 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 4 -->
+            <div class="story-page" id="page-4" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- All friends ready with Easter Bunny -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightGradient)"/>
+
+    <!-- Easter Bunny in center -->
+    <g transform="translate(400, 200)">
+      <ellipse cx="0" cy="0" rx="40" ry="55" fill="#ffffff"/>
+      <circle cx="0" cy="-45" r="28" fill="#ffffff"/>
+      <ellipse cx="-15" cy="-70" rx="10" ry="30" fill="#ffffff" transform="rotate(-10 -15 -70)"/>
+      <ellipse cx="15" cy="-70" rx="10" ry="30" fill="#ffffff" transform="rotate(10 15 -70)"/>
+      <circle cx="-10" cy="-45" r="4" fill="#ff69b4"/>
+      <circle cx="10" cy="-45" r="4" fill="#ff69b4"/>
+      <path d="M -8 -35 Q 0 -30 8 -35" stroke="#ff69b4" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- Four friends around bunny -->
+    <!-- Luna -->
+    <g transform="translate(250, 300)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#000000"/>
+      <text x="0" y="-30" text-anchor="middle" font-size="24" fill="#4CAF50">✓</text>
+    </g>
+
+    <!-- Heidi -->
+    <g transform="translate(350, 300)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#8B4513"/>
+      <ellipse cx="-8" cy="0" rx="10" ry="15" fill="#ffffff"/>
+      <text x="0" y="-30" text-anchor="middle" font-size="24" fill="#4CAF50">✓</text>
+    </g>
+
+    <!-- Randy -->
+    <g transform="translate(450, 300)">
+      <ellipse cx="0" cy="0" rx="32" ry="25" fill="#ffffff"/>
+      <text x="0" y="-35" text-anchor="middle" font-size="24" fill="#4CAF50">✓</text>
+    </g>
+
+    <!-- Morphée -->
+    <g transform="translate(550, 300)">
+      <ellipse cx="0" cy="0" rx="22" ry="18" fill="#ff8c00"/>
+      <ellipse cx="-8" cy="-3" rx="8" ry="6" fill="#ffffff"/>
+      <ellipse cx="6" cy="3" rx="6" ry="5" fill="#000000"/>
+      <text x="0" y="-28" text-anchor="middle" font-size="24" fill="#4CAF50">✓</text>
+    </g>
+
+    <!-- Number 4 celebration -->
+    <text x="400" y="400" text-anchor="middle" font-size="72" fill="#ffeb3b" font-weight="bold">4</text>
+    <text x="400" y="440" text-anchor="middle" font-size="24" fill="#ffffff">Perfect!</text>
+
+    <defs>
+      <linearGradient id="nightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a1929;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Perfect! All 4 friends were ready for the adventure. The Easter Bunny smiled. 'Each magical egg has a number on it. We need to collect them in the right order to unlock a special surprise!'</p>
+                    <span class="page-counter">Page 4 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 5 -->
+            <div class="story-page" id="page-5" data-math-problem="5">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Outside under stars -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Stars -->
+    <circle cx="8.960458431966956" cy="75.86005716877855" r="2" fill="#fffacd" opacity="0.7598788083498552"/><circle cx="260.9566418787173" cy="82.70561092789212" r="2" fill="#fffacd" opacity="0.9959817397576837"/><circle cx="787.5311285947535" cy="84.38988756069712" r="2" fill="#fffacd" opacity="0.6348776717282324"/><circle cx="745.694044076813" cy="95.22847705149564" r="2" fill="#fffacd" opacity="0.5741007147698657"/><circle cx="278.24745368974834" cy="183.33698718976757" r="2" fill="#fffacd" opacity="0.9556808087358578"/><circle cx="698.2082234813214" cy="162.20581473182256" r="2" fill="#fffacd" opacity="0.7748187548201501"/><circle cx="446.66040456627843" cy="28.116443906884435" r="2" fill="#fffacd" opacity="0.7937179942248177"/><circle cx="45.95057784332344" cy="43.76312799956872" r="2" fill="#fffacd" opacity="0.8382562165206491"/><circle cx="378.6367341905535" cy="196.3144823262136" r="2" fill="#fffacd" opacity="0.6465754381879986"/><circle cx="409.0399930827379" cy="184.3029053908671" r="2" fill="#fffacd" opacity="0.9492376183758449"/><circle cx="773.1988886464727" cy="168.36046641050459" r="2" fill="#fffacd" opacity="0.577944041932313"/><circle cx="401.3567388164082" cy="83.27683928622571" r="2" fill="#fffacd" opacity="0.5617953514054859"/><circle cx="680.8348346127086" cy="135.94125290365952" r="2" fill="#fffacd" opacity="0.5193351801087285"/><circle cx="624.1171241978526" cy="194.8105148076213" r="2" fill="#fffacd" opacity="0.5605942089842046"/><circle cx="634.5734765018695" cy="110.12609832687667" r="2" fill="#fffacd" opacity="0.8709294782129603"/><circle cx="1.1419479764157359" cy="164.3347129162401" r="2" fill="#fffacd" opacity="0.6329229227364359"/><circle cx="662.0119353974828" cy="110.27834666827556" r="2" fill="#fffacd" opacity="0.6235666502507553"/><circle cx="9.612340292430055" cy="90.65170962114605" r="2" fill="#fffacd" opacity="0.8836998761251103"/><circle cx="719.4268142743596" cy="1.788495519215516" r="2" fill="#fffacd" opacity="0.5486688009896878"/><circle cx="450.24714868797184" cy="9.207880796150913" r="2" fill="#fffacd" opacity="0.8352369778962213"/>
+
+    <!-- Moon -->
+    <circle cx="700" cy="80" r="40" fill="#fffacd" opacity="0.9"/>
+
+    <!-- Barn silhouette -->
+    <g transform="translate(150, 250)">
+      <rect x="0" y="0" width="150" height="120" fill="#2a2a2a"/>
+      <polygon points="0,0 75,-60 150,0" fill="#1a1a1a"/>
+      <!-- Glowing eggs -->
+      <circle cx="30" cy="100" r="8" fill="#ffeb3b" opacity="0.8"/>
+      <circle cx="60" cy="95" r="8" fill="#87ceeb" opacity="0.8"/>
+      <text x="75" y="60" text-anchor="middle" font-size="32" fill="#ffffff">2</text>
+    </g>
+
+    <!-- Pond -->
+    <ellipse cx="550" cy="350" rx="120" ry="50" fill="#4a90e2" opacity="0.7"/>
+    <!-- Glowing eggs by pond -->
+    <circle cx="480" cy="340" r="8" fill="#ff69b4" opacity="0.8"/>
+    <circle cx="510" cy="345" r="8" fill="#98fb98" opacity="0.8"/>
+    <circle cx="540" cy="338" r="8" fill="#ffeb3b" opacity="0.8"/>
+    <text x="550" y="300" text-anchor="middle" font-size="32" fill="#ffffff">3</text>
+
+    <!-- Math equation -->
+    <text x="400" y="450" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">2 + 3 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>They tiptoed outside under the starry sky. 'Look!' said the Easter Bunny, 'I see 2 glowing eggs by the barn and 3 more by the pond. How many eggs is that altogether?' Can you add 2 + 3?</p>
+                    <span class="page-counter">Page 5 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 6 -->
+            <div class="story-page" id="page-6" data-math-problem="6">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Heidi at the pond -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Pond -->
+    <ellipse cx="400" cy="350" rx="200" ry="80" fill="#4a90e2" opacity="0.8"/>
+
+    <!-- Heidi reaching for eggs -->
+    <g transform="translate(300, 280)">
+      <ellipse cx="0" cy="0" rx="40" ry="32" fill="#8B4513"/>
+      <ellipse cx="-12" cy="0" rx="18" ry="22" fill="#ffffff"/>
+      <ellipse cx="12" cy="0" rx="18" ry="22" fill="#8B4513"/>
+      <!-- Extended paw reaching -->
+      <ellipse cx="40" cy="20" rx="15" ry="10" fill="#8B4513" transform="rotate(30 40 20)"/>
+    </g>
+
+    <!-- Three eggs by pond -->
+    <g transform="translate(380, 310)">
+      <ellipse cx="0" cy="0" rx="10" ry="14" fill="#ff69b4"/>
+      <ellipse cx="30" cy="5" rx="10" ry="14" fill="#87ceeb"/>
+      <ellipse cx="60" cy="-2" rx="10" ry="14" fill="#98fb98"/>
+    </g>
+
+    <!-- One egg rolling into water -->
+    <g transform="translate(450, 340)">
+      <ellipse cx="0" cy="0" rx="10" ry="14" fill="#ffeb3b" transform="rotate(45 0 0)"/>
+      <!-- Splash effect -->
+      <ellipse cx="0" cy="10" rx="20" ry="5" fill="#ffffff" opacity="0.6"/>
+      <path d="M -10 5 L -8 -5 M 0 5 L 0 -8 M 10 5 L 8 -5" stroke="#4a90e2" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Math visual -->
+    <text x="200" y="100" font-size="48" fill="#ffffff" font-weight="bold">3</text>
+    <text x="300" y="100" font-size="48" fill="#ffffff">-</text>
+    <text x="400" y="100" font-size="48" fill="#ffeb3b" font-weight="bold">1</text>
+    <text x="500" y="100" font-size="48" fill="#ffffff">=</text>
+    <text x="600" y="100" font-size="48" fill="#ffffff">?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Wonderful! 5 eggs in total! Heidi, being the fastest swimmer, ran to collect the 3 eggs by the pond. But oh no! One rolled into the water. How many eggs does Heidi have now? 3 - 1 = ?</p>
+                    <span class="page-counter">Page 6 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 7 -->
+            <div class="story-page" id="page-7" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Heidi rescuing the egg -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Pond with ripples -->
+    <ellipse cx="400" cy="350" rx="200" ry="80" fill="#4a90e2" opacity="0.8"/>
+    <ellipse cx="400" cy="350" rx="180" ry="70" fill="none" stroke="#6ab0e2" stroke-width="2" opacity="0.5"/>
+    <ellipse cx="400" cy="350" rx="160" ry="60" fill="none" stroke="#6ab0e2" stroke-width="2" opacity="0.4"/>
+
+    <!-- Heidi swimming -->
+    <g transform="translate(400, 340)">
+      <ellipse cx="0" cy="0" rx="45" ry="30" fill="#8B4513"/>
+      <ellipse cx="-15" cy="0" rx="20" ry="18" fill="#ffffff"/>
+      <!-- Swimming motion -->
+      <ellipse cx="-30" cy="15" rx="12" ry="8" fill="#8B4513" transform="rotate(-30 -30 15)"/>
+      <ellipse cx="30" cy="15" rx="12" ry="8" fill="#8B4513" transform="rotate(30 30 15)"/>
+      <!-- Egg in mouth -->
+      <ellipse cx="25" cy="-10" rx="8" ry="12" fill="#ffeb3b"/>
+    </g>
+
+    <!-- Water droplets -->
+    <circle cx="460" cy="340" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="442.42640687119285" cy="368.2842712474619" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="400" cy="380" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="357.57359312880715" cy="368.2842712474619" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="340" cy="340" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="357.57359312880715" cy="311.7157287525381" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="400" cy="300" r="3" fill="#4a90e2" opacity="0.7"/><circle cx="442.42640687119285" cy="311.7157287525381" r="3" fill="#4a90e2" opacity="0.7"/>
+
+    <!-- Success message -->
+    <text x="400" y="100" text-anchor="middle" font-size="36" fill="#4CAF50" font-weight="bold">Got it!</text>
+    <text x="400" y="150" text-anchor="middle" font-size="24" fill="#ffffff">2 + 1 = 3 eggs saved!</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>That's right, 2 eggs! But don't worry - Heidi loves water! She jumped in with a splash and rescued the third egg. 'Got it!' she barked happily, shaking water everywhere in the moonlight.</p>
+                    <span class="page-counter">Page 7 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 8 -->
+            <div class="story-page" id="page-8" data-math-problem="8">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Randy in the garden -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Garden rows -->
+    <rect x="100" y="300" width="600" height="25" fill="#2d1810" opacity="0.8"/><rect x="100" y="340" width="600" height="25" fill="#2d1810" opacity="0.8"/><rect x="100" y="380" width="600" height="25" fill="#2d1810" opacity="0.8"/><rect x="100" y="420" width="600" height="25" fill="#2d1810" opacity="0.8"/>
+
+    <!-- Randy discovering eggs -->
+    <g transform="translate(250, 250)">
+      <ellipse cx="0" cy="0" rx="50" ry="40" fill="#ffffff"/>
+      <circle cx="-15" cy="-12" r="5" fill="#000000"/>
+      <circle cx="15" cy="-12" r="5" fill="#000000"/>
+      <path d="M -10 0 Q 0 10 10 0" stroke="#000000" stroke-width="3" fill="none"/>
+      <!-- Tail wagging -->
+      <ellipse cx="-45" cy="-20" rx="20" ry="15" fill="#ffffff" transform="rotate(-30 -45 -20)"/>
+      <!-- Speech bubble -->
+      <ellipse cx="80" cy="-40" rx="60" ry="30" fill="white"/>
+      <path d="M 30 -30 L 20 -15 L 40 -25 Z" fill="white"/>
+      <text x="80" y="-35" text-anchor="middle" font-size="16" fill="#333">WOOF!</text>
+    </g>
+
+    <!-- Four eggs in garden -->
+    <ellipse cx="400" cy="320" rx="10" ry="14" fill="#ff69b4"/>
+    <ellipse cx="440" cy="315" rx="10" ry="14" fill="#87ceeb"/>
+    <ellipse cx="480" cy="322" rx="10" ry="14" fill="#98fb98"/>
+    <ellipse cx="520" cy="318" rx="10" ry="14" fill="#ffeb3b"/>
+    <text x="460" y="280" text-anchor="middle" font-size="32" fill="#ffffff">4</text>
+
+    <!-- Luna with 1 egg -->
+    <g transform="translate(600, 250)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#000000"/>
+      <ellipse cx="25" cy="10" rx="8" ry="12" fill="#9370db"/>
+      <text x="0" y="-35" text-anchor="middle" font-size="24" fill="#ffffff">1</text>
+    </g>
+
+    <!-- Math equation -->
+    <text x="400" y="450" text-anchor="middle" font-size="36" fill="#ffffff">Luna: 1 + 2 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Meanwhile, Randy found something interesting. 'WOOF! There are 4 eggs in the garden!' he barked (quietly for once). Luna already had 1 egg. If Luna takes 2 more from Randy, how many will she have? 1 + 2 = ?</p>
+                    <span class="page-counter">Page 8 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 9 -->
+            <div class="story-page" id="page-9" data-math-problem="9">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Morphée in the tree -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Tree -->
+    <rect x="350" y="250" width="100" height="200" fill="#4a3020"/>
+    <!-- Branches -->
+    <ellipse cx="400" cy="200" rx="150" ry="100" fill="#2d5016" opacity="0.9"/>
+    <ellipse cx="350" cy="180" rx="80" ry="60" fill="#3d6020" opacity="0.8"/>
+    <ellipse cx="450" cy="180" rx="80" ry="60" fill="#3d6020" opacity="0.8"/>
+
+    <!-- Morphée climbing -->
+    <g transform="translate(400, 150)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#ff8c00"/>
+      <ellipse cx="-10" cy="-5" rx="12" ry="10" fill="#ffffff"/>
+      <ellipse cx="8" cy="5" rx="10" ry="8" fill="#000000"/>
+      <!-- Paws gripping branch -->
+      <ellipse cx="-20" cy="15" rx="8" ry="5" fill="#ff8c00" transform="rotate(-45 -20 15)"/>
+      <ellipse cx="20" cy="15" rx="8" ry="5" fill="#000000" transform="rotate(45 20 15)"/>
+    </g>
+
+    <!-- Six eggs in tree -->
+    <g transform="translate(320, 140)">
+      <ellipse cx="0" cy="0" rx="8" ry="11" fill="#ff69b4"/>
+      <ellipse cx="25" cy="-10" rx="8" ry="11" fill="#87ceeb"/>
+      <ellipse cx="50" cy="5" rx="8" ry="11" fill="#98fb98"/>
+      <ellipse cx="75" cy="-8" rx="8" ry="11" fill="#ffeb3b"/>
+      <ellipse cx="100" cy="10" rx="8" ry="11" fill="#9370db"/>
+      <ellipse cx="125" cy="-5" rx="8" ry="11" fill="#ff6347"/>
+    </g>
+
+    <!-- Morphée carrying 4 -->
+    <g transform="translate(500, 250)">
+      <rect x="-20" y="-15" width="40" height="30" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <ellipse cx="-10" cy="-10" rx="6" ry="9" fill="#ff69b4"/>
+      <ellipse cx="0" cy="-8" rx="6" ry="9" fill="#87ceeb"/>
+      <ellipse cx="10" cy="-10" rx="6" ry="9" fill="#98fb98"/>
+      <ellipse cx="0" cy="0" rx="6" ry="9" fill="#ffeb3b"/>
+      <text x="0" y="-35" text-anchor="middle" font-size="24" fill="#ffffff">4</text>
+    </g>
+
+    <!-- Math equation -->
+    <text x="400" y="450" text-anchor="middle" font-size="36" fill="#ffffff" font-weight="bold">6 - 4 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Excellent! Luna now has 3 eggs. Morphée, being the best climber, spotted something special. 'There are eggs in the tree!' she meowed. She saw 6 eggs but could only carry 4 down. How many are still in the tree? 6 - 4 = ?</p>
+                    <span class="page-counter">Page 9 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 10 -->
+            <div class="story-page" id="page-10" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Easter Bunny getting remaining eggs -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Tree -->
+    <rect x="350" y="250" width="100" height="200" fill="#4a3020"/>
+    <ellipse cx="400" cy="200" rx="150" ry="100" fill="#2d5016" opacity="0.9"/>
+
+    <!-- Easter Bunny hopping up -->
+    <g transform="translate(400, 160)">
+      <!-- Motion lines -->
+      <path d="M 0 40 L 0 60 M -10 45 L -10 65 M 10 45 L 10 65" stroke="#ffffff" stroke-width="3" opacity="0.5"/>
+
+      <ellipse cx="0" cy="0" rx="35" ry="45" fill="#ffffff"/>
+      <circle cx="0" cy="-35" r="25" fill="#ffffff"/>
+      <ellipse cx="-12" cy="-55" rx="8" ry="25" fill="#ffffff" transform="rotate(-10 -12 -55)"/>
+      <ellipse cx="12" cy="-55" rx="8" ry="25" fill="#ffffff" transform="rotate(10 12 -55)"/>
+
+      <!-- Basket with 2 eggs -->
+      <path d="M -20 10 L -15 25 L 15 25 L 20 10 Z" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+      <ellipse cx="-5" cy="15" rx="6" ry="9" fill="#9370db"/>
+      <ellipse cx="5" cy="15" rx="6" ry="9" fill="#ff6347"/>
+    </g>
+
+    <!-- Success sparkles -->
+    <text x="480" y="160" font-size="20" fill="#ffeb3b">✨</text><text x="464.7213595499958" y="207.02282018339787" font-size="20" fill="#ffeb3b">✨</text><text x="424.7213595499958" y="236.0845213036123" font-size="20" fill="#ffeb3b">✨</text><text x="375.2786404500042" y="236.0845213036123" font-size="20" fill="#ffeb3b">✨</text><text x="335.2786404500042" y="207.02282018339787" font-size="20" fill="#ffeb3b">✨</text><text x="320" y="160" font-size="20" fill="#ffeb3b">✨</text><text x="335.2786404500042" y="112.97717981660216" font-size="20" fill="#ffeb3b">✨</text><text x="375.2786404500042" y="83.91547869638772" font-size="20" fill="#ffeb3b">✨</text><text x="424.7213595499958" y="83.91547869638771" font-size="20" fill="#ffeb3b">✨</text><text x="464.7213595499958" y="112.97717981660213" font-size="20" fill="#ffeb3b">✨</text>
+
+    <!-- Answer reveal -->
+    <text x="400" y="400" text-anchor="middle" font-size="48" fill="#4CAF50" font-weight="bold">2</text>
+    <text x="400" y="450" text-anchor="middle" font-size="24" fill="#ffffff">Teamwork!</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Yes, 2 eggs remained! The Easter Bunny hopped up the tree in one big bounce and brought them down. 'Teamwork!' he said with a giggle. The eggs glowed brighter when they were all together.</p>
+                    <span class="page-counter">Page 10 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 11 -->
+            <div class="story-page" id="page-11" data-math-problem="11">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Counting Luna and Heidi's eggs -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Luna with her eggs -->
+    <g transform="translate(250, 250)">
+      <ellipse cx="0" cy="0" rx="30" ry="25" fill="#000000"/>
+      <circle cx="-10" cy="-8" r="4" fill="#8B4513"/>
+      <circle cx="10" cy="-8" r="4" fill="#8B4513"/>
+
+      <!-- Luna's 3 eggs -->
+      <g transform="translate(-30, 40)">
+        <ellipse cx="0" cy="0" rx="8" ry="12" fill="#ff69b4"/>
+        <ellipse cx="20" cy="0" rx="8" ry="12" fill="#87ceeb"/>
+        <ellipse cx="40" cy="0" rx="8" ry="12" fill="#98fb98"/>
+        <text x="20" y="-25" text-anchor="middle" font-size="28" fill="#ffffff">3</text>
+      </g>
+    </g>
+
+    <!-- Plus sign -->
+    <text x="400" y="270" text-anchor="middle" font-size="48" fill="#ffffff">+</text>
+
+    <!-- Heidi with her eggs -->
+    <g transform="translate(550, 250)">
+      <ellipse cx="0" cy="0" rx="35" ry="28" fill="#8B4513"/>
+      <ellipse cx="-10" cy="0" rx="15" ry="20" fill="#ffffff"/>
+
+      <!-- Heidi's 3 eggs -->
+      <g transform="translate(-30, 40)">
+        <ellipse cx="0" cy="0" rx="8" ry="12" fill="#ffeb3b"/>
+        <ellipse cx="20" cy="0" rx="8" ry="12" fill="#9370db"/>
+        <ellipse cx="40" cy="0" rx="8" ry="12" fill="#ff6347"/>
+        <text x="20" y="-25" text-anchor="middle" font-size="28" fill="#ffffff">3</text>
+      </g>
+    </g>
+
+    <!-- Equation -->
+    <text x="400" y="400" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">3 + 3 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>The Easter Bunny gathered all the friends. 'Now for the magical part! Luna has 3 eggs, Heidi has 3 eggs. How many do they have together?' Can you add 3 + 3?</p>
+                    <span class="page-counter">Page 11 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 12 -->
+            <div class="story-page" id="page-12" data-math-problem="12">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Counting Randy and Morphée's eggs -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Randy with his eggs -->
+    <g transform="translate(250, 250)">
+      <ellipse cx="0" cy="0" rx="40" ry="35" fill="#ffffff"/>
+      <circle cx="-12" cy="-10" r="4" fill="#000000"/>
+      <circle cx="12" cy="-10" r="4" fill="#000000"/>
+
+      <!-- Randy's 2 eggs -->
+      <g transform="translate(-15, 45)">
+        <ellipse cx="0" cy="0" rx="8" ry="12" fill="#87ceeb"/>
+        <ellipse cx="20" cy="0" rx="8" ry="12" fill="#98fb98"/>
+        <text x="10" y="-25" text-anchor="middle" font-size="28" fill="#ffffff">2</text>
+      </g>
+    </g>
+
+    <!-- Plus sign -->
+    <text x="400" y="270" text-anchor="middle" font-size="48" fill="#ffffff">+</text>
+
+    <!-- Morphée with her eggs -->
+    <g transform="translate(550, 250)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#ff8c00"/>
+      <ellipse cx="-10" cy="-5" rx="12" ry="10" fill="#ffffff"/>
+      <ellipse cx="8" cy="5" rx="10" ry="8" fill="#000000"/>
+
+      <!-- Morphée's 4 eggs -->
+      <g transform="translate(-35, 40)">
+        <ellipse cx="0" cy="0" rx="8" ry="12" fill="#ff69b4"/>
+        <ellipse cx="18" cy="0" rx="8" ry="12" fill="#ffeb3b"/>
+        <ellipse cx="36" cy="0" rx="8" ry="12" fill="#9370db"/>
+        <ellipse cx="54" cy="0" rx="8" ry="12" fill="#ff6347"/>
+        <text x="27" y="-25" text-anchor="middle" font-size="28" fill="#ffffff">4</text>
+      </g>
+    </g>
+
+    <!-- Equation -->
+    <text x="400" y="400" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">2 + 4 = ?</text>
+
+    <!-- Glowing effect around eggs -->
+    <circle cx="250" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/><circle cx="270" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/><circle cx="550" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/><circle cx="568" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/><circle cx="586" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/><circle cx="604" cy="295" r="15" fill="#ffeb3b" opacity="0.2"/>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Super! 6 eggs! 'Now,' said the Easter Bunny, 'Randy has 2 eggs and Morphée has 4 eggs. What's 2 + 4?' The eggs started glowing even brighter as they counted.</p>
+                    <span class="page-counter">Page 12 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 13 -->
+            <div class="story-page" id="page-13" data-math-problem="13">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Final counting scene -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Easter Bunny in center -->
+    <g transform="translate(400, 150)">
+      <ellipse cx="0" cy="0" rx="35" ry="45" fill="#ffffff"/>
+      <circle cx="0" cy="-35" r="25" fill="#ffffff"/>
+      <ellipse cx="-12" cy="-55" rx="8" ry="25" fill="#ffffff"/>
+      <ellipse cx="12" cy="-55" rx="8" ry="25" fill="#ffffff"/>
+      <!-- Sparkly eyes -->
+      <circle cx="-8" cy="-35" r="4" fill="#ff69b4"/>
+      <circle cx="8" cy="-35" r="4" fill="#ff69b4"/>
+      <text x="-6" y="-33" font-size="8" fill="#ffffff">✨</text>
+      <text x="6" y="-33" font-size="8" fill="#ffffff">✨</text>
+    </g>
+
+    <!-- Group 1: 6 eggs -->
+    <g transform="translate(200, 280)">
+      <rect x="-40" y="-20" width="80" height="40" fill="#4a90e2" opacity="0.3" rx="10"/>
+      <ellipse cx="-30" cy="-10" rx="7" ry="10" fill="#ff69b4"/><ellipse cx="-5" cy="-10" rx="7" ry="10" fill="#87ceeb"/><ellipse cx="20" cy="-10" rx="7" ry="10" fill="#98fb98"/><ellipse cx="-30" cy="10" rx="7" ry="10" fill="#ffeb3b"/><ellipse cx="-5" cy="10" rx="7" ry="10" fill="#9370db"/><ellipse cx="20" cy="10" rx="7" ry="10" fill="#ff6347"/>
+      <text x="0" y="-40" text-anchor="middle" font-size="32" fill="#ffffff">6</text>
+    </g>
+
+    <!-- Plus sign -->
+    <text x="400" y="280" text-anchor="middle" font-size="48" fill="#ffffff">+</text>
+
+    <!-- Group 2: 6 eggs -->
+    <g transform="translate(600, 280)">
+      <rect x="-40" y="-20" width="80" height="40" fill="#4a90e2" opacity="0.3" rx="10"/>
+      <ellipse cx="-30" cy="-10" rx="7" ry="10" fill="#98fb98"/><ellipse cx="-5" cy="-10" rx="7" ry="10" fill="#ff6347"/><ellipse cx="20" cy="-10" rx="7" ry="10" fill="#ff69b4"/><ellipse cx="-30" cy="10" rx="7" ry="10" fill="#9370db"/><ellipse cx="-5" cy="10" rx="7" ry="10" fill="#ffeb3b"/><ellipse cx="20" cy="10" rx="7" ry="10" fill="#87ceeb"/>
+      <text x="0" y="-40" text-anchor="middle" font-size="32" fill="#ffffff">6</text>
+    </g>
+
+    <!-- Equation -->
+    <text x="400" y="400" text-anchor="middle" font-size="48" fill="#ffeb3b" font-weight="bold">6 + 6 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Amazing! Another 6 eggs! 'So we have 6 eggs from Luna and Heidi, and 6 eggs from Randy and Morphée. That's 6 + 6!' The Easter Bunny's eyes twinkled. Can you solve it?</p>
+                    <span class="page-counter">Page 13 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 14 -->
+            <div class="story-page" id="page-14" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Magical floating eggs -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- 12 floating eggs in a circle -->
+    
+        <g transform="translate(400, 130)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ff69b4" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ff69b4" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ff69b4" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(460, 146.07695154586736)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#87ceeb" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#87ceeb" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#87ceeb" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(503.92304845413264, 190)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#98fb98" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#98fb98" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#98fb98" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(520, 250)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ffeb3b" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ffeb3b" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ffeb3b" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(503.92304845413264, 310)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#9370db" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#9370db" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#9370db" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(460, 353.92304845413264)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ff6347" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ff6347" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ff6347" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(400, 370)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ff69b4" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ff69b4" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ff69b4" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(340, 353.92304845413264)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#87ceeb" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#87ceeb" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#87ceeb" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(296.07695154586736, 310)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#98fb98" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#98fb98" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#98fb98" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(280, 250.00000000000003)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ffeb3b" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ffeb3b" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ffeb3b" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(296.07695154586736, 190)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#9370db" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#9370db" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#9370db" opacity="0.1"/>
+        </g>
+      
+        <g transform="translate(339.99999999999994, 146.0769515458674)">
+          <ellipse cx="0" cy="0" rx="12" ry="16" fill="#ff6347" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="20" ry="25" fill="#ff6347" opacity="0.3"/>
+          <ellipse cx="0" cy="0" rx="30" ry="35" fill="#ff6347" opacity="0.1"/>
+        </g>
+      
+
+    <!-- Light patterns connecting eggs -->
+    <g opacity="0.5">
+      <line x1="400" y1="130" x2="460" y2="146.07695154586736" stroke="#ffeb3b" stroke-width="2"/><line x1="460" y1="146.07695154586736" x2="503.92304845413264" y2="190" stroke="#ffeb3b" stroke-width="2"/><line x1="503.92304845413264" y1="190" x2="520" y2="250" stroke="#ffeb3b" stroke-width="2"/><line x1="520" y1="250" x2="503.92304845413264" y2="310" stroke="#ffeb3b" stroke-width="2"/><line x1="503.92304845413264" y1="310" x2="460" y2="353.92304845413264" stroke="#ffeb3b" stroke-width="2"/><line x1="460" y1="353.92304845413264" x2="400" y2="370" stroke="#ffeb3b" stroke-width="2"/><line x1="400" y1="370" x2="340" y2="353.92304845413264" stroke="#ffeb3b" stroke-width="2"/><line x1="340" y1="353.92304845413264" x2="296.07695154586736" y2="310" stroke="#ffeb3b" stroke-width="2"/><line x1="296.07695154586736" y1="310" x2="280" y2="250.00000000000003" stroke="#ffeb3b" stroke-width="2"/><line x1="280" y1="250.00000000000003" x2="296.07695154586736" y2="190" stroke="#ffeb3b" stroke-width="2"/><line x1="296.07695154586736" y1="190" x2="339.99999999999994" y2="146.0769515458674" stroke="#ffeb3b" stroke-width="2"/><line x1="339.99999999999994" y1="146.0769515458674" x2="400" y2="130" stroke="#ffeb3b" stroke-width="2"/>
+    </g>
+
+    <!-- Center celebration -->
+    <text x="400" y="250" text-anchor="middle" font-size="72" fill="#ffeb3b" font-weight="bold">12</text>
+
+    <!-- Characters celebrating -->
+    <g transform="translate(250, 400)">
+      <ellipse cx="0" cy="0" rx="20" ry="16" fill="#000000"/>
+      <text x="0" y="-25" font-size="20">🎉</text>
+    </g>
+    <g transform="translate(350, 400)">
+      <ellipse cx="0" cy="0" rx="22" ry="18" fill="#8B4513"/>
+      <text x="0" y="-25" font-size="20">🎊</text>
+    </g>
+    <g transform="translate(450, 400)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#ffffff"/>
+      <text x="0" y="-25" font-size="20">🌟</text>
+    </g>
+    <g transform="translate(550, 400)">
+      <ellipse cx="0" cy="0" rx="18" ry="14" fill="#ff8c00"/>
+      <text x="0" y="-25" font-size="20">✨</text>
+    </g>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Brilliant! 12 magical eggs! As soon as they counted to 12, the eggs began to float and dance in the air, creating beautiful patterns of light against the night sky. 'You did it!' cheered the Easter Bunny.</p>
+                    <span class="page-counter">Page 14 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 15 -->
+            <div class="story-page" id="page-15" data-math-problem="15">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Shooting stars scene -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Multiple shooting stars -->
+    
+        <g>
+          <line x1="100" y1="50" x2="160" y2="110"
+                stroke="url(#starGradient0)" stroke-width="3"/>
+          <circle cx="100" cy="50" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient0" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="180" y1="80" x2="240" y2="140"
+                stroke="url(#starGradient1)" stroke-width="3"/>
+          <circle cx="180" cy="80" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="260" y1="50" x2="320" y2="110"
+                stroke="url(#starGradient2)" stroke-width="3"/>
+          <circle cx="260" cy="50" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="340" y1="80" x2="400" y2="140"
+                stroke="url(#starGradient3)" stroke-width="3"/>
+          <circle cx="340" cy="80" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="420" y1="50" x2="480" y2="110"
+                stroke="url(#starGradient4)" stroke-width="3"/>
+          <circle cx="420" cy="50" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="500" y1="80" x2="560" y2="140"
+                stroke="url(#starGradient5)" stroke-width="3"/>
+          <circle cx="500" cy="80" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="580" y1="50" x2="640" y2="110"
+                stroke="url(#starGradient6)" stroke-width="3"/>
+          <circle cx="580" cy="50" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+        <g>
+          <line x1="660" y1="80" x2="720" y2="140"
+                stroke="url(#starGradient7)" stroke-width="3"/>
+          <circle cx="660" cy="80" r="5" fill="#ffeb3b"/>
+        </g>
+        <defs>
+          <linearGradient id="starGradient7" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      
+
+    <!-- Four friends making wishes -->
+    <g transform="translate(200, 350)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#000000"/>
+      <text x="0" y="-35" font-size="24">🌟🌟</text>
+    </g>
+
+    <g transform="translate(333, 350)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#8B4513"/>
+      <ellipse cx="-8" cy="0" rx="10" ry="15" fill="#ffffff"/>
+      <text x="0" y="-35" font-size="24">🌟🌟</text>
+    </g>
+
+    <g transform="translate(466, 350)">
+      <ellipse cx="0" cy="0" rx="32" ry="25" fill="#ffffff"/>
+      <text x="0" y="-40" font-size="24">🌟🌟</text>
+    </g>
+
+    <g transform="translate(600, 350)">
+      <ellipse cx="0" cy="0" rx="22" ry="18" fill="#ff8c00"/>
+      <ellipse cx="-8" cy="-3" rx="8" ry="6" fill="#ffffff"/>
+      <ellipse cx="6" cy="3" rx="6" ry="5" fill="#000000"/>
+      <text x="0" y="-35" font-size="24">🌟🌟</text>
+    </g>
+
+    <!-- Math equation -->
+    <text x="400" y="200" text-anchor="middle" font-size="36" fill="#ffffff">4 friends × 2 wishes</text>
+    <text x="400" y="250" text-anchor="middle" font-size="48" fill="#ffeb3b" font-weight="bold">4 + 4 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>The magical eggs transformed into shooting stars! 'Make a wish!' said the Easter Bunny. If each friend makes 2 wishes, how many wishes total? 4 friends × 2 wishes = 4 + 4 = ?</p>
+                    <span class="page-counter">Page 15 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 16 -->
+            <div class="story-page" id="page-16" data-math-problem="16">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Golden egg sharing -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Easter Bunny with golden egg -->
+    <g transform="translate(400, 150)">
+      <ellipse cx="0" cy="0" rx="35" ry="45" fill="#ffffff"/>
+      <circle cx="0" cy="-35" r="25" fill="#ffffff"/>
+
+      <!-- Golden egg glowing -->
+      <ellipse cx="0" cy="20" rx="25" ry="35" fill="#ffd700"/>
+      <ellipse cx="0" cy="20" rx="30" ry="40" fill="#ffd700" opacity="0.5"/>
+      <ellipse cx="0" cy="20" rx="35" ry="45" fill="#ffd700" opacity="0.3"/>
+    </g>
+
+    <!-- Four pieces visualization -->
+    <g transform="translate(400, 300)">
+      <!-- Whole egg divided -->
+      <g transform="translate(-150, 0)">
+        <path d="M 0 -30 Q -20 0 0 30 Q 20 0 0 -30" fill="#ffd700" stroke="#ffaa00" stroke-width="2"/>
+        <text x="0" y="0" text-anchor="middle" font-size="16" fill="#8b4513">1</text>
+      </g>
+      <g transform="translate(-50, 0)">
+        <path d="M 0 -30 Q -20 0 0 30 Q 20 0 0 -30" fill="#ffd700" stroke="#ffaa00" stroke-width="2"/>
+        <text x="0" y="0" text-anchor="middle" font-size="16" fill="#8b4513">2</text>
+      </g>
+      <g transform="translate(50, 0)">
+        <path d="M 0 -30 Q -20 0 0 30 Q 20 0 0 -30" fill="#ffd700" stroke="#ffaa00" stroke-width="2"/>
+        <text x="0" y="0" text-anchor="middle" font-size="16" fill="#8b4513">3</text>
+      </g>
+      <g transform="translate(150, 0)">
+        <path d="M 0 -30 Q -20 0 0 30 Q 20 0 0 -30" fill="#ffd700" stroke="#ffaa00" stroke-width="2"/>
+        <text x="0" y="0" text-anchor="middle" font-size="16" fill="#8b4513">4</text>
+      </g>
+    </g>
+
+    <!-- Math problem -->
+    <text x="400" y="400" text-anchor="middle" font-size="36" fill="#ffffff">Give away 3 pieces:</text>
+    <text x="400" y="450" text-anchor="middle" font-size="48" fill="#ffeb3b" font-weight="bold">4 - 3 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Wonderful! 8 wishes flew into the night sky! The Easter Bunny pulled out a special golden egg. 'This is for you to share. If you divide it into 4 equal pieces, each friend gets one piece. 4 - 3 = ? piece left after giving 3 away!'</p>
+                    <span class="page-counter">Page 16 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 17 -->
+            <div class="story-page" id="page-17" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Golden star formation -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Four friends holding pieces that form a star -->
+    <g transform="translate(400, 250)">
+      <!-- Star formation from pieces -->
+      <polygon points="0,-80 20,-20 80,-10 30,20 40,80 0,40 -40,80 -30,20 -80,-10 -20,-20"
+               fill="#ffd700" stroke="#ffaa00" stroke-width="3"/>
+      <polygon points="0,-60 15,-15 60,-7 22,15 30,60 0,30 -30,60 -22,15 -60,-7 -15,-15"
+               fill="#ffeb3b" opacity="0.8"/>
+    </g>
+
+    <!-- Light rays -->
+    <line x1="400" y1="250" x2="600" y2="250" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="573.2050807568878" y2="350" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="500" y2="423.2050807568877" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="400" y2="450" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="300.00000000000006" y2="423.20508075688775" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="226.79491924311225" y2="350" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="200" y2="250.00000000000003" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="226.79491924311228" y2="149.99999999999997" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="299.9999999999999" y2="76.7949192431123" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="399.99999999999994" y2="50" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="500" y2="76.79491924311228" stroke="#ffd700" stroke-width="2" opacity="0.3"/><line x1="400" y1="250" x2="573.2050807568877" y2="149.99999999999991" stroke="#ffd700" stroke-width="2" opacity="0.3"/>
+
+    <!-- Friends around the star -->
+    <g transform="translate(300, 350)">
+      <ellipse cx="0" cy="0" rx="20" ry="16" fill="#000000"/>
+    </g>
+    <g transform="translate(500, 350)">
+      <ellipse cx="0" cy="0" rx="22" ry="18" fill="#8B4513"/>
+    </g>
+    <g transform="translate(300, 150)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#ffffff"/>
+    </g>
+    <g transform="translate(500, 150)">
+      <ellipse cx="0" cy="0" rx="18" ry="14" fill="#ff8c00"/>
+    </g>
+
+    <!-- Success message -->
+    <text x="400" y="450" text-anchor="middle" font-size="32" fill="#4CAF50" font-weight="bold">Perfect! 1 piece each!</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Perfect! 1 piece left for the last friend! The Easter Bunny gave each friend their piece of the golden egg. When they held them up together, they formed a beautiful star that lit up the whole farm for a moment.</p>
+                    <span class="page-counter">Page 17 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 18 -->
+            <div class="story-page" id="page-18" data-math-problem="18">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Easter Bunny with treats -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#nightSkyGradient)"/>
+
+    <!-- Easter Bunny with treat bag -->
+    <g transform="translate(400, 200)">
+      <ellipse cx="0" cy="0" rx="40" ry="50" fill="#ffffff"/>
+      <circle cx="0" cy="-40" r="28" fill="#ffffff"/>
+
+      <!-- Giggling expression -->
+      <circle cx="-10" cy="-40" r="4" fill="#ff69b4"/>
+      <circle cx="10" cy="-40" r="4" fill="#ff69b4"/>
+      <path d="M -15 -30 Q 0 -20 15 -30" stroke="#ff69b4" stroke-width="3" fill="none"/>
+
+      <!-- Treat bag -->
+      <rect x="-30" y="20" width="60" height="50" fill="#9370db" stroke="#663399" stroke-width="3" rx="5"/>
+      <text x="0" y="45" text-anchor="middle" font-size="24" fill="#ffffff">10</text>
+    </g>
+
+    <!-- Three eaten treats floating away -->
+    <g opacity="0.5">
+      <circle cx="250" cy="150" r="12" fill="#ff69b4"/>
+      <circle cx="300" cy="100" r="12" fill="#87ceeb"/>
+      <circle cx="350" cy="130" r="12" fill="#98fb98"/>
+      <text x="300" y="80" text-anchor="middle" font-size="20" fill="#ffffff">Yum!</text>
+    </g>
+
+    <!-- Visual math -->
+    <g transform="translate(400, 350)">
+      <!-- 10 treats -->
+      <circle cx="-100" cy="0" r="15" fill="#ffd700" opacity="1"/><circle cx="-60" cy="0" r="15" fill="#ffd700" opacity="1"/><circle cx="-20" cy="0" r="15" fill="#ffd700" opacity="1"/><circle cx="20" cy="0" r="15" fill="#ffd700" opacity="1"/><circle cx="60" cy="0" r="15" fill="#ffd700" opacity="1"/><circle cx="-100" cy="40" r="15" fill="#ffd700" opacity="1"/><circle cx="-60" cy="40" r="15" fill="#ffd700" opacity="1"/><circle cx="-20" cy="40" r="15" fill="#ffd700" opacity="0.3"/><circle cx="20" cy="40" r="15" fill="#ffd700" opacity="0.3"/><circle cx="60" cy="40" r="15" fill="#ffd700" opacity="0.3"/>
+    </g>
+
+    <!-- Math equation -->
+    <text x="400" y="450" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">10 - 3 = ?</text>
+
+    <defs>
+      <linearGradient id="nightSkyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a0a2e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a2f4a;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>The Easter Bunny had one last surprise. 'I brought 10 special treats, but I ate 3 on the way here!' He giggled. 'How many are left for you?' Can you solve 10 - 3?</p>
+                    <span class="page-counter">Page 18 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 19 -->
+            <div class="story-page" id="page-19" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Dawn approaching scene -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#dawnGradient)"/>
+
+    <!-- Rising sun on horizon -->
+    <circle cx="400" cy="500" r="150" fill="#ffaa00" opacity="0.6"/>
+    <circle cx="400" cy="500" r="120" fill="#ffd700" opacity="0.8"/>
+
+    <!-- Friends sharing treats -->
+    <g transform="translate(400, 300)">
+      <!-- Treat basket -->
+      <rect x="-40" y="-20" width="80" height="40" fill="#8b4513" stroke="#654321" stroke-width="2" rx="5"/>
+      <circle cx="-30" cy="-10" r="8" fill="#ffd700"/><circle cx="-10" cy="-10" r="8" fill="#ffd700"/><circle cx="10" cy="-10" r="8" fill="#ffd700"/><circle cx="30" cy="-10" r="8" fill="#ffd700"/><circle cx="-30" cy="5" r="8" fill="#ffd700"/><circle cx="-10" cy="5" r="8" fill="#ffd700"/><circle cx="10" cy="5" r="8" fill="#ffd700"/>
+    </g>
+
+    <!-- Friends gathered -->
+    <g transform="translate(250, 320)">
+      <ellipse cx="0" cy="0" rx="25" ry="20" fill="#000000"/>
+    </g>
+    <g transform="translate(350, 320)">
+      <ellipse cx="0" cy="0" rx="28" ry="22" fill="#8B4513"/>
+    </g>
+    <g transform="translate(450, 320)">
+      <ellipse cx="0" cy="0" rx="32" ry="25" fill="#ffffff"/>
+    </g>
+    <g transform="translate(550, 320)">
+      <ellipse cx="0" cy="0" rx="22" ry="18" fill="#ff8c00"/>
+    </g>
+
+    <!-- Saving 3 treats message -->
+    <g transform="translate(400, 200)">
+      <rect x="-80" y="-25" width="160" height="50" fill="white" stroke="#333" stroke-width="2" rx="10" opacity="0.9"/>
+      <text x="0" y="0" text-anchor="middle" font-size="16" fill="#333">Saving 3 for tomorrow!</text>
+    </g>
+
+    <!-- Answer -->
+    <text x="400" y="450" text-anchor="middle" font-size="48" fill="#4CAF50" font-weight="bold">7 treats!</text>
+
+    <defs>
+      <linearGradient id="dawnGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#1a2f4a;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#4a5f7a;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#ff9950;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>Excellent! 7 treats! But the kind friends decided to save 3 treats for tomorrow to share with other farm animals. 'You are so thoughtful!' said the Easter Bunny, his heart full of joy. The sky was starting to lighten - dawn was coming!</p>
+                    <span class="page-counter">Page 19 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 20 -->
+            <div class="story-page" id="page-20" >
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    
+    <!-- Sunrise farewell scene -->
+    <rect x="0" y="0" width="800" height="500" fill="url(#sunriseGradient)"/>
+
+    <!-- Full sunrise -->
+    <circle cx="400" cy="400" r="200" fill="#ffcc00" opacity="0.4"/>
+    <circle cx="400" cy="400" r="150" fill="#ffd700" opacity="0.6"/>
+    <circle cx="400" cy="400" r="100" fill="#ffeb3b" opacity="0.8"/>
+
+    <!-- Easter Bunny hugging friends -->
+    <g transform="translate(400, 250)">
+      <!-- Group hug circle -->
+      <ellipse cx="0" cy="0" rx="120" ry="80" fill="#ffffff" opacity="0.3"/>
+
+      <!-- Easter Bunny -->
+      <ellipse cx="0" cy="-20" rx="35" ry="45" fill="#ffffff"/>
+      <circle cx="0" cy="-50" r="25" fill="#ffffff"/>
+
+      <!-- Friends in hug -->
+      <ellipse cx="-40" cy="10" rx="20" ry="16" fill="#000000"/>
+      <ellipse cx="-20" cy="15" rx="22" ry="18" fill="#8B4513"/>
+      <ellipse cx="20" cy="15" rx="25" ry="20" fill="#ffffff"/>
+      <ellipse cx="40" cy="10" rx="18" ry="14" fill="#ff8c00"/>
+
+      <!-- Hearts floating up -->
+      <text x="-40" y="-80" font-size="20" fill="#ff69b4">❤️</text><text x="-20" y="-90" font-size="20" fill="#ff69b4">❤️</text><text x="0" y="-100" font-size="20" fill="#ff69b4">❤️</text><text x="20" y="-110" font-size="20" fill="#ff69b4">❤️</text><text x="40" y="-120" font-size="20" fill="#ff69b4">❤️</text>
+    </g>
+
+    <!-- Morning mist -->
+    <ellipse cx="400" cy="480" rx="400" ry="40" fill="#ffffff" opacity="0.4"/>
+    <ellipse cx="200" cy="470" rx="150" ry="30" fill="#ffffff" opacity="0.3"/>
+    <ellipse cx="600" cy="470" rx="150" ry="30" fill="#ffffff" opacity="0.3"/>
+
+    <!-- Final message -->
+    <text x="400" y="100" text-anchor="middle" font-size="28" fill="#4a3020" font-weight="bold">Math is everywhere!</text>
+    <text x="400" y="140" text-anchor="middle" font-size="20" fill="#6a4030">Even in magical midnight adventures!</text>
+
+    <defs>
+      <linearGradient id="sunriseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#87ceeb;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#ffd4a3;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#ffeb3b;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  
+                </svg>
+                <div class="page-text">
+                    <p>As the first rays of sun appeared, the Easter Bunny gave each friend a warm hug. 'Thank you for helping with the midnight math mission! Remember, math is everywhere - even in magical midnight adventures!' And with a hop and a wave, he disappeared into the morning mist. The friends went back to bed with happy hearts, ready to dream about their mathematical midnight adventure!</p>
+                    <span class="page-counter">Page 20 of 20</span>
+                </div>
+            </div>
+            <!-- ... -->
+
+        </main>
+
+        <!-- Math Problem Overlay -->
+        <div id="math-problem" class="math-problem">
+            <div class="math-question" id="math-question"></div>
+            <div class="math-equation" id="math-equation"></div>
+            <div>
+                <input type="number" id="math-answer" class="math-input" min="0" max="99">
+            </div>
+            <div class="math-buttons">
+                <button class="math-btn" onclick="checkAnswer()">Check Answer</button>
+                <button class="math-btn" onclick="showHint()">Hint</button>
+            </div>
+            <div class="math-feedback" id="math-feedback"></div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <button id="prev-btn" class="nav-button prev" onclick="mathStoryEngine.prevPage()" title="Previous page">←</button>
+        <button id="next-btn" class="nav-button next" onclick="mathStoryEngine.nextPage()" title="Next page">→</button>
+    </div>
+
+    <!-- Story Engine Library -->
+    <script src="../js/story-engine.js"></script>
+    <script src="../js/svg-library.js"></script>
+
+    <!-- Math Story Logic -->
+    <script>
+        // Math problems for each page
+        const mathProblems = {
+            3: { question: "How many friends are awake?", equation: "1 + 1 + 1 + 1 = ?", answer: 4, hint: "Count each friend: Luna, Heidi, Randy, and Morphée" },
+            5: { question: "How many eggs total?", equation: "2 + 3 = ?", answer: 5, hint: "Start with 2, then add 3 more" },
+            6: { question: "How many eggs does Heidi have?", equation: "3 - 1 = ?", answer: 2, hint: "She had 3, but 1 rolled away" },
+            8: { question: "How many eggs will Luna have?", equation: "1 + 2 = ?", answer: 3, hint: "Luna has 1 and gets 2 more" },
+            9: { question: "How many eggs are still in the tree?", equation: "6 - 4 = ?", answer: 2, hint: "There were 6, Morphée took 4" },
+            11: { question: "Luna and Heidi's eggs together?", equation: "3 + 3 = ?", answer: 6, hint: "Both have 3 eggs each" },
+            12: { question: "Randy and Morphée's eggs?", equation: "2 + 4 = ?", answer: 6, hint: "Randy has 2, Morphée has 4" },
+            13: { question: "Total eggs collected?", equation: "6 + 6 = ?", answer: 12, hint: "First group has 6, second group has 6" },
+            15: { question: "How many wishes total?", equation: "4 + 4 = ?", answer: 8, hint: "4 friends, each makes 2 wishes" },
+            16: { question: "Pieces left after sharing 3?", equation: "4 - 3 = ?", answer: 1, hint: "You have 4 pieces, give away 3" },
+            18: { question: "How many treats left?", equation: "10 - 3 = ?", answer: 7, hint: "Started with 10, ate 3" }
+        };
+
+        let currentProblem = null;
+        let problemSolved = {};
+
+        // Extended Story Engine for Math
+        class MathStoryEngine extends StoryEngine {
+            constructor(config) {
+                super(config);
+                this.mathEnabled = true;
+            }
+
+            showPage(pageNum) {
+                super.showPage(pageNum);
+
+                // Check if this page has a math problem
+                if (mathProblems[pageNum] && !problemSolved[pageNum]) {
+                    setTimeout(() => {
+                        showMathProblem(pageNum);
+                    }, 2000); // Show problem after 2 seconds
+                }
+            }
+
+            nextPage() {
+                // Check if current page has unsolved math problem
+                if (mathProblems[this.currentPage] && !problemSolved[this.currentPage]) {
+                    showMathProblem(this.currentPage);
+                    return; // Don't advance until problem is solved
+                }
+                super.nextPage();
+            }
+        }
+
+        // Initialize story engine
+        const mathStoryEngine = new MathStoryEngine({
+            title: '🌙 The Easter Bunny\'s Midnight Math Mystery 🔢',
+            totalPages: 20,
+            audioEnabled: true,
+            audioPath: 'audio/midnight-math',
+            eggHuntEnabled: false,
+            pageTransitionSound: true
+        });
+
+        function showMathProblem(pageNum) {
+            currentProblem = pageNum;
+            const problem = mathProblems[pageNum];
+
+            document.getElementById('math-question').textContent = problem.question;
+            document.getElementById('math-equation').textContent = problem.equation;
+            document.getElementById('math-answer').value = '';
+            document.getElementById('math-feedback').textContent = '';
+            document.getElementById('math-feedback').className = 'math-feedback';
+            document.getElementById('math-problem').classList.add('active');
+
+            // Focus on input
+            setTimeout(() => {
+                document.getElementById('math-answer').focus();
+            }, 500);
+        }
+
+        function checkAnswer() {
+            if (!currentProblem) return;
+
+            const userAnswer = parseInt(document.getElementById('math-answer').value);
+            const correctAnswer = mathProblems[currentProblem].answer;
+            const feedback = document.getElementById('math-feedback');
+
+            if (userAnswer === correctAnswer) {
+                feedback.textContent = '🌟 Correct! Great job! 🌟';
+                feedback.className = 'math-feedback correct';
+                problemSolved[currentProblem] = true;
+
+                // Create star celebration
+                createStarCelebration();
+
+                // Hide problem and continue after delay
+                setTimeout(() => {
+                    document.getElementById('math-problem').classList.remove('active');
+                    if (currentProblem < 20) {
+                        mathStoryEngine.nextPage();
+                    }
+                }, 2000);
+            } else {
+                feedback.textContent = 'Not quite right. Try again!';
+                feedback.className = 'math-feedback incorrect';
+
+                // Clear input for retry
+                setTimeout(() => {
+                    document.getElementById('math-answer').value = '';
+                    document.getElementById('math-answer').focus();
+                }, 1000);
+            }
+        }
+
+        function showHint() {
+            if (!currentProblem) return;
+
+            const hint = mathProblems[currentProblem].hint;
+            const feedback = document.getElementById('math-feedback');
+            feedback.textContent = '💡 Hint: ' + hint;
+            feedback.className = 'math-feedback';
+        }
+
+        function createStarCelebration() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const star = document.createElement('div');
+                    star.innerHTML = '⭐';
+                    star.className = 'star-celebration';
+                    star.style.left = (45 + Math.random() * 10) + '%';
+                    star.style.top = '50%';
+                    star.style.fontSize = (2 + Math.random() * 2) + 'rem';
+                    document.body.appendChild(star);
+
+                    setTimeout(() => star.remove(), 2000);
+                }, i * 100);
+            }
+        }
+
+        // Handle Enter key for answer submission
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('math-answer').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+        });
+    </script>
+
+    <!-- Generate Page SVGs -->
+    <script>
+        // This will be filled in with actual SVG generation
+        document.addEventListener('DOMContentLoaded', () => {
+            generateAllPageIllustrations();
+        });
+
+        function generateAllPageIllustrations() {
+            // We'll generate these using the SVG library
+            // For now, adding placeholder
+        }
+    </script>
+</body>
+</html>

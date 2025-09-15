@@ -1,0 +1,128 @@
+{
+  "title": "The Magical Garden Adventure",
+  "description": "Join Luna and friends as they discover a secret magical garden",
+  "author": "Sage Stories",
+  "targetAge": "3-7",
+  "totalPages": 20,
+  "features": {
+    "audioEnabled": true,
+    "audioVoice": "nova",
+    "audioSpeed": 0.95,
+    "eggHuntEnabled": true,
+    "totalEggs": 15,
+    "pageTransitionSound": true,
+    "keyboardNavigation": true
+  },
+  "characters": [
+    {
+      "name": "Luna",
+      "description": "Playful black puppy",
+      "color": "#2a2a2a",
+      "traits": ["playful", "curious", "friendly"]
+    },
+    {
+      "name": "Heidi",
+      "description": "German Shorthaired Pointer",
+      "color": "#8b4513",
+      "traits": ["adventurous", "messy", "swimmer"]
+    },
+    {
+      "name": "Randy",
+      "description": "White fluffy Samoyed",
+      "color": "#ffffff",
+      "traits": ["loud", "enthusiastic", "fluffy"]
+    },
+    {
+      "name": "Morphée",
+      "description": "Calico cat",
+      "colors": ["#ff8c00", "#000000", "#ffffff"],
+      "traits": ["mischievous", "clever", "climber"]
+    }
+  ],
+  "pages": [
+    {
+      "number": 1,
+      "text": "On a sunny morning, Luna discovered a hidden gate in the garden fence. 'Look everyone!' she barked excitedly. 'I found something amazing!'",
+      "scene": {
+        "time": "morning",
+        "location": "garden",
+        "weather": "sunny",
+        "elements": ["fence", "gate", "flowers", "sun"]
+      },
+      "eggs": [
+        {"x": 150, "y": 380, "color": "#FFB6C1"},
+        {"x": 650, "y": 370, "color": "#98FB98"}
+      ]
+    },
+    {
+      "number": 2,
+      "text": "Behind the gate was the most beautiful garden they had ever seen! Flowers of every color imaginable sparkled with morning dew.",
+      "scene": {
+        "time": "morning",
+        "location": "magical_garden",
+        "elements": ["colorful_flowers", "butterflies", "sparkling_dew"]
+      },
+      "eggs": [
+        {"x": 400, "y": 360, "color": "#FFD700"}
+      ]
+    }
+  ],
+  "themes": {
+    "backgroundColor": {
+      "start": "#667eea",
+      "end": "#764ba2"
+    },
+    "textBackground": "rgba(255, 255, 255, 0.95)",
+    "accentColor": "#667eea",
+    "fontFamily": "'Comic Sans MS', 'Segoe UI', sans-serif"
+  },
+  "audioSettings": {
+    "generateScript": true,
+    "apiEndpoint": "api.fuelix.ai",
+    "model": "tts-1-hd",
+    "voice": "nova",
+    "speed": 0.95,
+    "format": "mp3"
+  },
+  "svgDefaults": {
+    "viewBox": "0 0 800 500",
+    "skyHeight": 350,
+    "groundHeight": 150,
+    "skyColor": "#87CEEB",
+    "groundColor": "#90EE90",
+    "sunPosition": {"x": 700, "y": 80},
+    "sunRadius": 40,
+    "sunColor": "#FFD700"
+  },
+  "interactiveElements": [
+    {
+      "type": "egg",
+      "totalCount": 15,
+      "colors": ["#FFB6C1", "#98FB98", "#FFD700", "#DDA0DD", "#87CEEB"],
+      "size": {"rx": 15, "ry": 20},
+      "animation": "wiggle",
+      "sound": "collect"
+    },
+    {
+      "type": "butterfly",
+      "behavior": "float",
+      "clickable": false,
+      "decorative": true
+    }
+  ],
+  "generation": {
+    "template": "story-template.html",
+    "outputPath": "docs/stories/magical-garden.html",
+    "audioOutputPath": "docs/stories/audio/",
+    "generateTTS": true,
+    "generateIllustrations": false,
+    "illustrationStyle": "simple_svg"
+  },
+  "metadata": {
+    "created": "2024-01-15",
+    "lastModified": "2024-01-15",
+    "version": "1.0.0",
+    "language": "en",
+    "tags": ["adventure", "friendship", "discovery", "garden", "magic"]
+  }
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[STORY_TITLE] - Sage Stories</title>
+
+    <!-- Shared Story Styles -->
+    <link rel="stylesheet" href="../css/story-styles.css">
+
+    <!-- Custom Story Styles (optional) -->
+    <style>
+        /* Add any story-specific styles here */
+
+        /* Example: Custom background gradient */
+        /*
+        .story-body {
+            background: linear-gradient(135deg, #your-color-1 0%, #your-color-2 100%);
+        }
+        */
+    </style>
+</head>
+<body class="story-body">
+    <div class="story-container">
+        <!-- Audio Control Button -->
+        <button id="audio-btn" class="audio-control" title="Play narration">🔊</button>
+        <audio id="page-audio" preload="auto"></audio>
+
+        <!-- Home Button -->
+        <a href="../index.html" class="home-button">← Back</a>
+
+        <!-- Story Header -->
+        <header class="story-header">
+            <h1 class="story-title">📖 [STORY_TITLE] 📖</h1>
+            <!-- Optional: Egg counter for interactive egg hunts -->
+            <div id="egg-counter" style="display: none;">Eggs Found: <span id="egg-count">0</span>/0</div>
+        </header>
+
+        <!-- Main Story Content -->
+        <main>
+            <!--
+            ========================================
+            STORY PAGES
+            ========================================
+            Replace the content below with your story pages.
+            Each page should follow this structure:
+
+            <div class="story-page [active]" id="page-[NUMBER]">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    [YOUR SVG ILLUSTRATION]
+                </svg>
+                <div class="page-text">
+                    <p>[YOUR STORY TEXT]</p>
+                    <span class="page-counter">Page [NUMBER] of [TOTAL]</span>
+                </div>
+            </div>
+
+            Note: Only the first page should have the "active" class
+            ========================================
+            -->
+
+            <!-- Page 1 -->
+            <div class="story-page active" id="page-1">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background -->
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <!-- Sun -->
+                    <circle cx="700" cy="80" r="40" fill="#FFD700"/>
+
+                    <!-- Clouds -->
+                    <ellipse cx="150" cy="80" rx="40" ry="20" fill="white" opacity="0.8"/>
+                    <ellipse cx="180" cy="80" rx="50" ry="25" fill="white" opacity="0.8"/>
+
+                    <!-- Example character placeholder -->
+                    <circle cx="400" cy="300" r="50" fill="#8B4513"/>
+                    <text x="400" y="310" text-anchor="middle" font-size="20" fill="white">Character</text>
+
+                    <!-- Optional: Interactive egg (remove if not using egg hunt) -->
+                    <!-- <ellipse class="egg" cx="200" cy="380" rx="15" ry="20" fill="#FFB6C1" onclick="storyEngine.collectEgg(this)"/> -->
+                </svg>
+                <div class="page-text">
+                    <p>Once upon a time... [Your story begins here]</p>
+                    <span class="page-counter">Page 1 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="story-page" id="page-2">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Your illustration here -->
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <text x="400" y="250" text-anchor="middle" font-size="30" fill="#333">Page 2 Illustration</text>
+                </svg>
+                <div class="page-text">
+                    <p>[Continue your story here...]</p>
+                    <span class="page-counter">Page 2 of 20</span>
+                </div>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="story-page" id="page-3">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Your illustration here -->
+                    <rect width="800" height="350" fill="#87CEEB"/>
+                    <rect y="350" width="800" height="150" fill="#90EE90"/>
+
+                    <text x="400" y="250" text-anchor="middle" font-size="30" fill="#333">Page 3 Illustration</text>
+                </svg>
+                <div class="page-text">
+                    <p>[Continue your story here...]</p>
+                    <span class="page-counter">Page 3 of 20</span>
+                </div>
+            </div>
+
+            <!--
+            Add more pages as needed...
+            Remember to update:
+            - Total page count in configuration
+            - Page counter text on each page
+            - Audio files in the audio/ directory (page-1.mp3, page-2.mp3, etc.)
+            -->
+
+            <!-- Final Page (Example: Page 20) -->
+            <div class="story-page" id="page-20">
+                <svg class="page-illustration" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Night sky for ending -->
+                    <rect width="800" height="350" fill="#191970"/>
+                    <rect y="350" width="800" height="150" fill="#1a4d1a"/>
+
+                    <!-- Stars -->
+                    <circle cx="100" cy="50" r="2" fill="white"/>
+                    <circle cx="200" cy="80" r="2" fill="white"/>
+                    <circle cx="300" cy="40" r="2" fill="white"/>
+                    <circle cx="500" cy="60" r="2" fill="white"/>
+                    <circle cx="700" cy="90" r="2" fill="white"/>
+
+                    <!-- Moon -->
+                    <circle cx="650" cy="80" r="30" fill="#F0E68C"/>
+
+                    <text x="400" y="250" text-anchor="middle" font-size="30" fill="white">The End</text>
+                </svg>
+                <div class="page-text">
+                    <p>And they all lived happily ever after. The End!</p>
+                    <span class="page-counter">Page 20 of 20</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Controls -->
+        <button id="prev-btn" class="nav-button prev" onclick="storyEngine.prevPage()" title="Previous page">←</button>
+        <button id="next-btn" class="nav-button next" onclick="storyEngine.nextPage()" title="Next page">→</button>
+    </div>
+
+    <!-- Story Engine Library -->
+    <script src="../js/story-engine.js"></script>
+
+    <!-- Story Configuration and Initialization -->
+    <script>
+        // Configure your story
+        const storyConfig = {
+            title: '📖 [STORY_TITLE] 📖',
+            totalPages: 20, // Update this to match your actual page count
+            audioEnabled: true, // Set to false to disable audio
+            audioPath: 'audio/', // Path to audio files
+            eggHuntEnabled: false, // Set to true to enable egg collection
+            totalEggs: 0, // Number of eggs to collect (if enabled)
+            pageTransitionSound: true // Set to false to disable page turn sound
+        };
+
+        // Initialize the story engine
+        const storyEngine = new StoryEngine(storyConfig);
+
+        // Optional: Add custom event listeners
+        document.addEventListener('story:pagechange', (e) => {
+            console.log('Page changed to:', e.detail.page);
+            // Add any custom page change logic here
+        });
+
+        document.addEventListener('story:eggCollected', (e) => {
+            console.log('Eggs collected:', e.detail.count);
+            // Add any custom egg collection logic here
+        });
+
+        document.addEventListener('story:allEggsCollected', (e) => {
+            console.log('All eggs collected!');
+            // Add any custom celebration logic here
+        });
+    </script>
+
+    <!-- Optional: Custom Story JavaScript -->
+    <script>
+        // Add any story-specific JavaScript here
+        // For example, custom animations or interactions
+    </script>
+</body>
+</html>
