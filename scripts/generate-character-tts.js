@@ -18,6 +18,10 @@ const FUELIX_AUTH_TOKEN = authTokenMatch[1];
 
 // Character descriptions for TTS generation
 const characterDescriptions = {
+    'sage': {
+        name: 'Sage',
+        text: 'Hi! I\'m Sage! I\'m a curious little girl with a big imagination. come join me and my animal friends on our adventures!'
+    },
     'luna': {
         name: 'Luna',
         text: 'Hi! I\'m Luna, a playful black puppy who loves toys! I have soft, fuzzy black fur and I love to play fetch with my red ball. Want to play with me?'

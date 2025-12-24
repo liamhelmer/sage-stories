@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa's Candy Hunt - Sage Stories</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Story-specific styles */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            /* Snowy winter background */
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+        }
+
+        .container.story-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .story-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 10px 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
+            text-align: center;
+        }
+
+        .story-header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #d32f2f;
+            /* Christmas Red */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #candy-counter {
+            font-size: 1.4rem;
+            color: #d32f2f;
+            margin: 5px 0;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 2px solid #d32f2f;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-page.active {
+            display: flex;
+        }
+
+        .page-illustration {
+            width: 100%;
+            height: 75vh;
+            object-fit: contain;
+        }
+
+        .page-text {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid #d32f2f;
+        }
+
+        .page-text p {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .page-counter {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Navigation Buttons */
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 200;
+            font-size: 2rem;
+            background: white;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: #d32f2f;
+            color: white;
+        }
+
+        .nav-button.prev {
+            left: 20px;
+        }
+
+        .nav-button.next {
+            right: 20px;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 300;
+            font-size: 1.2rem;
+            text-decoration: none;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+            font-weight: bold;
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 300;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #d32f2f;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Interactive Elements */
+        .candy-cane {
+            cursor: pointer;
+        }
+
+        .candy-cane>* {
+            transition: transform 0.2s;
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8));
+        }
+
+        .candy-cane:hover>* {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .candy-cane.collected {
+            pointer-events: none;
+        }
+
+        .candy-cane.collected>* {
+            opacity: 0;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-in;
+            transform: scale(2) translateY(-50px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Character Styles */
+        .buddy-elf {
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .sage {
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container story-container">
+        <!-- Persistent UI -->
+        <a href="../index.html" class="home-button">← Back</a>
+        <button id="audio-btn" class="audio-control">🔊</button>
+        <button class="nav-button prev" id="prev-btn" onclick="prevPage()">←</button>
+        <button class="nav-button next" id="next-btn" onclick="nextPage()">→</button>
+
+        <header class="story-header">
+            <h1>🎅 Santa's Candy Hunt 🍬</h1>
+            <div id="candy-counter">Candy Canes: <span id="candy-count">0</span>/20</div>
+        </header>
+
+        <!-- Hidden Audio Element -->
+        <audio id="story-audio"></audio>
+
+        <main>
+            <!-- SHARED DEFS FOR SVGs -->
+            <svg width="0" height="0" style="position: absolute;">
+                <defs>
+                    <!-- Background Patterns -->
+                    <linearGradient id="snowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#e3f2fd;stop-opacity:1" />
+                    </linearGradient>
+
+                    <!-- 1. BUDDY THE ELF -->
+                    <g id="buddy-character">
+                        <!-- Legs -->
+                        <rect x="-10" y="30" width="8" height="20" fill="#fdd835" /> <!-- Yellow tights -->
+                        <rect x="2" y="30" width="8" height="20" fill="#fdd835" />
+                        <!-- Shoes -->
+                        <path d="M-12 50 L-4 50 L-4 45 Z" fill="#2e7d32" /> <!-- Pointy shoes -->
+                        <path d="M0 50 L12 50 L12 45 Z" fill="#2e7d32" />
+                        <!-- Body -->
+                        <path d="M-15 30 L15 30 L20 0 L-20 0 Z" fill="#4caf50" /> <!-- Green Tunic -->
+                        <path d="M-15 30 L0 35 L15 30" fill="none" stroke="#2e7d32" stroke-width="2" />
+                        <rect x="-16" y="15" width="32" height="4" fill="#212121" /> <!-- Belt -->
+                        <rect x="-4" y="14" width="8" height="6" fill="#ffd700" /> <!-- Buckle -->
+                        <!-- Collar -->
+                        <path d="M-15 0 L-8 8 L0 0 L8 8 L15 0" fill="#fff" />
+                        <!-- Head -->
+                        <circle cx="0" cy="-12" r="14" fill="#ffccbc" /> <!-- Face -->
+                        <!-- Face Features -->
+                        <circle cx="-5" cy="-14" r="1.5" fill="#333" />
+                        <circle cx="5" cy="-14" r="1.5" fill="#333" />
+                        <path d="M-3 -8 Q0 -5 3 -8" stroke="#d84315" stroke-width="1" fill="none" /> <!-- Smile -->
+                        <!-- Hat -->
+                        <path d="M-14 -20 Q0 -50 14 -20 Z" fill="#4caf50" />
+                        <rect x="-14" y="-22" width="28" height="5" fill="#fdd835" />
+                        <circle cx="0" cy="-50" r="3" fill="#d32f2f" /> <!-- Pom pom -->
+                    </g>
+
+                    <!-- 2. SAGE (4.5 yr old wise girl) -->
+                    <g id="sage-character">
+                        <!-- 2. SAGE (REFINED based on Photo) -->
+
+                        <!-- Long sandy hair behind -->
+                        <path d="M-15 -10 Q-25 20 -15 35 L15 35 Q25 20 15 -10" fill="#d2b48c" stroke="#b08d55"
+                            stroke-width="1" />
+
+                        <!-- Pants (Pink Cargo) -->
+                        <path d="M-12 50 L-10 85 L-12 90 L-4 90 L0 55 L4 90 L12 90 L10 50 Z" fill="#f48fb1" />
+                        <rect x="-14" y="60" width="4" height="6" fill="#f48fb1" stroke="#ec407a" stroke-width="0.5" />
+                        <!-- Pocket -->
+
+                        <!-- Shirt (Light Pink Long Sleeve) -->
+                        <path d="M-14 15 L-20 40 L-15 42 L-10 20 L10 20 L15 42 L20 40 L14 15 Z" fill="#f8bbd0" />
+                        <!-- Arms -->
+                        <rect x="-14" y="15" width="28" height="40" fill="#f8bbd0" rx="2" /> <!-- Torso -->
+
+                        <!-- Butterflies on Shirt -->
+                        <g transform="translate(0, 25) scale(0.15)">
+                            <path d="M-10 0 Q-20 -10 -10 -20 Q0 -10 -10 0" fill="#ba68c8" />
+                            <path d="M10 0 Q20 -10 10 -20 Q0 -10 10 0" fill="#ba68c8" />
+                            <path d="M-25 0 Q-35 -10 -25 -20 Q-15 -10 -25 0" fill="#ff7043" />
+                            <path d="M25 0 Q35 -10 25 -20 Q15 -10 25 0" fill="#42a5f5" />
+                        </g>
+
+                        <!-- Shoes (Grey Sneakers, Orange Laces) -->
+                        <path d="M-12 90 L-16 93 L-10 95 L-8 90 Z" fill="#9e9e9e" />
+                        <path d="M12 90 L16 93 L10 95 L8 90 Z" fill="#9e9e9e" />
+                        <line x1="-12" y1="91" x2="-10" y2="92" stroke="#ff9800" stroke-width="1" />
+                        <line x1="12" y1="91" x2="10" y2="92" stroke="#ff9800" stroke-width="1" />
+
+                        <!-- Head -->
+                        <circle cx="0" cy="0" r="14" fill="#ffccbc" />
+
+                        <!-- Face -->
+                        <circle cx="-4" cy="-2" r="1.5" fill="#4e342e" /> <!-- Brown Eyes -->
+                        <circle cx="4" cy="-2" r="1.5" fill="#4e342e" />
+                        <path d="M-3 5 Q0 7 3 5" stroke="#333" stroke-width="0.5" fill="none" /> <!-- Smile -->
+
+                        <!-- Hair Front -->
+                        <path d="M-14 -5 Q-10 -2 -14 10" fill="none" stroke="#d2b48c" stroke-width="2" />
+                        <path d="M14 -5 Q10 -2 14 10" fill="none" stroke="#d2b48c" stroke-width="2" />
+
+                        <!-- Cap (White with Giraffe) - MOVED UP -->
+                        <g transform="translate(0, -5)"> <!-- Shifted hat up -->
+                            <path d="M-15 -8 Q0 -25 15 -8" fill="white" stroke="#eee" stroke-width="0.5" />
+                            <!-- Cap Dome -->
+                            <path d="M-16 -8 Q0 -12 16 -8 Q0 -2 -16 -8 Z" fill="#f5f5f5" /> <!-- Brim base -->
+                            <path d="M-16 -8 Q0 -2 16 -8 L18 -4 Q0 4 -18 -4 Z" fill="white" /> <!-- Brim bill -->
+                            <!-- Giraffe on Cap -->
+                            <circle cx="0" cy="-14" r="3" fill="#ffb74d" />
+                            <path d="M-1 -16 L-2 -18" stroke="#8d6e63" stroke-width="0.5" />
+                            <path d="M1 -16 L2 -18" stroke="#8d6e63" stroke-width="0.5" />
+                        </g>
+
+                        <!-- Plush Toy (Leopard) held in hand -->
+                        <g transform="translate(-16, 42)">
+                            <circle r="4" fill="#ffd54f" />
+                            <circle cx="-1" cy="0" r="0.5" fill="#5d4037" />
+                            <circle cx="1" cy="1" r="0.5" fill="#5d4037" />
+                            <circle cx="0" cy="-2" r="0.5" fill="#5d4037" />
+                        </g>
+                    </g>
+
+                    <!-- 3. SANTA CLAUS -->
+                    <g id="santa-character">
+                        <!-- Body -->
+                        <circle cx="0" cy="10" r="35" fill="#d32f2f" /> <!-- Big red belly -->
+                        <rect x="-35" y="10" width="70" height="5" fill="#212121" /> <!-- Belt -->
+                        <rect x="-5" y="8" width="10" height="9" fill="#ffd700" /> <!-- Buckle -->
+                        <!-- Legs -->
+                        <rect x="-20" y="40" width="15" height="20" fill="#d32f2f" />
+                        <rect x="5" y="40" width="15" height="20" fill="#d32f2f" />
+                        <!-- Boots -->
+                        <rect x="-22" y="60" width="19" height="10" fill="#212121" />
+                        <rect x="3" y="60" width="19" height="10" fill="#212121" />
+                        <!-- Head -->
+                        <circle cx="0" cy="-25" r="18" fill="#ffccbc" />
+                        <!-- Beard -->
+                        <path d="M-18 -25 Q-25 0 0 15 Q25 0 18 -25" fill="white" />
+                        <!-- Face -->
+                        <circle cx="-6" cy="-28" r="2" fill="#333" />
+                        <circle cx="6" cy="-28" r="2" fill="#333" />
+                        <circle cx="0" cy="-24" r="3" fill="#ffcdd2" opacity="0.6" /> <!-- Nose -->
+                        <!-- Hat -->
+                        <path d="M-18 -35 Q0 -60 30 -30" stroke="#d32f2f" stroke-width="14" fill="none"
+                            stroke-linecap="round" />
+                        <circle cx="30" cy="-30" r="6" fill="white" /> <!-- Pom -->
+                        <rect x="-20" y="-40" width="40" height="8" fill="white" rx="4" /> <!-- Brim -->
+                    </g>
+
+                    <!-- 5. LUNA (Copied from Index) -->
+                    <g id="luna-character">
+                        <!-- Body -->
+                        <ellipse cx="100" cy="140" rx="38" ry="28" fill="#1a1a1a" />
+                        <ellipse cx="100" cy="138" rx="36" ry="26" fill="#2a2a2a" />
+                        <!-- Head -->
+                        <ellipse cx="100" cy="100" rx="32" ry="30" fill="#1a1a1a" />
+                        <ellipse cx="100" cy="98" rx="30" ry="28" fill="#2a2a2a" />
+                        <!-- Ears -->
+                        <ellipse cx="75" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(-25 75 85)" />
+                        <ellipse cx="125" cy="85" rx="14" ry="18" fill="#1a1a1a" transform="rotate(25 125 85)" />
+                        <!-- Face -->
+                        <circle cx="85" cy="93" r="3" fill="#2a2a2a" />
+                        <circle cx="86" cy="92" r="2" fill="white" />
+                        <circle cx="115" cy="93" r="3" fill="#2a2a2a" />
+                        <circle cx="116" cy="92" r="2" fill="white" />
+                        <!-- Snout -->
+                        <ellipse cx="100" cy="108" rx="12" ry="8" fill="#1a1a1a" />
+                        <ellipse cx="100" cy="105" rx="5" ry="3" fill="#000000" />
+                        <!-- Front legs -->
+                        <ellipse cx="88" cy="140" rx="8" ry="25" fill="#1a1a1a" />
+                        <ellipse cx="112" cy="140" rx="8" ry="25" fill="#1a1a1a" />
+                        <!-- Tail -->
+                        <path d="M130 135 Q145 125 150 130 Q148 135 145 138" stroke="#1a1a1a" stroke-width="8"
+                            fill="none" stroke-linecap="round" />
+                    </g>
+
+                    <!-- 6. HEIDI (Copied from Index) -->
+                    <g id="heidi-character">
+                        <!-- Body -->
+                        <ellipse cx="100" cy="140" rx="42" ry="32" fill="#6b3410" />
+                        <ellipse cx="100" cy="138" rx="40" ry="30" fill="#8b4513" />
+                        <!-- Head -->
+                        <ellipse cx="100" cy="95" rx="30" ry="38" fill="#6b3410" />
+                        <!-- Ears -->
+                        <ellipse cx="72" cy="85" rx="20" ry="28" fill="#6b3410" transform="rotate(-30 72 85)" />
+                        <ellipse cx="128" cy="85" rx="20" ry="28" fill="#6b3410" transform="rotate(30 128 85)" />
+                        <!-- Face -->
+                        <circle cx="85" cy="93" r="3" fill="#2a1a0a" />
+                        <circle cx="86" cy="92" r="1.5" fill="white" />
+                        <circle cx="115" cy="93" r="3" fill="#2a1a0a" />
+                        <circle cx="116" cy="92" r="1.5" fill="white" />
+                        <!-- Snout -->
+                        <ellipse cx="100" cy="110" rx="14" ry="10" fill="#6b3410" />
+                        <ellipse cx="100" cy="108" rx="6" ry="4" fill="#2a1a1a" />
+                        <!-- Legs -->
+                        <ellipse cx="88" cy="145" rx="10" ry="28" fill="#6b3410" />
+                        <ellipse cx="112" cy="145" rx="10" ry="28" fill="#6b3410" />
+                    </g>
+
+                    <!-- 7. RANDY (Copied from Index) -->
+                    <g id="randy-character">
+                        <!-- Body -->
+                        <ellipse cx="100" cy="140" rx="48" ry="38" fill="#f0f0f0" />
+                        <ellipse cx="100" cy="140" rx="45" ry="35" fill="white" />
+                        <!-- Head -->
+                        <circle cx="100" cy="95" r="42" fill="#f0f0f0" />
+                        <circle cx="100" cy="95" r="40" fill="white" />
+                        <!-- Ears -->
+                        <path d="M70 70 Q65 50 70 60 Q75 70 80 80" fill="#f0f0f0" />
+                        <path d="M130 70 Q135 50 130 60 Q125 70 120 80" fill="#f0f0f0" />
+                        <!-- Face -->
+                        <circle cx="85" cy="88" r="4" fill="#1a1a1a" />
+                        <circle cx="115" cy="88" r="4" fill="#1a1a1a" />
+                        <ellipse cx="100" cy="105" rx="7" ry="5" fill="#1a1a1a" />
+                        <ellipse cx="100" cy="118" rx="8" ry="4" fill="#ff69b4" opacity="0.7" /> <!-- Tongue -->
+                        <!-- Tail -->
+                        <path d="M135 135 Q150 120 155 115 Q160 110 162 108" stroke="#f0f0f0" stroke-width="14"
+                            fill="none" stroke-linecap="round" />
+                        <!-- Legs -->
+                        <ellipse cx="85" cy="145" rx="12" ry="30" fill="#f0f0f0" />
+                        <ellipse cx="115" cy="145" rx="12" ry="30" fill="#f0f0f0" />
+                    </g>
+
+                    <!-- 8. MORPHEE (Copied from Index) -->
+                    <g id="morphee-character">
+                        <!-- Body -->
+                        <ellipse cx="100" cy="140" rx="32" ry="27" fill="#ff7700" />
+                        <!-- Head -->
+                        <circle cx="100" cy="100" r="30" fill="#ff7700" />
+                        <!-- Ears -->
+                        <path d="M70 75 L65 55 L78 68 Z" fill="#ff7700" />
+                        <path d="M130 75 L135 55 L122 68 Z" fill="#ff7700" />
+                        <!-- Face -->
+                        <circle cx="89" cy="93" r="1.5" fill="#90ee90" />
+                        <circle cx="113" cy="93" r="1.5" fill="#90ee90" />
+                        <path d="M100 103 L95 108 L105 108 Z" fill="#ff69b4" />
+                        <!-- Legs -->
+                        <ellipse cx="88" cy="145" rx="8" ry="20" fill="#ff7700" />
+                        <ellipse cx="112" cy="145" rx="8" ry="20" fill="#ff7700" />
+                        <!-- Tail -->
+                        <path d="M125 140 Q140 145 145 155 Q148 165 145 175" stroke="#ff7700" stroke-width="8"
+                            fill="none" stroke-linecap="round" />
+                    </g>
+
+                    <!-- 4. CANDY CANE (Collectible) -->
+                    <g id="candy-cane-item">
+                        <path d="M0 0 L0 30 Q0 40 10 40 Q20 40 20 30" stroke="white" stroke-width="8" fill="none"
+                            transform="scale(1, -1)" />
+                        <path d="M0 0 L0 30 Q0 40 10 40 Q20 40 20 30" stroke="#d32f2f" stroke-width="8" fill="none"
+                            transform="scale(1, -1)" stroke-dasharray="5,5" />
+                    </g>
+
+                    <!-- 5. SLEIGH -->
+                    <g id="sleigh-item">
+                        <path d="M-60 20 L60 20 L80 -10 L-60 -10 Q-50 20 -60 20" fill="#d32f2f" stroke="#b71c1c"
+                            stroke-width="2" /> <!-- Body -->
+                        <path d="M-60 25 L80 25 Q100 20 90 -10" fill="none" stroke="#ffd700" stroke-width="3" />
+                        <!-- Rail -->
+                        <rect x="-40" y="20" width="10" height="15" fill="#333" /> <!-- Runner leg -->
+                        <rect x="40" y="20" width="10" height="15" fill="#333" /> <!-- Runner leg -->
+                        <path d="M-70 35 L90 35 Q110 25 100 -20" fill="none" stroke="#5d4037" stroke-width="4" />
+                        <!-- Runner -->
+                    </g>
+
+                    <!-- 9. FROSTY THE SNOWMAN (Unified) -->
+                    <g id="frosty-character">
+                        <circle cx="0" cy="100" r="80" fill="white" /> <!-- Bottom -->
+                        <circle cx="0" cy="-20" r="60" fill="white" /> <!-- Middle -->
+                        <circle cx="0" cy="-110" r="40" fill="white" /> <!-- Head -->
+                        <circle cx="0" cy="-20" r="5" fill="#333" />
+                        <circle cx="0" cy="10" r="5" fill="#333" />
+                        <circle cx="0" cy="40" r="5" fill="#333" /> <!-- Buttons -->
+                        <!-- Face -->
+                        <circle cx="-15" cy="-120" r="5" fill="#333" />
+                        <circle cx="15" cy="-120" r="5" fill="#333" />
+                        <circle cx="0" cy="-110" r="5" fill="orange" /> <!-- Nose -->
+                        <path d="M-20 -100 Q0 -90 20 -100" stroke="#333" stroke-width="2" fill="none" />
+                        <!-- Hat -->
+                        <g transform="translate(0, -200)">
+                            <rect x="-30" y="0" width="60" height="50" fill="#333" />
+                            <rect x="-50" y="50" width="100" height="10" fill="#333" />
+                            <rect x="-30" y="40" width="60" height="10" fill="red" />
+                        </g>
+                        <!-- Pipe -->
+                        <path d="M10 -105 L40 -105 L40 -120" stroke="#5d4037" stroke-width="3" fill="none" />
+                        <rect x="35" y="-130" width="10" height="15" fill="#fdd835" />
+                    </g>
+
+                    <!-- 10. REINDEER -->
+                    <g id="reindeer-character">
+                        <!-- Body -->
+                        <ellipse cx="0" cy="0" rx="30" ry="15" fill="#8d6e63" />
+                        <!-- Legs -->
+                        <rect x="-20" y="5" width="5" height="25" fill="#5d4037" />
+                        <rect x="15" y="5" width="5" height="25" fill="#5d4037" />
+                        <!-- Neck/Head area -->
+                        <path d="M15 -5 Q25 -20 30 -25" stroke="#8d6e63" stroke-width="12" stroke-linecap="round" />
+                        <circle cx="35" cy="-25" r="12" fill="#8d6e63" />
+                        <!-- Antlers -->
+                        <path d="M35 -35 L40 -50 M35 -35 L25 -45" stroke="#3e2723" stroke-width="3" fill="none" />
+                        <!-- Nose -->
+                        <circle cx="45" cy="-25" r="3" fill="#3e2723" />
+                        <!-- Harness -->
+                        <path d="M0 -15 L0 15" stroke="#d32f2f" stroke-width="3" />
+                        <path d="M0 0 L40 0" stroke="#d32f2f" stroke-width="2" />
+                    </g>
+                    <circle cx="0" cy="-20" r="5" fill="#333" />
+                    <circle cx="0" cy="10" r="5" fill="#333" />
+                    <circle cx="0" cy="40" r="5" fill="#333" /> <!-- Buttons -->
+                    <!-- Face -->
+                    <circle cx="-15" cy="-120" r="5" fill="#333" />
+                    <circle cx="15" cy="-120" r="5" fill="#333" />
+                    <circle cx="0" cy="-110" r="5" fill="orange" /> <!-- Nose -->
+                    <path d="M-20 -100 Q0 -90 20 -100" stroke="#333" stroke-width="2" fill="none" />
+                    <!-- Hat -->
+                    <g transform="translate(0, -200)">
+                        <rect x="-30" y="0" width="60" height="50" fill="#333" />
+                        <rect x="-50" y="50" width="100" height="10" fill="#333" />
+                        <rect x="-30" y="40" width="60" height="10" fill="red" />
+                    </g>
+                    <!-- Pipe -->
+                    <path d="M10 -105 L40 -105 L40 -120" stroke="#5d4037" stroke-width="3" fill="none" />
+                    <rect x="35" y="-130" width="10" height="15" fill="#fdd835" />
+                    </g>
+
+                </defs>
+            </svg>
+
+            <!-- PAGE 1: Intro -->
+            <div class="story-page active" id="page-1">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <!-- Background -->
+                    <rect width="800" height="400" fill="#b3e5fc" /> <!-- Sky -->
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" /> <!-- Snow -->
+
+                    <!-- Sun -->
+                    <circle cx="700" cy="80" r="40" fill="#fff176" />
+
+                    <!-- Farmhouse -->
+                    <path d="M100 350 L250 200 L400 350 Z" fill="#d32f2f" /> <!-- Roof -->
+                    <rect x="120" y="350" width="260" height="150" fill="#8d6e63" /> <!-- House -->
+                    <rect x="220" y="420" width="60" height="80" fill="#5d4037" /> <!-- Door -->
+
+                    <!-- Animals Playing -->
+                    <g transform="translate(450, 420) scale(0.6)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(550, 420) scale(0.6)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(650, 420) scale(0.6)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>It was a snowy morning at the farm. Luna, Heidi, and Randy were playing in the fresh white snow.
+                        "Look at the big snowflakes!" barked Luna happily.</p>
+                    <span class="page-counter">Page 1 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Strange Noise -->
+            <div class="story-page" id="page-2">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Barn -->
+                    <path d="M450 350 L600 200 L750 350 Z" fill="#d32f2f" />
+                    <rect x="470" y="350" width="260" height="150" fill="#c62828" />
+
+                    <!-- Sound Wave -->
+                    <path d="M550 300 Q600 250 650 300" stroke="#333" stroke-width="2" fill="none" />
+                    <text x="580" y="280" font-size="24">...groan...</text>
+
+                    <!-- Animals Listening -->
+                    <g transform="translate(150, 420) scale(0.8)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(250, 420) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(50, 420) scale(0.8)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Suddenly, they heard a strange sound coming from the big red barn. It wasn't a cow, and it wasn't
+                        a horse. It sounded like... a tiny groan?</p>
+                    <span class="page-counter">Page 2 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 3: Investigation -->
+            <div class="story-page" id="page-3">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <!-- Inside Barn darker -->
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <rect x="200" y="100" width="400" height="500" fill="#3e2723" /> <!-- Shadows -->
+
+                    <!-- Haystack -->
+                    <path d="M300 500 Q400 350 500 500 Z" fill="#fdd835" />
+
+                    <!-- Green Hat sticking out -->
+                    <path d="M380 400 L400 360 L420 400 Z" fill="#4caf50" />
+                    <circle cx="400" cy="360" r="5" fill="#d32f2f" />
+
+                    <!-- Animals Peeking -->
+                    <g transform="translate(100, 450) scale(0.6)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(200, 450) scale(0.6)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(600, 450) scale(0.6)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>They slowly crept into the barn. Behind a pile of hay, they saw something green and pointy
+                        sticking out!</p>
+                    <span class="page-counter">Page 3 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 4: It's Buddy! -->
+            <div class="story-page" id="page-4">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+
+                    <!-- Buddy sitting, looking weak -->
+                    <g transform="translate(400, 400) scale(3)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Sad expression override if needed, or context implies -->
+                </svg>
+                <div class="page-text">
+                    <p>It was an Elf! But not just any elf, it was Buddy the Elf! But he looked very tired and pale. He
+                        tried to wave, but his hand was too heavy.</p>
+                    <span class="page-counter">Page 4 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 5: He can't speak -->
+            <div class="story-page" id="page-5">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <g transform="translate(400, 400) scale(3)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Heidi Asking -->
+                    <g transform="translate(200, 450) scale(1.5)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <!-- Text Bubble -->
+                    <ellipse cx="550" cy="250" rx="60" ry="40" fill="white" />
+                    <text x="530" y="260" font-size="20">...</text>
+                    <path d="M500 280 L450 350" stroke="white" stroke-width="2" />
+                </svg>
+                <div class="page-text">
+                    <p>"Buddy, are you okay?" asked Heidi. Buddy opened his mouth to speak, but only a tiny squeak came
+                        out. He pointed to his tummy.</p>
+                    <span class="page-counter">Page 5 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 6: We need help -->
+            <div class="story-page" id="page-6">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <g transform="translate(100, 400) scale(1.5)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(600, 400) scale(1.5)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(350, 450) scale(1.5)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"He's sick!" cried Randy. "We don't know how to fix elves! What do they eat? Snow? Carrots?" They
+                        were very worried.</p>
+                    <span class="page-counter">Page 6 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 7: Let's Get Sage -->
+            <div class="story-page" id="page-7">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <!-- Morphée appears -->
+                    <g transform="translate(300, 100) scale(1.2)">
+                        <use href="#morphee-character" />
+                    </g>
+                    <!-- Lightbulb idea -->
+                    <circle cx="500" cy="200" r="40" fill="#fff176" opacity="0.8" />
+                    <text x="460" y="300" font-size="30" font-weight="bold" fill="white">SAGE!</text>
+                </svg>
+                <div class="page-text">
+                    <p>Suddenly, Morphée the cat jumped down from the rafters. "I know who can help!" she purred. "We
+                        need Sage! She is 4 and a half years old. She knows everything!"</p>
+                    <span class="page-counter">Page 7 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 8: Running to Sage -->
+            <div class="story-page" id="page-8">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Motion lines for running -->
+                    <path d="M100 450 L700 450" stroke="#333" stroke-width="2" stroke-dasharray="10,10" />
+                    <text x="350" y="440">Zoom!</text>
+                    <!-- Running Animals -->
+                    <g transform="translate(150, 420) scale(0.5)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(250, 420) scale(0.5)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(50, 420) scale(0.5)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>The animals raced out of the barn and towards the house. They ran as fast as their paws could
+                        carry them to find Sage.</p>
+                    <span class="page-counter">Page 8 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 9: Sage Building Snowman -->
+            <div class="story-page" id="page-9">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+
+                    <!-- Sage character -->
+                    <g transform="translate(400, 450) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+
+                    <!-- Snowman WIP -->
+                    <circle cx="550" cy="480" r="40" fill="white" stroke="#e0f7fa" />
+                    <circle cx="550" cy="420" r="30" fill="white" stroke="#e0f7fa" />
+
+                    <!-- Animals Arriving -->
+                    <g transform="translate(150, 420) scale(0.8)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(250, 420) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(50, 420) scale(0.8)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>They found Sage in the front yard. She was carefully putting buttons on a snowman. "Sage! Sage!"
+                        they barked. "Come quick!"</p>
+                    <span class="page-counter">Page 9 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 10: Sage Examines Buddy -->
+            <div class="story-page" id="page-10">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <!-- Sage and Buddy -->
+                    <g transform="translate(300, 400) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(500, 400) scale(3)">
+                        <use href="#buddy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Sage followed them to the barn. She looked at Buddy. She checked his forehead. She checked his
+                        pointy ears. "Hmm," she said wisely.</p>
+                    <span class="page-counter">Page 10 of 40</span>
+                </div>
+            </div>
+
+
+            <!-- PAGE 11: The Diagnosis -->
+            <div class="story-page" id="page-11">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#e1bee7" /> <!-- Purple tint bg -->
+                    <g transform="translate(350, 400) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+                    <!-- Doctor accessories -->
+                    <path d="M400 350 L380 420" stroke="#333" stroke-width="2" /> <!-- Stethoscope line -->
+                    <circle cx="380" cy="420" r="10" fill="#silver" />
+                </svg>
+                <div class="page-text">
+                    <p>"I know what's wrong!" announced Sage. "His Christmas Spirit is dangerously low! He needs Magic
+                        Candy Canes to feel better!"</p>
+                    <span class="page-counter">Page 11 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 12: The Instructions -->
+            <div class="story-page" id="page-12">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#e1bee7" />
+                    <g transform="translate(400, 300) scale(2)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <circle cx="400" cy="300" r="100" stroke="#fff" stroke-width="5" fill="none"
+                        stroke-dasharray="10,5" />
+                    <g transform="translate(200, 500)">
+                        <text font-size="24">Find 20 Candy Canes!</text>
+                    </g>
+                    <!-- Sage and Luna -->
+                    <g transform="translate(100, 400) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(600, 450) scale(1)">
+                        <use href="#luna-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"But where can we find them?" asked Luna. Sage pointed to the farm. "They are hidden everywhere!
+                        We must find 20 of them. Click on them when you see them!"</p>
+                    <span class="page-counter">Page 12 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 13: Hunt Scene 1 - Vegetable Garden (3 Canes) -->
+            <div class="story-page" id="page-13">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Garden Rows -->
+                    <g transform="translate(100, 450)">
+                        <rect x="0" y="0" width="600" height="20" fill="#5d4037" />
+                        <!-- Carrots -->
+                        <path d="M50 0 L50 -20" stroke="green" stroke-width="5" />
+                        <path d="M150 0 L150 -20" stroke="green" stroke-width="5" />
+                        <path d="M250 0 L250 -20" stroke="green" stroke-width="5" />
+                        <path d="M350 0 L350 -20" stroke="green" stroke-width="5" />
+                    </g>
+
+                    <!-- Randy Digging -->
+                    <g transform="translate(500, 420) scale(0.7)">
+                        <use href="#randy-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(160, 440) rotate(15) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(600, 500) rotate(-20) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(50, 480) rotate(90) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Stop 1: The Vegetable Garden! Randy sniffed the snow. "Woof! Something sweet is buried here!" he
+                        barked. Can you find 3 candy canes?</p>
+                    <span class="page-counter">Page 13 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 14: Hunt Scene 2 - The Kitchen (3 Canes) -->
+            <div class="story-page" id="page-14">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#ffe0b2" /> <!-- Warm kitchen color -->
+                    <!-- Table -->
+                    <rect x="200" y="400" width="400" height="150" fill="#8d6e63" />
+                    <rect x="150" y="400" width="500" height="20" fill="#5d4037" />
+
+                    <!-- Window -->
+                    <rect x="300" y="100" width="200" height="200" fill="#b3e5fc" stroke="#5d4037" stroke-width="10" />
+
+                    <!-- Heidi sniffing table -->
+                    <g transform="translate(100, 380) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(250, 390) rotate(0) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(500, 150) rotate(45) scale(0.6)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- On window sill -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(400, 500) rotate(-90) scale(1)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Under table -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Next was the warm kitchen. Heidi stood on her tippy-toes. "I smell peppermint!" she howled. Help
+                        her find 3 more.</p>
+                    <span class="page-counter">Page 14 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 15: Hunt Scene 3 - The Frozen Pond (3 Canes) -->
+            <div class="story-page" id="page-15">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Pond -->
+                    <ellipse cx="400" cy="500" rx="300" ry="80" fill="#90caf9" stroke="#e3f2fd" stroke-width="5" />
+                    <text x="350" y="500" fill="white" opacity="0.5">ICE</text>
+
+                    <!-- Reeds -->
+                    <path d="M150 500 L150 400" stroke="#5d4037" stroke-width="2" />
+                    <path d="M650 500 L650 420" stroke="#5d4037" stroke-width="2" />
+
+                    <!-- Luna Sliding -->
+                    <g transform="translate(400, 480) scale(0.6) rotate(10)">
+                        <use href="#luna-character" />
+                    </g>
+                    <!-- Sage Laughing -->
+                    <g transform="translate(100, 400) scale(1.5)">
+                        <use href="#sage-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(350, 480) rotate(180) scale(0.7)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- On ice -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(160, 410) rotate(10) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- In reeds -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(680, 520) rotate(-10) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Near bank -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Down by the pond, Luna slid across the ice. Wheeee! "Be careful Luna!" laughed Sage. "Don't slide
+                        past these 3 canes!"</p>
+                    <span class="page-counter">Page 15 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 16: Hunt Scene 4 - Pine Forest (3 Canes) -->
+            <div class="story-page" id="page-16">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Trees -->
+                    <path d="M100 450 L200 150 L300 450 Z" fill="#2e7d32" />
+                    <path d="M300 450 L400 100 L500 450 Z" fill="#1b5e20" />
+                    <path d="M500 450 L600 150 L700 450 Z" fill="#2e7d32" />
+
+                    <!-- Morphée Climbing -->
+                    <g transform="translate(380, 300) scale(0.6)">
+                        <use href="#morphee-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(200, 300) rotate(15) scale(0.6)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- High in tree -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(450, 420) rotate(-5) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Base of tree -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(620, 250) rotate(90) scale(0.6)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Branch -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Into the Pine Forest! Morphée climbed high up a tree. "I see them from up here!" she meowed. Look
+                        up and down for 3 more!</p>
+                    <span class="page-counter">Page 16 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 17: Hunt Scene 5 - The Hayloft (3 Canes) -->
+            <div class="story-page" id="page-17">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <!-- Loft Floor -->
+                    <rect x="0" y="400" width="800" height="20" fill="#8d6e63" />
+                    <!-- Hay Bales -->
+                    <rect x="100" y="300" width="100" height="100" fill="#fdd835" />
+                    <rect x="200" y="300" width="100" height="100" fill="#fbc02d" />
+                    <rect x="150" y="200" width="100" height="100" fill="#fdd835" />
+
+                    <!-- Morphée -->
+                    <g transform="translate(150, 160) scale(0.8)">
+                        <use href="#morphee-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(180, 250) rotate(45) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(500, 380) rotate(0) scale(1)" class="candy-cane"
+                        onclick="collectCandy(this)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(700, 100) rotate(180) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Hanging from rafter -->
+                        <path d="M0 0 L0 50" stroke="#333" stroke-width="2" /> <!-- String -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Morphée jumped into the hayloft. She batted a candy cane with her paw. Bat! Bat! "Here is one!"
+                        she purred. Find 3 in the hay.</p>
+                    <span class="page-counter">Page 17 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 18: Hunt Scene 6 - Front Porch (3 Canes) -->
+            <div class="story-page" id="page-18">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- House Front -->
+                    <rect x="100" y="100" width="600" height="400" fill="#8d6e63" />
+                    <!-- Porch -->
+                    <rect x="100" y="400" width="600" height="20" fill="#5d4037" />
+                    <rect x="150" y="420" width="20" height="100" fill="#5d4037" /> <!-- Post -->
+                    <rect x="650" y="420" width="20" height="100" fill="#5d4037" /> <!-- Post -->
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(200, 350) rotate(0) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- On railing -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(500, 480) rotate(90) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- On steps -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(350, 150) rotate(-15) scale(0.6)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- Near Roof -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <!-- Sage looking -->
+                    <g transform="translate(400, 420) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Back at the house, Sage checked the porch. "Look under the mat!" she said. "Look near the roof!"
+                        Help her find 3 more.</p>
+                    <span class="page-counter">Page 18 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 19: Hunt Scene 7 - The Tractor (2 Canes, Total 20) -->
+            <div class="story-page" id="page-19">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Tractor -->
+                    <g transform="translate(300, 350)">
+                        <rect x="0" y="-50" width="150" height="100" fill="green" />
+                        <circle cx="30" cy="50" r="30" fill="black" />
+                        <circle cx="120" cy="50" r="40" fill="black" />
+                        <rect x="50" y="-100" width="80" height="50" fill="green" />
+                    </g>
+
+                    <!-- Heidi under tractor -->
+                    <g transform="translate(400, 420) scale(0.7)">
+                        <use href="#heidi-character" />
+                    </g>
+
+                    <!-- Candy Canes Hidden -->
+                    <g transform="translate(350, 400) rotate(0) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- In wheel -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(500, 300) rotate(45) scale(0.8)" class="candy-cane"
+                        onclick="collectCandy(this)"> <!-- On seat -->
+                        <use href="#candy-cane-item" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Finally, Heidi crawled under the big green tractor. "It's dark in here!" she said. But she
+                        spotted something shiny! Find the last 2!</p>
+                    <span class="page-counter">Page 19 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 20: Return to Barn -->
+            <div class="story-page" id="page-20">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Running back to barn with basket -->
+                    <rect x="350" y="380" width="100" height="80" fill="#8d6e63" rx="10" /> <!-- Basket -->
+                    <path d="M350 380 Q400 320 450 380" stroke="#8d6e63" stroke-width="5" fill="none" /> <!-- Handle -->
+
+                    <!-- Full of canes -->
+                    <g transform="translate(370, 370) rotate(-10) scale(0.6)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(400, 370) rotate(10) scale(0.6)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(420, 370) rotate(0) scale(0.6)">
+                        <use href="#candy-cane-item" />
+                    </g>
+
+                    <text x="300" y="300" font-size="24">We got them!</text>
+                    <!-- Sage Running -->
+                    <g transform="translate(200, 380) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"We did it!" cheered Sage. "We have 20 Magic Candy Canes! Let's run back to the barn and save
+                        Buddy!"</p>
+                    <span class="page-counter">Page 20 of 40</span>
+                </div>
+            </div>
+
+
+            <!-- PAGE 21: Feeding Buddy -->
+            <div class="story-page" id="page-21">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <g transform="translate(400, 400) scale(3)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Candy Cane pile -->
+                    <g transform="translate(300, 500) rotate(-10)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(320, 500) rotate(10)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <g transform="translate(340, 500) rotate(5)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <!-- Sage Giving -->
+                    <g transform="translate(200, 400) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Sage gave the candy canes to Buddy. He ate them quickly! Munch! Crunch! Snap! "Yummy!" he said,
+                        his voice getting stronger.</p>
+                    <span class="page-counter">Page 21 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 22: Transformation -->
+            <div class="story-page" id="page-22">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <!-- Glow effect -->
+                    <circle cx="400" cy="400" r="150" fill="#fff176" opacity="0.5">
+                        <animate attributeName="r" values="140;160;140" dur="2s" repeatCount="indefinite" />
+                    </circle>
+
+                    <g transform="translate(400, 350) scale(3.5)"> <!-- Bigger Buddy -->
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Sparkles -->
+                    <path d="M300 200 L310 220 L290 220 Z" fill="white" class="floating" />
+                    <path d="M500 250 L510 270 L490 270 Z" fill="white" class="floating" />
+                </svg>
+                <div class="page-text">
+                    <p>Suddenly, Buddy began to glow! He stood up tall. He did a backflip! "I feel great!" he shouted.
+                        "I'm full of Christmas Spirit!"</p>
+                    <span class="page-counter">Page 22 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 23: Buddy's Gratitude -->
+            <div class="story-page" id="page-23">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#d7ccc8" />
+                    <g transform="translate(400, 400) scale(3)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Sage smiling -->
+                    <g transform="translate(250, 400) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+                    <!-- Animals -->
+                    <g transform="translate(100, 450) scale(0.8)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(600, 450) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(700, 450) scale(0.8)">
+                        <use href="#randy-character" />
+                    </g>
+                    <g transform="translate(50, 350) scale(0.8)">
+                        <use href="#morphee-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"Thank you Sage! Thank you animals!" said Buddy. "You saved me. But now I must fly back to the
+                        North Pole. Santa needs me to make toys!"</p>
+                    <span class="page-counter">Page 23 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 24: Flying Away -->
+            <div class="story-page" id="page-24">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#b3e5fc" />
+                    <rect y="400" width="800" height="200" fill="#e1f5fe" />
+                    <!-- Magic Jetpack/Boots? Let's just have him flying -->
+                    <g transform="translate(400, 200) scale(2)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <!-- Wind lines -->
+                    <path d="M350 220 L250 250" stroke="white" stroke-width="3" />
+                    <path d="M350 200 L250 180" stroke="white" stroke-width="3" />
+                </svg>
+                <div class="page-text">
+                    <p>Buddy tapped his heels together. Sparks flew out! WHOOSH! He shot up into the sky like a rocket.
+                        "Bye bye!" he yelled.</p>
+                    <span class="page-counter">Page 24 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 25: Watching Him Leave -->
+            <div class="story-page" id="page-25">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#1a237e" /> <!-- Night sky starting -->
+                    <rect y="400" width="800" height="200" fill="#eceff1" />
+
+                    <circle cx="700" cy="100" r="30" fill="#f4ff81" /> <!-- Moon -->
+
+                    <!-- Tiny Buddy flying away -->
+                    <g transform="translate(200, 100) scale(0.5)">
+                        <use href="#buddy-character" />
+                        <!-- Rocket effect -->
+                        <path d="M-5 10 L0 30 L5 10" fill="orange" opacity="0.8" />
+                    </g>
+
+                    <!-- Group Watching (Faces visible) -->
+                    <g transform="translate(400, 500) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(250, 520) scale(1)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(550, 520) scale(1)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <g transform="translate(650, 520) scale(1)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>They watched him fly higher and higher until he was just a tiny green speck. The sun began to
+                        set. It was getting cold.</p>
+                    <span class="page-counter">Page 25 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 26: Sad Moment -->
+            <div class="story-page" id="page-26">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#1a237e" />
+                    <rect y="400" width="800" height="200" fill="#eceff1" />
+
+                    <!-- Animals looking down -->
+                    <g transform="translate(300, 420) scale(0.8)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(450, 420) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+                    <!-- Others walking back -->
+                    <g transform="translate(150, 420) scale(0.8)">
+                        <use href="#randy-character" />
+                    </g>
+                    <g transform="translate(600, 420) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"He's gone," said Luna sadly. "I liked Buddy. He was funny." They started to walk back to the
+                        house.</p>
+                    <span class="page-counter">Page 26 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 27: Jingle Bells -->
+            <div class="story-page" id="page-27">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#1a237e" />
+                    <rect y="400" width="800" height="200" fill="#eceff1" />
+
+                    <!-- Sound waves from sky -->
+                    <path d="M100 100 Q150 150 200 100" stroke="#fff176" stroke-width="3" fill="none" />
+                    <path d="M600 100 Q650 150 700 100" stroke="#fff176" stroke-width="3" fill="none" />
+                    <text x="350" y="150" font-size="30" fill="#fff176" font-weight="bold">JINGLE! JINGLE!</text>
+                    <!-- Randy Listening -->
+                    <g transform="translate(400, 450) scale(1)">
+                        <use href="#randy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Suddenly... JINGLE! JINGLE! JINGLE! A loud sound came from the clouds. "What's that?" asked
+                        Randy.</p>
+                    <span class="page-counter">Page 27 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 28: Sleigh Appears -->
+            <div class="story-page" id="page-28">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#1a237e" />
+                    <rect y="400" width="800" height="200" fill="#eceff1" />
+
+                    <!-- Sleigh Landing -->
+                    <g transform="translate(300, 300) scale(1.5)">
+                        <use href="#sleigh-item" />
+                    </g>
+
+                    <!-- Reindeer (Simplified) -->
+                    <g transform="translate(600, 320) scale(0.8)">
+                        <path d="M0 0 L40 0 L40 -30 L0 -30 Z" fill="#5d4037" />
+                        <rect x="0" y="0" width="5" height="40" fill="#5d4037" />
+                        <rect x="35" y="0" width="5" height="40" fill="#5d4037" />
+                        <circle cx="40" cy="-30" r="15" fill="#5d4037" /> <!-- Head -->
+                        <circle cx="55" cy="-30" r="3" fill="red" /> <!-- Shiny Nose -->
+                        <path d="M40 -40 L30 -60 M40 -40 L50 -60" stroke="#3e2723" stroke-width="2" /> <!-- Antlers -->
+                    </g>
+                    <!-- Reins -->
+                    <path d="M440 280 L600 300" stroke="#ffd700" stroke-width="2" />
+                </svg>
+                <div class="page-text">
+                    <p>A giant red sleigh pulled by reindeer swooped down from the sky! It landed right in front of the
+                        farmhouse with a soft THUMP.</p>
+                    <span class="page-counter">Page 28 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 29: Buddy Returns with Santa -->
+            <div class="story-page" id="page-29">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="400" fill="#1a237e" />
+                    <rect y="400" width="800" height="200" fill="#eceff1" />
+
+                    <!-- Sleigh detail -->
+                    <g transform="translate(200, 400) scale(2)">
+                        <use href="#sleigh-item" />
+                    </g>
+
+                    <!-- Santa -->
+                    <g transform="translate(200, 350) scale(3)">
+                        <use href="#santa-character" />
+                    </g>
+                    <!-- Buddy -->
+                    <g transform="translate(350, 380) scale(2.5)">
+                        <use href="#buddy-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Buddy jumped out. "I'm back!" he cheered. And look who is with him! It's SANTA CLAUS! "Ho Ho Ho!"
+                        laughed Santa.</p>
+                    <span class="page-counter">Page 29 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 30: Santa's Speech -->
+            <div class="story-page" id="page-30">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#1a237e" />
+                    <g transform="translate(400, 350) scale(4)">
+                        <use href="#santa-character" />
+                    </g>
+                    <!-- Sage Listening -->
+                    <g transform="translate(150, 400) scale(3)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"Thank you for saving my Elf, Sage!" boomed Santa. "Because you were so helpful, I want to give
+                        you a special reward. Hop in!"</p>
+                    <span class="page-counter">Page 30 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 31: Flying to North Pole -->
+            <div class="story-page" id="page-31">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#0d47a1" />
+                    <circle cx="100" cy="100" r="40" fill="#fff9c4" /> <!-- Moon -->
+
+                    <!-- World below -->
+                    <path d="M0 600 Q400 500 800 600" fill="#1b5e20" />
+
+                    <!-- Sleigh flying -->
+                    <g transform="translate(400, 300) scale(1.5)">
+                        <use href="#sleigh-item" />
+                    </g>
+
+                    <!-- Characters in Sleigh -->
+                    <g transform="translate(420, 260) scale(1.5)">
+                        <use href="#santa-character" />
+                    </g>
+                    <g transform="translate(380, 280) scale(1)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(340, 280) scale(0.6)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(460, 280) scale(0.6)">
+                        <use href="#heidi-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>They all climbed into the sleigh. Sage, Luna, Heidi, Randy, and Morphée. "Off we go!" shouted
+                        Santa. The sleigh flew up into the stars!</p>
+                    <span class="page-counter">Page 31 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 32: The View -->
+            <div class="story-page" id="page-32">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#000051" />
+                    <circle cx="100" cy="50" r="1" fill="white" />
+                    <circle cx="200" cy="150" r="2" fill="white" />
+                    <circle cx="500" cy="80" r="1" fill="white" />
+                    <circle cx="700" cy="300" r="2" fill="white" />
+
+                    <!-- Northern Lights -->
+                    <path d="M0 200 Q200 100 400 200 T800 200" stroke="#69f0ae" stroke-width="20" fill="none"
+                        opacity="0.5" />
+                    <path d="M0 250 Q200 150 400 250 T800 250" stroke="#b388ff" stroke-width="20" fill="none"
+                        opacity="0.5" />
+
+                    <!-- Sleigh Small -->
+                    <g transform="translate(550, 150) scale(0.8)">
+                        <use href="#sleigh-item" />
+                        <!-- Characters tiny -->
+                        <circle cx="10" cy="-20" r="5" fill="red" /> <!-- Santa -->
+                        <circle cx="-10" cy="-15" r="4" fill="#d2b48c" /> <!-- Sage -->
+                    </g>
+                    <!-- Small Reindeer -->
+                    <g transform="translate(650, 160) scale(0.6)">
+                        <use href="#reindeer-character" />
+                    </g>
+                    <g transform="translate(700, 170) scale(0.6)">
+                        <use href="#reindeer-character" />
+                    </g>
+                    <path d="M600 150 L650 160 L700 170" stroke="#ccc" stroke-width="1" fill="none" opacity="0.5" />
+                </svg>
+                <div class="page-text">
+                    <p>They flew over mountains and oceans. They saw the magical Northern Lights dancing green and
+                        purple in the sky. "It's beautiful!" whispered Sage.</p>
+                    <span class="page-counter">Page 32 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 33: Arrival at North Pole -->
+            <div class="story-page" id="page-33">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#e3f2fd" />
+                    <!-- Candy Cane Pole -->
+                    <rect x="390" y="200" width="20" height="400" fill="#d32f2f" />
+                    <path d="M390 200 L410 200 L410 600 L390 600" fill="none" stroke="white" stroke-width="10"
+                        stroke-dasharray="20,20" />
+                    <circle cx="400" cy="200" r="30" fill="#ffd700" /> <!-- Globe on top -->
+
+                    <!-- Sleigh Landed -->
+                    <g transform="translate(200, 450) scale(1.5)">
+                        <use href="#sleigh-item" />
+                    </g>
+
+                    <!-- Characters Standing -->
+                    <g transform="translate(500, 450) scale(2)">
+                        <use href="#santa-character" />
+                    </g>
+                    <g transform="translate(600, 470) scale(1.5)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(700, 480) scale(1.5)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <g transform="translate(100, 500) scale(0.8)">
+                        <use href="#luna-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>They landed at the North Pole! There was a giant red and white striped pole marking the spot. It
+                        was very snowy and magical.</p>
+                    <span class="page-counter">Page 33 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 34: Santa's Workshop -->
+            <div class="story-page" id="page-34">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#ffecb3" />
+                    <!-- Conveyor Belts -->
+                    <rect x="0" y="400" width="800" height="20" fill="#333" />
+                    <!-- Toys -->
+                    <rect x="100" y="350" width="50" height="50" fill="blue" />
+                    <circle cx="300" cy="370" r="30" fill="red" />
+                    <rect x="500" y="340" width="40" height="60" fill="green" />
+                    <!-- Elves -->
+                    <g transform="translate(200, 300) scale(1.5)">
+                        <use href="#buddy-character" />
+                    </g>
+                    <g transform="translate(600, 300) scale(1.5)">
+                        <use href="#buddy-character" />
+                    </g>
+
+                    <!-- Sage Watching -->
+                    <g transform="translate(100, 450) scale(2)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Inside Santa's Workshop, hundreds of elves were making toys! Hammers banged and saws buzzed. It
+                        was the busiest place Sage had ever seen.</p>
+                    <span class="page-counter">Page 34 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 35: Meeting Frosty -->
+            <div class="story-page" id="page-35">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#bbdefb" />
+                    <!-- Frosty -->
+                    <g transform="translate(400, 400)">
+                        <use href="#frosty-character" />
+                    </g>
+                    <text x="500" y="300" font-size="30">HAPPY BIRTHDAY!</text>
+                    <!-- Sage with Frosty -->
+                    <g transform="translate(200, 450) scale(2.5)">
+                        <use href="#sage-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>And guess who was there? FROSTY THE SNOWMAN! "Happy Birthday!" he said to Sage (even though it
+                        wasn't her birthday). He was so jolly!</p>
+                    <span class="page-counter">Page 35 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 36: Frosty Dances -->
+            <div class="story-page" id="page-36">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#e3f2fd" />
+                    <g transform="translate(400, 380) rotate(10)"> <!-- Dancing tilt -->
+                        <use href="#frosty-character" />
+                    </g>
+                    <!-- Animated Lines -->
+                    <path d="M200 400 L250 350" stroke="#333" stroke-width="2" class="floating" />
+                    <path d="M600 400 L550 350" stroke="#333" stroke-width="2" class="floating" />
+
+                    <!-- Animals Dancing -->
+                    <g transform="translate(150, 420) scale(0.8)">
+                        <use href="#randy-character" />
+                    </g>
+                    <g transform="translate(650, 420) scale(0.8)">
+                        <use href="#heidi-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>Frosty began to dance! He thumpety-thump-thumped around the snow. The animals danced with him!
+                        Heidi spun in circles and Randy jumped up and down.</p>
+                    <span class="page-counter">Page 36 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 37: Time to go -->
+            <div class="story-page" id="page-37">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#0d47a1" />
+                    <g transform="translate(400, 300) scale(4)">
+                        <use href="#santa-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>"Time to go home," said Santa with a yawn. "It's past your bedtime!" They waved goodbye to Buddy
+                        and Frosty. "Goodbye!"</p>
+                    <span class="page-counter">Page 37 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 38: Flight Back -->
+            <div class="story-page" id="page-38">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#0d47a1" />
+                    <g transform="translate(300, 300) scale(1.2)"> <!-- Flying back -->
+                        <use href="#sleigh-item" />
+                        <g transform="translate(20, -50)"> <!-- Characters -->
+                            <use href="#sage-character" transform="scale(0.5)" />
+                        </g>
+                        <!-- More Characters -->
+                        <g transform="translate(40, -40)">
+                            <use href="#santa-character" transform="scale(0.5)" />
+                        </g>
+                        <g transform="translate(-10, -40)">
+                            <use href="#luna-character" transform="scale(0.4)" />
+                        </g>
+                    </g>
+
+                    <!-- Reindeer -->
+                    <g transform="translate(500, 300) scale(1)">
+                        <use href="#reindeer-character" />
+                    </g>
+                    <path d="M380 300 L500 300" stroke="#a1887f" stroke-width="2" fill="none" />
+
+                    <!-- Motion Lines -->
+                    <path d="M100 350 L250 350" stroke="white" stroke-width="2" stroke-dasharray="10,20"
+                        opacity="0.5" />
+                    <path d="M50 250 L200 250" stroke="white" stroke-width="2" stroke-dasharray="10,20" opacity="0.5" />
+                </svg>
+                <div class="page-text">
+                    <p>Santa flew them all the way back to their farm. The sleigh landed softly on the roof. SHHH! Be
+                        quiet!</p>
+                    <span class="page-counter">Page 38 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 39: Back in Bed / Dream? -->
+            <div class="story-page" id="page-39">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#000" /> <!-- Dark room -->
+                    <rect x="200" y="300" width="400" height="200" fill="#5d4037" /> <!-- Bed -->
+                    <rect x="250" y="320" width="300" height="150" fill="#fff" /> <!-- Sheet -->
+                    <!-- Candy cane on pillow -->
+                    <g transform="translate(300, 350) rotate(45)">
+                        <use href="#candy-cane-item" />
+                    </g>
+                    <!-- Sage Waking Up -->
+                    <g transform="translate(450, 350) scale(2)">
+                        <circle cx="0" cy="0" r="14" fill="#ffccbc" /> <!-- Head Reuse -->
+                        <circle cx="-4" cy="-2" r="1.5" fill="#4e342e" />
+                        <circle cx="4" cy="-2" r="1.5" fill="#4e342e" />
+                        <path d="M-3 5 Q0 7 3 5" stroke="#333" stroke-width="0.5" fill="none" />
+                        <path d="M-14 -5 Q-10 -2 -14 10" fill="none" stroke="#d2b48c" stroke-width="2" />
+                        <path d="M14 -5 Q10 -2 14 10" fill="none" stroke="#d2b48c" stroke-width="2" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>The next morning, Sage woke up in her warm bed. "Was it all a dream?" she wondered. But then, she
+                        found a candy cane on her pillow...</p>
+                    <span class="page-counter">Page 39 of 40</span>
+                </div>
+            </div>
+
+            <!-- PAGE 40: The End -->
+            <div class="story-page" id="page-40">
+                <svg class="page-illustration" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <rect width="800" height="600" fill="#1a237e" />
+                    <text x="400" y="300" font-size="80" fill="white" text-anchor="middle" font-weight="bold">THE
+                        END</text>
+                    <text x="400" y="380" font-size="30" fill="white" text-anchor="middle">Merry Christmas!</text>
+                    <g transform="translate(400, 450) scale(2)">
+                        <use href="#santa-character" />
+                    </g>
+                    <!-- Group Celebration -->
+                    <g transform="translate(150, 450) scale(1.5)">
+                        <use href="#sage-character" />
+                    </g>
+                    <g transform="translate(600, 450) scale(1)">
+                        <use href="#luna-character" />
+                    </g>
+                    <g transform="translate(700, 450) scale(1)">
+                        <use href="#heidi-character" />
+                    </g>
+                </svg>
+                <div class="page-text">
+                    <p>It was real! Merry Christmas Sage! Merry Christmas everyone! THE END.</p>
+                    <span class="page-counter">Page 40 of 40</span>
+                </div>
+            </div>
+
+            <!-- End of Pages -->
+
+        </main>
+    </div>
+
+    <script>
+        // Story State
+        let currentPage = 1;
+        const totalPages = 40;
+        let candyCount = 0;
+        const totalCandy = 20;
+
+        // Elements
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const candyCountDisplay = document.getElementById('candy-count');
+        const audioBtn = document.getElementById('audio-btn');
+        const audioPlayer = document.getElementById('story-audio');
+
+        // Initialization
+        function init() {
+            updateNavigation();
+        }
+
+        // Audio Logic
+        function loadAudioForPage(pageNum) {
+            const audioPath = `audio/santa-candy-hunt/page-${pageNum}.mp3`;
+            audioPlayer.src = audioPath;
+            // Does not auto-play
+        }
+
+        audioBtn.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play().catch(e => console.log("Audio play failed", e));
+                if (!audioPlayer.src) {
+                    loadAudioForPage(currentPage);
+                    audioPlayer.play();
+                }
+            } else {
+                audioPlayer.pause();
+            }
+        });
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        // Navigation - Update logic
+        function showPage(pageNum) {
+            // Hide all pages
+            document.querySelectorAll('.story-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show new page
+            const newPage = document.getElementById(`page-${pageNum}`);
+            if (newPage) {
+                newPage.classList.add('active');
+                currentPage = pageNum;
+                updateNavigation();
+                loadAudioForPage(pageNum);
+            }
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            prevBtn.style.opacity = currentPage === 1 ? '0.3' : '1';
+            nextBtn.style.opacity = currentPage === totalPages ? '0.3' : '1';
+        }
+
+        // Logic for collecting candy
+        window.collectCandy = function (element) {
+            if (element.classList.contains('collected')) return;
+
+            element.classList.add('collected');
+            candyCount++;
+            candyCountDisplay.textContent = candyCount;
+
+            // Play sound effect (optional/placeholder)
+            // const snd = new Audio('../audio/ping.mp3'); 
+            // snd.play();
+
+            if (candyCount === totalCandy) {
+                // Trigger event when all found?
+                // For now just celebrate
+                alert("Yay! You found all the candy canes!");
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        init();
+    </script>
+</body>
+
+</html>
